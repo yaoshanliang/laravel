@@ -12,9 +12,52 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
-Auth::routes();
+Route::group(['prefix' => 'web', 'namespace' => 'Web'], function ($router) {
 
-Route::get('/home', 'HomeController@index');
+    // 不需要登录的路由
+    Route::group([], function () {
+
+        // 首页
+        Route::get('', 'IndexController@getIndex');
+
+        // auth
+        Route::group(['prefix' => 'auth'], function () {
+            Route::get('login', 'AuthController@getLogin');
+            Route::post('login', 'AuthController@postLogin');
+        });
+    });
+
+    // 需要登录才能访问的路由
+    Route::group(['middleware' => 'auth'], function () {
+
+        // auth
+        Route::group(['prefix' => 'auth'], function () {
+            Route::get('logout', 'AuthController@getLogout');
+
+            Route::get('password', 'AuthController@getPassword');
+            Route::post('password', 'AuthController@postPassword');
+
+        });
+    });
+});
+
+
+// admin
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function ($router) {
+
+    // auth
+    Route::group(['prefix' => 'auth'], function () {
+        Route::get('login', 'AuthController@getLogin');
+        Route::post('login', 'AuthController@postLogin');
+        Route::get('logout', 'AuthController@getLogout');
+
+        Route::get('regenerateCaptcha', 'AuthController@regenerateCaptcha');
+    });
+
+    Route::group(['middleware' => 'auth.admin:admin'], function () {
+
+    });
+});

@@ -5,3 +5,6 @@
 Homestead.json
 Homestead.yaml
 .env
+public/admin-assets
+public/web-assets
+public/build
