@@ -53,8 +53,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function ($router) {
         Route::get('login', 'AuthController@getLogin');
         Route::post('login', 'AuthController@postLogin');
         Route::get('logout', 'AuthController@getLogout');
-
-        Route::get('regenerateCaptcha', 'AuthController@regenerateCaptcha');
     });
 
     Route::group(['middleware' => 'auth.admin:admin'], function () {
