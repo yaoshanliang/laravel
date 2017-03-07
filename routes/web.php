@@ -57,5 +57,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function ($router) {
 
     Route::group(['middleware' => 'auth.admin:admin'], function () {
 
+        // index
+        Route::group(['prefix' => ''], function () {
+            Route::get('', 'IndexController@getIndex');
+        });
     });
 });
