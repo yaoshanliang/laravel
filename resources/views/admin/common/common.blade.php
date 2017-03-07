@@ -37,8 +37,9 @@
         <div class="main_container">
             @include('admin.common.sidebar')
             @include('admin.common.navbar')
-
+            <div class="right_col">
             @yield('content')
+            </div>
         </div>
     </div>
 </body>

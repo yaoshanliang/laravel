@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col menu_fixed">
     <div class="left_col scroll-view">
 
-        <div class="navbar nav_title" style="border: 0;">
+        <div class="navbar nav_title">
             <a href="admin" class="site_title">后台管理系统</a>
         </div>
 
