@@ -13,14 +13,8 @@
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
-                        <li><a href='{{ url('/admin/auth/logout') }}'><i class="fa fa-sign-out pull-right"></i>退出</a></li>
+                        <li><a href='javascript:void(0);' onclick='return alertModal(confirmLogout, {}, "确定要退出登录?");'><i class="fa fa-sign-out pull-right"></i>退出</a></li>
                     </ul>
-                </li>
-                <li class="">
-                    <a class="user-profile">
-                        {{ auth('admin')->user()->role_name }}
-
-                    </a>
                 </li>
             </ul>
         </nav>

@@ -28,11 +28,7 @@
 
     <!-- Scripts -->
     <script>
-        window.Laravel = <?php echo json_encode([
-                'csrfToken' => csrf_token(),
-        ]); ?>;
         site_url = '<?php echo url(''); ?>';
-        site_name = '<?php echo config('project.name'); ?>';
     </script>
 </head>
 

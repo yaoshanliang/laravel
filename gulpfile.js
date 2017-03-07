@@ -43,7 +43,6 @@ mix.scripts([
     './resources/assets/vendor/jquery/jquery.min.js',
     './resources/assets/vendor/bootstrap/bootstrap.min.js',
     './resources/assets/vendor/datatables/datatables.min.js',
-    './resources/assets/vendor/gentelella/custom.min.js',
 ], 'public/admin-assets/js/lib.js');
 
 mix.styles([
@@ -60,6 +59,7 @@ mix.copy('./resources/assets/vendor/fonts/', 'public/admin-assets/fonts');
 // mix.copy('./resources/assets/vendor/simditor', 'public/admin-assets/vendor/simditor');
 
 mix.scripts([
+    './resources/assets/vendor/gentelella/custom.min.js',
     './resources/assets/admin/admin.js'
 ], 'public/admin-assets/js/admin.js');
 mix.styles([
