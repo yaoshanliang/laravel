@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Admin\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -12,12 +12,12 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest:admin', ['except' => 'getLogout']);
+        $this->middleware('guest:web', ['except' => 'getLogout']);
     }
 
     public function getLogin()
     {
-        return view('admin.auth.login');
+        return view('web.auth.login');
     }
 
     public function postLogin(Request $request)
@@ -28,13 +28,13 @@ class AuthController extends Controller
         ]);
 
 
-        if (auth()->guard('admin')->once(['account' => $request->account, 'password' => $request->password, 'status' => 1])) {
+        if (auth()->guard('web')->once(['account' => $request->account, 'password' => $request->password, 'status' => 1])) {
             return back()->withInput()->withErrors('该账号已失效,无法登录');
         }
 
 
-        if (auth()->guard('admin')->attempt(['account' => $request->account, 'password' => $request->password, 'status' => 0])) {
-            return redirect()->intended(url('/admin'));
+        if (auth()->guard('web')->attempt(['account' => $request->account, 'password' => $request->password, 'status' => 0])) {
+            return redirect()->intended(url('/web'));
         } else {
             return back()->withInput()->withErrors('账号密码不匹配,请重新输入');
         }
@@ -42,9 +42,9 @@ class AuthController extends Controller
 
     public function getLogout()
     {
-        auth()->guard('admin')->logout();
+        auth()->guard('web')->logout();
 
-        return redirect(url('/admin'));
+        return redirect(url('/web'));
     }
 
 }
