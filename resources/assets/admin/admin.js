@@ -133,7 +133,7 @@ if(typeof(datatable_id) != "undefined") {
             "order": order,
             "ajax": {
                 "url": ajax_url,
-                "type": 'POST',
+                "type": 'GET',
                 "dataType": 'json',
                 "headers": {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val()
@@ -176,7 +176,7 @@ if(typeof(datatable_id) != "undefined") {
 }
 
 function initComplete() {
-    table.state.clear();
+    // table.state.clear();
     $("#search").on('keyup', function () {
         table.search(this.value)
             .draw();
