@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::group(['prefix' => 'web', 'namespace' => 'Web'], function ($router) {
+Route::group(['prefix' => 'web', 'namespace' => 'Web'], function () {
 
     // 不需要登录的路由
     Route::group([], function () {
@@ -40,26 +40,6 @@ Route::group(['prefix' => 'web', 'namespace' => 'Web'], function ($router) {
             Route::get('password', 'AuthController@getPassword');
             Route::post('password', 'AuthController@postPassword');
 
-        });
-    });
-});
-
-
-// admin
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function ($router) {
-
-    // auth
-    Route::group(['prefix' => 'auth'], function () {
-        Route::get('login', 'AuthController@getLogin');
-        Route::post('login', 'AuthController@postLogin');
-        Route::get('logout', 'AuthController@getLogout');
-    });
-
-    Route::group(['middleware' => 'auth.admin:admin'], function () {
-
-        // index
-        Route::group(['prefix' => ''], function () {
-            Route::get('', 'IndexController@getIndex');
         });
     });
 });
