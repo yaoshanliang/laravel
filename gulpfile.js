@@ -43,6 +43,7 @@ mix.scripts([
     './resources/assets/vendor/jquery/jquery.min.js',
     './resources/assets/vendor/bootstrap/bootstrap.min.js',
     './resources/assets/vendor/datatables/datatables.min.js',
+    './resources/assets/vendor/gentelella/nprogress.js',
 ], 'public/admin-assets/js/lib.js');
 
 mix.styles([
