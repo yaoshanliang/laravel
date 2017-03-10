@@ -9,14 +9,6 @@
                             管理员设置
                         </h3>
                     </div>
-
-                    <div class="title_right">
-                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                            <div class="input-group">
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="clearfix"></div>
 
@@ -28,10 +20,18 @@
                             <div class="panel-body">
                                 <div class="dataTable_wrapper">
                                     <br />
-                                    <div class="input-group custom-search-form pull-right">
-                                        <a href="javascript:void(0);" onclick='return createAdmin();' class="btn btn-primary">创建管理员</a>
+
+                                    <div class="input-group custom-search-form">
+                                        <a href="javascript:void(0);" class="btn btn-primary" onclick="return createAdminModal();">添加</a>
+
+                                        <input type="text" id="search" class="form-control search" placeholder="账号/姓名/电话/邮箱">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
                                     </div>
-                                    {{ csrf_field() }}
+
                                     <table id="admin_index" class="table table-striped table-bordered table-hover datatable-example" style="width:100%;" border="0px">
                                         <thead>
                                         <tr>
@@ -61,7 +61,6 @@
             </div>
 
     <script>
-        $('title').html('管理员设置 - ' + site_name);
         var datatable_id = 'admin_index';
         var columnDefs_targets = [0, 1, 2];
         var invisible_columns = [];
@@ -79,24 +78,11 @@
             {
                 "data": "id",
                 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                    var userId = <?php echo auth()->guard('admin')->user()->id;?>;
-                    var html = '';
-                    if (userId != sData) {
-                        if (oData.role_id == 0) {
-                            html = "<a href='javascript:void(0);' onclick='return alertModal(setAdminRole,{admin_id:" + sData + ", role_id:1});'>设为高级管理员</>  ";
-                        } else {
-                            html = "<a href='javascript:void(0);' onclick='return alertModal(setAdminRole,{admin_id:" + sData + ", role_id:0});'>设为普通管理员</a>  "
-                        }
-                        if (oData.status == 0) {
-                            html += "<a href='javascript:void(0);' onclick='return alertModal(setAdminStatus,{admin_id:" + sData + ", status:1});'>封号</a>";
-                        } else {
-                            html += "<a href='javascript:void(0);' onclick='return alertModal(setAdminStatus,{admin_id:" + sData + ", status:0});'>取消封号</a>";
-                        }
-                    }
+                    html += "<a href='javascript:void(0);' onclick='return alertModal(setAdminStatus,{admin_id:" + sData + ", status:0});'>取消封号</a>";
                     $(nTd).html(html);
                 }
             }];
-        function createAdmin()
+        function createAdminModal()
         {
             $("input[name=account]").val('');
             $("input[name=password]").val('');
@@ -107,39 +93,80 @@
     </script>
 
     <!-- Modal -->
-    <div class="modal fade" id="create_admin_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="width:400px; margin-top:40px;">
+    <div class="modal fade" id="admin_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width:450px; margin-top:40px;">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h5 class="modal-title" id="myModalLabel">创建管理员信息</h5>
+                    <h5 class="modal-title" id="myModalLabel">添加</h5>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal">
                         <div class="form-group">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" name="account" placeholder="账号">
+                                <label class="control-label col-md-3">账号<span class="required">*</span></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="admin_modal_account">
+                                </div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="col-md-12">
-                                <input type="password" class="form-control" name="password" placeholder="密码">
+                                <label class="control-label col-md-3">姓名</label>
+                                <div class="col-md-9">
+                                <input type="text" class="form-control" name="admin_modal_name">
+                                </div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="col-md-12">
-                                <input type="password" class="form-control" name="password_confirmation" placeholder="确认密码">
+                                <label class="control-label col-md-3">电话</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="admin_modal_phone">
+                                </div>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn-block" onClick="return confirmCreateAdmin();">确认</button>
+                                <label class="control-label col-md-3">邮箱</label>
+                                <div class="col-md-9">
+                                    <input type="email" class="form-control" name="admin_modal_email">
+                                </div>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="control-label col-md-3">密码<span class="required">*</span></label>
+                                <div class="col-md-9">
+                                    <input type="password" class="form-control" name="admin_modal_password">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="control-label col-md-3">确认密码<span class="required">*</span></label>
+                                <div class="col-md-9">
+                                <input type="password" class="form-control" name="admin_modal_password_confirmation">
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <div class="form-group">
+                        <div class="col-md-5 col-md-offset-1">
+                            <button type="button" class="btn btn-primary btn-block" onclick="return createOrEditAdmin();">确认</button>
+                        </div>
+                        <div class="col-md-5 col-md-offset-">
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">取消</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -147,4 +174,22 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+
+    <script>
+        function createOrEditAdmin() {
+            var data = {
+                'account': $('create_admin_account').val(),
+                'name': $('create_admin_name').val(),
+                'phone': $('create_admin_phone').val(),
+                'email': $('create_admin_email').val(),
+                'password': $('create_admin_password').val(),
+                'password_confirmation': $('create_admin_password_confirmation').val()
+
+            };
+            ajax('/admin/admin', 'POST', data, successCallback = function () {
+                alert(2);
+            }
+            );
+        }
+    </script>
 @endsection

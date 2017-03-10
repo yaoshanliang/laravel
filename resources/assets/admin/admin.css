@@ -1,35 +1,13 @@
-/*
- * Custom css file
- */
-
-select[disabled] {
-    background-color: #EEE;
-    opacity: 1;
+.login_wrapper {
+    max-width: 650px;
 }
-
-.no-margin {
-    margin: 0 !important;
+.captcha {
+    width: 133.5px;
+    height: 34px;
 }
-
-.no-padding {
-    padding: 0 !important;
-}
-
-@-webkit-keyframes container-rotate {
-    to {
-        -webkit-transform: rotate(360deg);
-    }
-}
-
-@keyframes container-rotate {
-    to {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
-
-.icon-rotate {
-    animation: container-rotate 1568ms linear infinite;
+.alert-danger, .alert-error {
+    color: #a94442;
+    background-color: #f2dede;
 }
 
 table {
@@ -43,17 +21,6 @@ table {
 
 #dataTables-example_filter > label {
     line-height:2;
-}
-
-#areaForm .form-control {
-    border-radius:5px !important;
-}
-
-.search {
-    float:right !important;
-    width:30% !important;
-    border-top-left-radius:4px !important;
-    border-bottom-left-radius:4px !important;
 }
 
 .line-tab {
@@ -78,25 +45,9 @@ a.curr {
     background:#e8edf4;
     color:#005efb;
 }
-
-
 .page .pagination{
     margin-top: 0px;
     margin-bottom: 0px;
-}
-.checkbox, .radio {
-    display: block;
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
-    margin-right: 20px;
-    border-radius: 0px;
-    border: none;
-    cursor: pointer;
-}
-#myModal
-{
-    top:0px;
 }
 .modal-dialog-confirm {
     margin-top: 0px;
@@ -162,5 +113,41 @@ div.dataTables_wrapper table{
     margin-left:20px;
     margin-top:3px;
 }
+.form-control {
+    border-radius: 4px !important;
+}
+.dataTables_processing {
+    border: 0;
+}
+a {
+    color: #337ab7;
+}
+.label-left {
+    text-align: left !important;
+}
+.search {
+    float:right !important;
+    width:30% !important;
+    border-radius:4px 0 0 4px !important;
+}
+.search-in-line {
+    border-radius:4px 0 0 4px !important;
+    padding-right: -10px;
+}
 
-/*# sourceMappingURL=admin.css.map */
+.upload-img-hidden
+{
+    opacity:0;
+    filter:alpha(opacity=0);
+    height: 84px;
+    width: 191px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9;
+}
+.upload-img
+{
+    height: 84px;
+    width: 191px;
+}

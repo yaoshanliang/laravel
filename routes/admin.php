@@ -26,6 +26,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::group(['prefix' => 'admin'], function () {
             Route::get('', 'AdminController@getIndex');
             Route::get('lists', 'AdminController@getLists');
+
+            Route::post('', 'AdminController@postCreate');
         });
     });
 });

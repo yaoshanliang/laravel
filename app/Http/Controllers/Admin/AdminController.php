@@ -25,5 +25,10 @@ class AdminController extends Controller
         return response()->json(compact('draw', 'recordsFiltered', 'recordsTotal', 'data'));
     }
 
+    public function postCreate(Request $request)
+    {
+        return apiReturn(SUCCESS, '创建成功');
+    }
+
 
 }

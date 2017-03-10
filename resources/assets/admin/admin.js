@@ -1,7 +1,5 @@
 SUCCESS = 0;
 ERROR = 1;
-ALERT = 102;
-
 
 /**
  * 显示操作成功信息
@@ -11,11 +9,34 @@ ALERT = 102;
  */
 function showProcessingTip(tip, time){
     var tip = arguments[0] || '请求中...';
-    var time = arguments[1] || 3;
-    var background = '#337ab7';
-    var bordercolor = '#2e6da4';
+     var time = arguments[1] || 3;
+     var background = '#337ab7';
+     var bordercolor = '#2e6da4';
 
-    showTip(tip, time, background, bordercolor);
+    var windowWidth = document.documentElement.clientWidth;
+    var height = 10;
+    var width = 200;
+    var tipsDiv = '<div class="tipsClass">' + tip + '</div>';
+
+    $('body').append(tipsDiv);
+    $('div.tipsClass').css({
+        'z-index': 9999,
+        'top': height + 'px',
+        'width': width + 'px',
+        'height': '30px',
+        'left': (windowWidth / 2) - (width / 2) + 'px',
+        'position': 'fixed',
+        'padding': '3px 5px',
+        'background': background,
+        'border': '1px solid transparent',
+        'border-color': bordercolor,
+        'border-radius':'4px',
+        'font-size': 14 + 'px',
+        'margin': '0 auto',
+        'text-align': 'center',
+        'color': '#fff',
+        'opacity': '0.8'
+    }).show();
 }
 
 /**
@@ -57,6 +78,9 @@ function showTip(tip, time, background, bordercolor) {
     var height = 10;
     var width = 200;
     var tipsDiv = '<div class="tipsClass">' + tip + '</div>';
+
+    $('div.tipsClass').fadeOut();
+    $('div.tipsClass').remove();
 
     $('body').append(tipsDiv);
     $('div.tipsClass').css({
@@ -190,156 +214,6 @@ function initComplete() {
     $subBox.click(function(){
         $("#check_all").prop("checked", $subBox.length == $subBox.filter(":checked").length ? true :false);
     });
-
-    userSearchKeyUp();
-    courseSearchKeyUp();
-    questionSearchKeyUp();
-    importQuestionSearchKeyUp();
-    examSearchKeyUp();
-    bulletinSearchKeyUp();
-}
-
-function userSearchKeyUp() {
-    $("#search_user_unit_id").change(function () {
-        table.column(4)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_user_id_number").keyup(function () {
-        table.column(1)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_user_name").keyup(function () {
-        table.column(2)
-            .search(this.value)
-            .draw();
-    });
-}
-
-function courseSearchKeyUp() {
-    $("#search_course_title").keyup(function () {
-        table.column(0)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_course_tags").keyup(function () {
-        table.column(1)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_course_credits").keyup(function () {
-        table.column(2)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_course_hours").keyup(function () {
-        table.column(3)
-            .search(this.value)
-            .draw();
-    });
-}
-
-function questionSearchKeyUp() {
-    $("#search_question_id").keyup(function () {
-        table.column(0)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_question_tags").keyup(function () {
-        table.column(2)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_question_type").change(function () {
-        table.column(3)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_question_scores").keyup(function () {
-        table.column(4)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_question_status").change(function () {
-        table.column(6)
-            .search(this.value)
-            .draw();
-    });
-}
-
-function importQuestionSearchKeyUp() {
-    $("#search_import_question_id").keyup(function () {
-        table.column(2)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_import_question_tags").keyup(function () {
-        table.column(3)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_import_question_type").change(function () {
-        table.column(4)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_import_question_scores").keyup(function () {
-        table.column(5)
-            .search(this.value)
-            .draw();
-    });
-}
-
-function examSearchKeyUp() {
-    $("#search_exam_title").keyup(function () {
-        table.column(0)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_exam_tags").keyup(function () {
-        table.column(1)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_exam_status").change(function () {
-        table.column(2)
-            .search(this.value)
-            .draw();
-    });
-}
-
-function bulletinSearchKeyUp() {
-    $("#search_bulletin_title").keyup(function () {
-        table.column(0)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_bulletin_tags").keyup(function () {
-        table.column(1)
-            .search(this.value)
-            .draw();
-    });
-    $("#search_bulletin_status").change(function () {
-        table.column(4)
-            .search(this.value)
-            .draw();
-    });
-}
-
-function regenerateCaptcha() {
-    $.ajax({
-        url: site_url + '/admin/auth/regenerateCaptcha',
-        type: 'GET',
-        dataType: 'json',
-        headers: {
-            'X-CSRF-TOKEN': $('input[name="_token"]').val()
-        },
-        success: function(data) {
-            $("#captcha").attr("src", data);
-            $("input[name=captcha]").val('');
-        }
-    });
 }
 
 // 提示框
@@ -365,14 +239,14 @@ function warningModal(function_name, function_params, warning_title, warning_mes
 }
 
 // ajax
-function ajax(url, method, data) {
+function ajax(url, method, data, successCallback) {
     $.ajax({
         url: site_url + url,
         type: method,
         dataType: 'json',
         data: data,
         headers: {
-            'X-CSRF-TOKEN': $('input[name="_token"]').val()
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         beforeSend: function (data) {
             showProcessingTip();
@@ -383,6 +257,8 @@ function ajax(url, method, data) {
                 if ("undefined" != typeof(datatable_id)) {
                     $('#' + datatable_id).DataTable().draw(false);
                 }
+
+                successCallback();
             } else {
                 showFailTip(data['message']);
             }

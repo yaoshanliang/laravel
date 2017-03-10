@@ -28,6 +28,8 @@ mix.styles([
 mix.copy('./resources/assets/vendor/fonts/', 'public/web-assets/fonts');
 mix.copy('./resources/assets/vendor/fonts/', 'public/web-assets/fonts');
 
+mix.copy('./resources/assets/admin/images/', 'public/admin-assets/images');
+
 mix.scripts([
     './resources/assets/web/web.js'
 ], 'public/web-assets/js/web.js');
@@ -55,6 +57,8 @@ mix.styles([
 
 mix.copy('./resources/assets/vendor/fonts/', 'public/admin-assets/fonts');
 mix.copy('./resources/assets/vendor/fonts/', 'public/admin-assets/fonts');
+
+mix.copy('./resources/assets/admin/images/', 'public/admin-assets/images');
 
 // simditor
 // mix.copy('./resources/assets/vendor/simditor', 'public/admin-assets/vendor/simditor');
