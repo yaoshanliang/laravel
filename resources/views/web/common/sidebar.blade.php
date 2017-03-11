@@ -2,7 +2,7 @@
     <div class="left_col scroll-view">
 
         <div class="navbar nav_title">
-            <a href="{{ url('') }}" class="site_title">{{ config('project.admin_name') }}</a>
+            <a href="{{ url('') }}" class="site_title"></a>
         </div>
 
         <div class="clearfix"></div>
@@ -10,7 +10,7 @@
 
             <div class="menu_section">
                 <ul class="nav side-menu">
-                    <li><a href="{{ url('admin') }}"><i class="fa fa-home"></i>系统首页</a></li>
+                    <li><a href="{{ url('admin') }}"><i class="fa fa-home"></i></a></li>
                 </ul>
             </div>
         </div>

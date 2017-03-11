@@ -11,6 +11,8 @@
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         @if (auth('web')->user())
                             {{ auth('web')->user()->account }}
+                        @else
+                            <a href='{{ url('/web/auth/login') }}'>登录</a>
                         @endif
                         <span class=" fa fa-angle-down"></span>
                     </a>

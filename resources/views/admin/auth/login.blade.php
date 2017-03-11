@@ -22,7 +22,6 @@
     <div class="login_wrapper">
         <div class="animate form login_form">
             <section class="login_content">
-
                 <form class="form-horizontal" method="POST" action="{{ url('/admin/auth/login') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <h4>{{ config('project.name') }} {{ config('project.admin_name') }}</h4><br/><br/>
