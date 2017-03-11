@@ -84,11 +84,14 @@
             }];
         function createAdminModal()
         {
-            $("input[name=account]").val('');
-            $("input[name=password]").val('');
-            $("input[name=password_confirmation]").val('');
+            $('#admin_modal_account').val('');
+            $('#admin_modal_name').val('');
+            $('#admin_modal_phone').val('');
+            $('#admin_modal_email').val('');
+            $('#admin_modal_password').val('');
+            $('#admin_modal_password_confirmation').val('');
 
-            $("#create_admin_modal").modal('show');
+            $("#admin_modal").modal('show');
         }
     </script>
 
@@ -178,18 +181,17 @@
     <script>
         function createOrEditAdmin() {
             var data = {
-                'account': $('create_admin_account').val(),
-                'name': $('create_admin_name').val(),
-                'phone': $('create_admin_phone').val(),
-                'email': $('create_admin_email').val(),
-                'password': $('create_admin_password').val(),
-                'password_confirmation': $('create_admin_password_confirmation').val()
+                'account': $('#create_admin_account').val(),
+                'name': $('#create_admin_name').val(),
+                'phone': $('#create_admin_phone').val(),
+                'email': $('#create_admin_email').val(),
+                'password': $('#create_admin_password').val(),
+                'password_confirmation': $('#create_admin_password_confirmation').val()
 
             };
             ajax('/admin/admin', 'POST', data, successCallback = function () {
-                alert(2);
-            }
-            );
+                $("#admin_modal").modal('hide');
+            });
         }
     </script>
 @endsection
