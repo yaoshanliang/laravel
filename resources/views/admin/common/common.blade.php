@@ -35,6 +35,8 @@
             @include('admin.common.sidebar')
             @include('admin.common.navbar')
             @yield('content')
+
+            @include('admin.components.alert')
         </div>
     </div>
 </body>

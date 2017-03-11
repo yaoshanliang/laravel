@@ -38,7 +38,7 @@
                                             <th>ID</th>
                                             <th>账号</th>
                                             <th>姓名</th>
-                                            <th>电话</th>
+                                            <th>手机</th>
                                             <th>邮箱</th>
                                             <th>创建时间</th>
                                             <th>更新时间</th>
@@ -66,7 +66,6 @@
         var invisible_columns = [];
         var order = [];
         var ajax_url = site_url + '/admin/admin/lists';
-        var html = '';
         var columns = [
             {"data": "id"},
             {"data": "account"},
@@ -78,30 +77,43 @@
             {
                 "data": "id",
                 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                    html += "<a href='javascript:void(0);' onclick='return alertModal(setAdminStatus,{admin_id:" + sData + ", status:0});'>取消封号</a>";
+                    html = "<a href='javascript:void(0);' onclick='return editAdminModal(" + JSON.stringify(oData) + ");'>修改</a> ";
+                    html += "<a href='javascript:void(0);' onclick='return alertModal(deleteAdmin,{id:" + sData + "});'>删除</a> ";
                     $(nTd).html(html);
                 }
             }];
+
         function createAdminModal()
         {
-            $('#admin_modal_account').val('');
-            $('#admin_modal_name').val('');
-            $('#admin_modal_phone').val('');
-            $('#admin_modal_email').val('');
-            $('#admin_modal_password').val('');
-            $('#admin_modal_password_confirmation').val('');
+            $('#create_admin_modal_account').val('');
+            $('#create_admin_modal_name').val('');
+            $('#create_admin_modal_phone').val('');
+            $('#create_admin_modal_email').val('');
+            $('#create_admin_modal_password').val('');
+            $('#create_admin_modal_password_confirmation').val('');
 
-            $("#admin_modal").modal('show');
+            $("#create_admin_modal").modal('show');
+        }
+
+        function editAdminModal(data)
+        {
+            $('#edit_admin_modal_id').val(data.id);
+            $('#edit_admin_modal_account').val(data.account);
+            $('#edit_admin_modal_name').val(data.name);
+            $('#edit_admin_modal_phone').val(data.phone);
+            $('#edit_admin_modal_email').val(data.email);
+
+            $("#edit_admin_modal").modal('show');
         }
     </script>
 
     <!-- Modal -->
-    <div class="modal fade" id="admin_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="create_admin_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="width:450px; margin-top:40px;">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h5 class="modal-title" id="myModalLabel">添加</h5>
+                    <h5 class="modal-title" id="modal_title">添加</h5>
                 </div>
                 <div class="modal-body">
                     <div class="form-horizontal">
@@ -109,7 +121,7 @@
                             <div class="col-md-12">
                                 <label class="control-label col-md-3">账号<span class="required">*</span></label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" id="admin_modal_account">
+                                    <input type="text" class="form-control" id="create_admin_modal_account">
                                 </div>
                             </div>
                         </div>
@@ -118,16 +130,16 @@
                             <div class="col-md-12">
                                 <label class="control-label col-md-3">姓名</label>
                                 <div class="col-md-9">
-                                <input type="text" class="form-control" name="admin_modal_name">
+                                <input type="text" class="form-control" id="create_admin_modal_name">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-12">
-                                <label class="control-label col-md-3">电话</label>
+                                <label class="control-label col-md-3">手机</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" name="admin_modal_phone">
+                                    <input type="text" class="form-control" id="create_admin_modal_phone">
                                 </div>
                             </div>
                         </div>
@@ -136,7 +148,7 @@
                             <div class="col-md-12">
                                 <label class="control-label col-md-3">邮箱</label>
                                 <div class="col-md-9">
-                                    <input type="email" class="form-control" name="admin_modal_email">
+                                    <input type="email" class="form-control" id="create_admin_modal_email">
                                 </div>
                             </div>
                         </div>
@@ -145,7 +157,7 @@
                             <div class="col-md-12">
                                 <label class="control-label col-md-3">密码<span class="required">*</span></label>
                                 <div class="col-md-9">
-                                    <input type="password" class="form-control" name="admin_modal_password">
+                                    <input type="password" class="form-control" id="create_admin_modal_password">
                                 </div>
                             </div>
                         </div>
@@ -154,7 +166,7 @@
                             <div class="col-md-12">
                                 <label class="control-label col-md-3">确认密码<span class="required">*</span></label>
                                 <div class="col-md-9">
-                                <input type="password" class="form-control" name="admin_modal_password_confirmation">
+                                <input type="password" class="form-control" id="create_admin_modal_password_confirmation">
                                 </div>
                             </div>
                         </div>
@@ -164,7 +176,74 @@
                 <div class="modal-footer">
                     <div class="form-group">
                         <div class="col-md-5 col-md-offset-1">
-                            <button type="button" class="btn btn-primary btn-block" onclick="return createOrEditAdmin();">确认</button>
+                            <button type="button" class="btn btn-primary btn-block" onclick="return createAdmin();">确认</button>
+                        </div>
+                        <div class="col-md-5 col-md-offset-">
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="edit_admin_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width:450px; margin-top:40px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h5 class="modal-title" id="modal_title">修改</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <input type="hidden" id="edit_admin_modal_id">
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="control-label col-md-3">账号<span class="required">*</span></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="edit_admin_modal_account">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="control-label col-md-3">姓名</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="edit_admin_modal_name">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="control-label col-md-3">手机</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="edit_admin_modal_phone">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="control-label col-md-3">邮箱</label>
+                                <div class="col-md-9">
+                                    <input type="email" class="form-control" id="edit_admin_modal_email">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <div class="col-md-5 col-md-offset-1">
+                            <button type="button" class="btn btn-primary btn-block" onclick="return editAdmin();">确认</button>
                         </div>
                         <div class="col-md-5 col-md-offset-">
                             <button type="button" class="btn btn-default btn-block" data-dismiss="modal">取消</button>
@@ -179,18 +258,36 @@
     <!-- /.modal -->
 
     <script>
-        function createOrEditAdmin() {
+        function createAdmin() {
             var data = {
-                'account': $('#create_admin_account').val(),
-                'name': $('#create_admin_name').val(),
-                'phone': $('#create_admin_phone').val(),
-                'email': $('#create_admin_email').val(),
-                'password': $('#create_admin_password').val(),
-                'password_confirmation': $('#create_admin_password_confirmation').val()
-
+                'account': $('#create_admin_modal_account').val(),
+                'name': $('#create_admin_modal_name').val(),
+                'phone': $('#create_admin_modal_phone').val(),
+                'email': $('#create_admin_modal_email').val(),
+                'password': $('#create_admin_modal_password').val(),
+                'password_confirmation': $('#create_admin_modal_password_confirmation').val()
             };
             ajax('/admin/admin', 'POST', data, successCallback = function () {
-                $("#admin_modal").modal('hide');
+                $("#create_admin_modal").modal('hide');
+            });
+        }
+
+        function editAdmin() {
+            var data = {
+                'id': $('#edit_admin_modal_id').val(),
+                'account': $('#edit_admin_modal_account').val(),
+                'name': $('#edit_admin_modal_name').val(),
+                'phone': $('#edit_admin_modal_phone').val(),
+                'email': $('#edit_admin_modal_email').val()
+            };
+            ajax('/admin/admin', 'PUT', data, successCallback = function () {
+                $("#edit_admin_modal").modal('hide');
+            });
+        }
+
+        function deleteAdmin(data) {
+            ajax('/admin/admin', 'DELETE', data, successCallback = function () {
+                //$("#admin_modal").modal('hide');
             });
         }
     </script>

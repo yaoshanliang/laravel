@@ -141,12 +141,7 @@ return [
         'available'             => '可用的',
         'size'                  => '大小',
 
-        'salesman'              => '销售人员',
-        'pay'                   => '支付方式',
-        'category'              => '品类',
-        'price'                 => '单价',
-        'count'                 => '数量',
-        'total'                 => '总价',
+        'account'               => '账户',
     ],
 
 ];

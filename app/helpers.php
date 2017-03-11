@@ -86,3 +86,14 @@ function curlPost($url, $data) {
 
     return $return;
 }
+
+// 获取管理员ID
+function getAdminUserId()
+{
+    $user = auth()->guard('admin')->user();
+    if (isset($user)) {
+        return $user->id;
+    }
+
+    return 0;
+}
