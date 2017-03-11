@@ -148,15 +148,15 @@ if(typeof(datatable_id) != "undefined") {
             "sServerMethod": "POST",
             "columnDefs": [{
                 "orderable": false,// 禁用排序列
-                "targets": columnDefs_targets
+                "targets": columnDefsTargets
             }, {
                 "visible": false,// 隐藏列
-                "targets": invisible_columns
+                "targets": invisibleColumns
             }],
             //默认排序列
             "order": order,
             "ajax": {
-                "url": ajax_url,
+                "url": ajaxUrl,
                 "type": 'GET',
                 "dataType": 'json',
                 "headers": {

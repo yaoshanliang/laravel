@@ -15,7 +15,8 @@ class AdminController extends Controller
 
     public function getLists(Request $request)
     {
-        $pre = Admin::orderby('created_at', 'desc');
+        $searchFields = array('account', 'name', 'phone', 'email');
+        $pre = Admin::whereDataTables($request, $searchFields)->orderByDataTables($request);
         $count = $pre->count();
         $data = $pre->skip($request->start)->take($request->length)->get();
         $draw = (int)$request->draw;

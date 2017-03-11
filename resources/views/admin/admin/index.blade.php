@@ -62,10 +62,10 @@
 
     <script>
         var datatable_id = 'admin_index';
-        var columnDefs_targets = [0, 1, 2];
-        var invisible_columns = [];
-        var order = [];
-        var ajax_url = site_url + '/admin/admin/lists';
+        var columnDefsTargets = [7];
+        var invisibleColumns = [];
+        var order = [0, 'desc'];
+        var ajaxUrl = site_url + '/admin/admin/lists';
         var columns = [
             {"data": "id"},
             {"data": "account"},
