@@ -20,7 +20,7 @@ class AdminController extends Controller
         $count = $pre->count();
         $data = $pre->skip($request->start)->take($request->length)->get();
         $draw = (int)$request->draw;
-        $recordsTotal = $pre->count();
+        $recordsTotal = Admin::count();
         $recordsFiltered = min($count, $recordsTotal);
 
         return response()->json(compact('draw', 'recordsFiltered', 'recordsTotal', 'data'));

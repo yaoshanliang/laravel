@@ -258,7 +258,9 @@ function ajax(url, method, data, successCallback) {
                     $('#' + datatable_id).DataTable().draw(false);
                 }
 
-                successCallback();
+                if (arguments[3]) {
+                    successCallback();
+                }
             } else {
                 showFailTip(data['message']);
             }

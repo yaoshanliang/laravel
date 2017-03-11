@@ -20,6 +20,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         // user
         Route::group(['prefix' => 'user'], function () {
             Route::get('', 'UserController@getIndex');
+            Route::get('lists', 'UserController@getLists');
+
+            Route::post('', 'UserController@post');
+            Route::put('', 'UserController@put');
+            Route::delete('', 'UserController@delete');
         });
 
         // admin

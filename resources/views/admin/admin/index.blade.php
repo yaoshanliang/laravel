@@ -286,9 +286,7 @@
         }
 
         function deleteAdmin(data) {
-            ajax('/admin/admin', 'DELETE', data, successCallback = function () {
-                //$("#admin_modal").modal('hide');
-            });
+            ajax('/admin/admin', 'DELETE', data);
         }
     </script>
 @endsection
