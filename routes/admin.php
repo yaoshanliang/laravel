@@ -8,6 +8,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('login', 'AuthController@getLogin');
         Route::post('login', 'AuthController@postLogin');
         Route::get('logout', 'AuthController@getLogout');
+        Route::get('password', 'AuthController@getPassword');
+        Route::put('password', 'AuthController@putPassword');
     });
 
     Route::group(['middleware' => 'auth.admin:admin'], function () {

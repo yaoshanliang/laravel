@@ -12,7 +12,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest:admin', ['except' => 'getLogout']);
+        $this->middleware('guest:admin', ['only' => 'getLogin']);
     }
 
     public function getLogin()
@@ -47,4 +47,8 @@ class AuthController extends Controller
         return redirect(url('/admin'));
     }
 
+    public function getPassword(Request $request)
+    {
+        return view('admin.auth.password.email');
+    }
 }

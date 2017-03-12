@@ -13,6 +13,7 @@
                     <li><a href="{{ url('admin') }}"><i class="fa fa-home"></i>系统首页</a></li>
                     <li><a href="{{ url('admin/user') }}"><i class="fa fa-user"></i>用户</a></li>
                     <li><a href="{{ url('admin/admin') }}"><i class="fa fa-user-plus"></i>管理员</a></li>
+                    <li><a href="{{ url('admin/log') }}"><i class="fa fa-file-o"></i>日志</a></li>
                 </ul>
             </div>
         </div>
