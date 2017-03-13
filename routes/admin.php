@@ -11,8 +11,28 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('password/email', 'AuthController@getPasswordEmail');
         Route::post('password/email', 'AuthController@postPasswordEmail');
         Route::get('password/reset', 'AuthController@getPasswordReset');
-        Route::put('password/reset', 'AuthController@putPasswordReset');
+        Route::post('password/reset', 'AuthController@putPasswordReset');
+
+        //发送密码重置链接路由
+        /*Route::get('/password/email', 'ForgotPasswordController@showLinkRequestForm');
+        Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
+        //密码重置路由
+        Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm');
+        Route::post('password/reset', 'ResetPasswordController@reset');*/
     });
+
+/*    Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function() {
+        //登陆
+        Route::get('login', 'LoginController@showLoginForm');
+        Route::post('login', 'LoginController@postLogin');
+        Route::get('logout', 'LoginController@getLogout');
+        //发送密码重置链接路由
+        Route::get('password/email', 'ForgotPasswordController@showLinkRequestForm');
+        Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
+        //密码重置路由
+        Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm');
+        Route::post('password/reset', 'ResetPasswordController@reset');
+    });*/
 
     Route::group(['middleware' => 'auth.admin:admin'], function () {
 

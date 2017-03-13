@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Controller;
+use App\Models\PasswordReset;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Mail;
 
 class AuthController extends Controller
 {
@@ -58,10 +60,24 @@ class AuthController extends Controller
             'email' => 'required|email|exists:admins',
         ]);
 
-        // 发送邮件
+        $this->sendResetLinkEmail($request->email);
 
-        //return back()->withInput()->withErrors(['success' => '发送成功,请点击邮件链接验证']);
         return back()->withInput()->with('success', '发送成功,请点击邮件链接验证');
+    }
+
+    public function sendResetLinkEmail($email)
+    {
+        $token = generateToken();
+
+        PasswordReset::create(['email' => $email, 'token' => $token, 'created_at' => getNowTime()]);
+
+        // 发送邮件
+        Mail::send('admin.auth.password.password', ['token' => $token, 'email' => $email], function ($m) use ($email) {
+            $m->from(env('MAIL_USERNAME'), env('MAIL_FROMNAME'));
+            $m->to($email, $email)->subject('密码重置');
+        });
+
+        return true;
     }
 
     public function getPasswordReset(Request $request)

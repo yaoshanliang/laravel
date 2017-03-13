@@ -97,3 +97,9 @@ function getAdminUserId()
 
     return 0;
 }
+
+// 生成token
+function generateToken()
+{
+    return md5(time().rand(1000, 9999));
+}

@@ -10,7 +10,7 @@
                             {{ csrf_field() }}
                             <h1>忘记密码</h1>
 
-                            @if ((count($errors) > 0) && $errors = $errors->toArray())
+                            @if ((count($errors) > 0) && ($errors = $errors->toArray()))
                                 <div class="alert alert-danger danger-warning">
                                     <strong>Whoops!</strong> There were some problems with your input.
                                     <ul>

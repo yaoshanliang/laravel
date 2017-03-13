@@ -1,0 +1,1 @@
+点击这里重置密码: {{ url('admin/auth/password/reset?email='.$email.'&token='.$token) }}
