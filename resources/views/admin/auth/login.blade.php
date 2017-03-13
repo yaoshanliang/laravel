@@ -29,7 +29,7 @@
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-default">登录</button>
-                                <a class="reset_pass" href="{{ url('/admin/auth/password') }}">忘记密码</a>
+                                <a class="reset_pass" href="{{ url('/admin/auth/password/email') }}">忘记密码</a>
                             </div>
 
                             <div class="clearfix"></div>

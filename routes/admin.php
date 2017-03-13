@@ -8,8 +8,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('login', 'AuthController@getLogin');
         Route::post('login', 'AuthController@postLogin');
         Route::get('logout', 'AuthController@getLogout');
-        Route::get('password', 'AuthController@getPassword');
-        Route::put('password', 'AuthController@putPassword');
+        Route::get('password/email', 'AuthController@getPasswordEmail');
+        Route::post('password/email', 'AuthController@postPasswordEmail');
+        Route::get('password/reset', 'AuthController@getPasswordReset');
+        Route::put('password/reset', 'AuthController@putPasswordReset');
     });
 
     Route::group(['middleware' => 'auth.admin:admin'], function () {

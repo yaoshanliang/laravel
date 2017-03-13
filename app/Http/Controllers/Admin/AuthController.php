@@ -47,8 +47,34 @@ class AuthController extends Controller
         return redirect(url('/admin'));
     }
 
-    public function getPassword(Request $request)
+    public function getPasswordEmail(Request $request)
     {
         return view('admin.auth.password.email');
+    }
+
+    public function postPasswordEmail(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|exists:admins',
+        ]);
+
+        // 发送邮件
+
+        //return back()->withInput()->withErrors(['success' => '发送成功,请点击邮件链接验证']);
+        return back()->withInput()->with('success', '发送成功,请点击邮件链接验证');
+    }
+
+    public function getPasswordReset(Request $request)
+    {
+        $token = $request->token;
+
+        $email = 1;
+
+        return view('admin.auth.password.reset')->with(compact('token', 'email'));
+    }
+
+    public function putPasswordReset(Request $request)
+    {
+
     }
 }

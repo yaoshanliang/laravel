@@ -149,3 +149,6 @@ a {
     height: 84px;
     width: 191px;
 }
+.login_content {
+    text-shadow: 0 0 0 #fff !important;
+}

@@ -6,17 +6,25 @@
             <div class="login_wrapper">
                 <div class="animate form login_form">
                     <section class="login_content">
-                        <form method="post" action="{{ url('/admin/auth/password') }}">
+                        <form method="post" action="{{ url('/admin/auth/password/email') }}">
                             {{ csrf_field() }}
                             <h1>忘记密码</h1>
 
-                            @if (count($errors) > 0)
+                            @if ((count($errors) > 0) && $errors = $errors->toArray())
                                 <div class="alert alert-danger danger-warning">
                                     <strong>Whoops!</strong> There were some problems with your input.
                                     <ul>
-                                        @foreach ($errors->all() as $error)
+                                        @foreach ($errors['message'] as $error)
                                             <li>{{ $error }}</li>
                                         @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    <ul>
+                                        <li>{{ session('success') }}</li>
                                     </ul>
                                 </div>
                             @endif
