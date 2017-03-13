@@ -10,13 +10,12 @@
                             {{ csrf_field() }}
                             <h1>重置密码</h1>
 
-                            @if (count($errors) > 0)
+
+                            @if (session('error'))
                                 <div class="alert alert-danger danger-warning">
                                     <strong>Whoops!</strong> There were some problems with your input.
                                     <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
+                                        <li>{{ session('error') }}</li>
                                     </ul>
                                 </div>
                             @endif

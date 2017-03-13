@@ -100,7 +100,7 @@ class AuthController extends Controller
         ]);
 
         if (! PasswordReset::where('email', $request->email)->where('token', $request->token)->exists()) {
-            return back()->withInput()->withErrors('验证链接无效');
+            return back()->withInput()->with('error', '验证链接无效');
         }
 
         PasswordReset::where('email', $request->email)->delete();
