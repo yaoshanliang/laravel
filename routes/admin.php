@@ -11,7 +11,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('password/email', 'AuthController@getPasswordEmail');
         Route::post('password/email', 'AuthController@postPasswordEmail');
         Route::get('password/reset', 'AuthController@getPasswordReset');
-        Route::post('password/reset', 'AuthController@putPasswordReset');
+        Route::post('password/reset', 'AuthController@postPasswordReset');
 
         //发送密码重置链接路由
         /*Route::get('/password/email', 'ForgotPasswordController@showLinkRequestForm');

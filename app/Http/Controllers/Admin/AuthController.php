@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Controller;
+use App\Models\Admin;
 use App\Models\PasswordReset;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -69,6 +70,8 @@ class AuthController extends Controller
     {
         $token = generateToken();
 
+        PasswordReset::where('email', $email)->delete();
+
         PasswordReset::create(['email' => $email, 'token' => $token, 'created_at' => getNowTime()]);
 
         // 发送邮件
@@ -84,13 +87,26 @@ class AuthController extends Controller
     {
         $token = $request->token;
 
-        $email = 1;
+        $email = $request->email;
 
         return view('admin.auth.password.reset')->with(compact('token', 'email'));
     }
 
-    public function putPasswordReset(Request $request)
+    public function postPasswordReset(Request $request)
     {
+        $this->validate($request, [
+            'email' => 'required|email|exists:admins',
+            'password' => 'required|confirmed'
+        ]);
 
+        if (! PasswordReset::where('email', $request->email)->where('token', $request->token)->exists()) {
+            return back()->withInput()->withErrors('验证链接无效');
+        }
+
+        PasswordReset::where('email', $request->email)->delete();
+
+        Admin::where('email', $request->email)->update(['password' => bcrypt($request->password)]);
+
+        return back()->withInput()->with('success', '重置成功,请返回登录');
     }
 }
