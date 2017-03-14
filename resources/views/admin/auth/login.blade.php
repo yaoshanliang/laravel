@@ -10,16 +10,7 @@
                             {{ csrf_field() }}
                             <h1>{{ config('project.name') }}{{ config('project.admin_name') }}</h1>
 
-                            @if (count($errors) > 0)
-                                <div class="alert alert-danger danger-warning">
-                                    <strong>Whoops!</strong> There were some problems with your input.
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+                            @include('admin.components.tip')
 
                             <div>
                                 <input type="text" class="form-control" placeholder="账号" required="required" name="account">

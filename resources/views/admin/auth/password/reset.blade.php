@@ -10,23 +10,7 @@
                             {{ csrf_field() }}
                             <h1>重置密码</h1>
 
-
-                            @if (session('error'))
-                                <div class="alert alert-danger danger-warning">
-                                    <strong>Whoops!</strong> There were some problems with your input.
-                                    <ul>
-                                        <li>{{ session('error') }}</li>
-                                    </ul>
-                                </div>
-                            @endif
-
-                            @if (session('success'))
-                                <div class="alert alert-success">
-                                    <ul>
-                                        <li>{{ session('success') }}</li>
-                                    </ul>
-                                </div>
-                            @endif
+                            @include('admin.components.tip')
 
                             <input type="hidden" name="token" value="{{ $token }}">
 
