@@ -15,6 +15,7 @@ class AuthController extends Controller
         $this->middleware('guest', ['only' => 'getLogin']);
     }
 
+    // 登录
     public function getLogin()
     {
         return view('web.auth.login');
@@ -32,7 +33,6 @@ class AuthController extends Controller
             return back()->withInput()->withErrors('该账号已失效,无法登录');
         }
 
-
         if (auth()->guard('web')->attempt(['account' => $request->account, 'password' => $request->password, 'status' => 0])) {
             return redirect()->intended(url('/web'));
         } else {
@@ -40,6 +40,7 @@ class AuthController extends Controller
         }
     }
 
+    // 退出
     public function getLogout()
     {
         auth()->guard('web')->logout();

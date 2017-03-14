@@ -18,6 +18,7 @@ class AuthController extends Controller
         $this->middleware('guest:admin', ['only' => 'getLogin']);
     }
 
+    // 登录
     public function getLogin()
     {
         return view('admin.auth.login');
@@ -35,7 +36,6 @@ class AuthController extends Controller
             return back()->withInput()->withErrors('该账号已失效,无法登录');
         }
 
-
         if (auth()->guard('admin')->attempt(['account' => $request->account, 'password' => $request->password, 'status' => 0])) {
             return redirect()->intended(url('/admin'));
         } else {
@@ -43,6 +43,7 @@ class AuthController extends Controller
         }
     }
 
+    // 退出
     public function getLogout()
     {
         auth()->guard('admin')->logout();
@@ -50,6 +51,7 @@ class AuthController extends Controller
         return redirect(url('/admin'));
     }
 
+    // 忘记密码
     public function getPasswordEmail(Request $request)
     {
         return view('admin.auth.password.email');
@@ -66,7 +68,7 @@ class AuthController extends Controller
         return back()->withInput()->with('success', '发送成功,请点击邮件链接验证');
     }
 
-    public function sendResetLinkEmail($email)
+    private function sendResetLinkEmail($email)
     {
         $token = generateToken();
 
@@ -83,6 +85,7 @@ class AuthController extends Controller
         return true;
     }
 
+    // 重置密码
     public function getPasswordReset(Request $request)
     {
         $token = $request->token;
