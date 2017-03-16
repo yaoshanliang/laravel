@@ -87,7 +87,11 @@ function curlPost($url, $data) {
     return $return;
 }
 
-// 获取管理员ID
+/**
+ * 获取当前登录管理员ID
+ *
+ * @return int
+ */
 function getAdminUserId()
 {
     $user = auth()->guard('admin')->user();
@@ -98,7 +102,11 @@ function getAdminUserId()
     return 0;
 }
 
-// 生成token
+/**
+ * 生成token
+ *
+ * @return string
+ */
 function generateToken()
 {
     return md5(time().rand(1000, 9999));
