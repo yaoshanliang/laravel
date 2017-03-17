@@ -12,27 +12,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::post('password/email', 'AuthController@postPasswordEmail');
         Route::get('password/reset', 'AuthController@getPasswordReset');
         Route::post('password/reset', 'AuthController@postPasswordReset');
-
-        //发送密码重置链接路由
-        /*Route::get('/password/email', 'ForgotPasswordController@showLinkRequestForm');
-        Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
-        //密码重置路由
-        Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm');
-        Route::post('password/reset', 'ResetPasswordController@reset');*/
     });
 
-/*    Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function() {
-        //登陆
-        Route::get('login', 'LoginController@showLoginForm');
-        Route::post('login', 'LoginController@postLogin');
-        Route::get('logout', 'LoginController@getLogout');
-        //发送密码重置链接路由
-        Route::get('password/email', 'ForgotPasswordController@showLinkRequestForm');
-        Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
-        //密码重置路由
-        Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm');
-        Route::post('password/reset', 'ResetPasswordController@reset');
-    });*/
 
     Route::group(['middleware' => 'auth.admin:admin'], function () {
 
@@ -59,6 +40,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::post('', 'AdminController@post');
             Route::put('', 'AdminController@put');
             Route::delete('', 'AdminController@delete');
+        });
+
+        // self
+        Route::group(['prefix' => 'self'], function () {
+            Route::get('info', 'SelfController@getInfo');
+            Route::post('info', 'SelfController@postInfo');
+            Route::get('password', 'SelfController@getPassword');
+            Route::post('password', 'SelfController@postPassword');
         });
     });
 });
