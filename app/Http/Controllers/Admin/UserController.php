@@ -32,7 +32,7 @@ class UserController extends Controller
             'account' => 'required|unique:users',
             'phone' => 'nullable|size:11|unique:users',
             'email' => 'nullable|email|unique:users',
-            'password' => 'required|confirmed',
+            'password' => 'required|confirmed|min:6',
         ]);
 
         $data = [

@@ -32,7 +32,7 @@ class AdminController extends Controller
             'account' => 'required|unique:admins',
             'phone' => 'nullable|size:11|unique:admins',
             'email' => 'nullable|email|unique:admins',
-            'password' => 'required|confirmed',
+            'password' => 'required|confirmed|min:6',
 
         ]);
 
