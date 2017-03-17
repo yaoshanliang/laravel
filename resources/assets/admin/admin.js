@@ -258,7 +258,7 @@ function ajax(url, method, data, successCallback) {
                     $('#' + datatable_id).DataTable().draw(false);
                 }
 
-                if (arguments[3]) {
+                if ("function" == typeof(successCallback)) {
                     successCallback();
                 }
             } else {

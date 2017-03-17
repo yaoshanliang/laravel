@@ -49,5 +49,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('password', 'SelfController@getPassword');
             Route::post('password', 'SelfController@postPassword');
         });
+
+        // admin role
+        Route::group(['prefix' => 'adminrole'], function () {
+            Route::get('', 'AdminRoleController@getIndex');
+            Route::get('lists', 'AdminRoleController@getLists');
+
+            Route::post('', 'AdminRoleController@post');
+            Route::put('', 'AdminRoleController@put');
+            Route::delete('', 'AdminRoleController@delete');
+        });
     });
 });
