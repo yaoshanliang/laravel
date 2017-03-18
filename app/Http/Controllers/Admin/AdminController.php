@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Controller;
+use App\Models\AdminRole;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 
@@ -10,7 +11,9 @@ class AdminController extends Controller
 {
     public function getIndex(Request $request)
     {
-        return view('admin.admin.index');
+        $roles = AdminRole::all();
+
+        return view('admin.admin.index')->with(compact('roles'));
     }
 
     public function getLists(Request $request)
@@ -41,6 +44,8 @@ class AdminController extends Controller
             'name' => $request->name,
             'phone' => $request->phone,
             'email' => $request->email,
+            'role_id' => $request->role_id,
+            'role_name' => $request->role_name,
             'password' => bcrypt($request->password),
             'status' => 0
         ];
@@ -62,7 +67,9 @@ class AdminController extends Controller
             'account' => $request->account,
             'name' => $request->name,
             'phone' => $request->phone,
-            'email' => $request->email
+            'email' => $request->email,
+            'role_id' => $request->role_id,
+            'role_name' => $request->role_name
         ];
 
         Admin::where('id', $request->id)->update($data);
