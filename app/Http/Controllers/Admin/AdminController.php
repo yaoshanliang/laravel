@@ -44,7 +44,7 @@ class AdminController extends Controller
             'name' => $request->name,
             'phone' => $request->phone,
             'email' => $request->email,
-            'role_id' => $request->role_id,
+            'role_key' => $request->role_key,
             'role_name' => $request->role_name,
             'password' => bcrypt($request->password),
             'status' => 0
@@ -68,7 +68,7 @@ class AdminController extends Controller
             'name' => $request->name,
             'phone' => $request->phone,
             'email' => $request->email,
-            'role_id' => $request->role_id,
+            'role_key' => $request->role_key,
             'role_name' => $request->role_name
         ];
 

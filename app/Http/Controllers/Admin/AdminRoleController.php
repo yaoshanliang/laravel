@@ -29,10 +29,12 @@ class AdminRoleController extends Controller
     public function post(Request $request)
     {
         $this->validate($request, [
+            'key' => 'required|alpha_dash|unique:admin_roles',
             'name' => 'required'
         ]);
 
         $data = [
+            'key' => $request->key,
             'name' => $request->name,
             'comment' => $request->comment,
         ];
@@ -45,10 +47,12 @@ class AdminRoleController extends Controller
     public function put(Request $request)
     {
         $this->validate($request, [
+            'key' => 'required|alpha_dash|unique:admin_roles,key,'.$request->key,
             'name' => 'required'
         ]);
 
         $data = [
+            'key' => $request->key,
             'name' => $request->name,
             'comment' => $request->comment,
         ];

@@ -15,7 +15,7 @@ class AddRoleIdAndRoleNameToAdmins extends Migration
     {
         Schema::table('admins', function (Blueprint $table) {
             $table->string('role_name')->nullable()->comment('角色')->after('phone');
-            $table->integer('role_id')->default(0)->comment('角色ID')->after('phone');
+            $table->string('role_key')->nullable()->comment('角色key')->after('phone');
         });
     }
 
@@ -27,7 +27,7 @@ class AddRoleIdAndRoleNameToAdmins extends Migration
     public function down()
     {
         Schema::table('admins', function (Blueprint $table) {
-            $table->dropColumn('role_id');
+            $table->dropColumn('role_key');
             $table->dropColumn('role_name');
         });
     }

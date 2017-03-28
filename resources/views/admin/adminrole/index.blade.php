@@ -36,7 +36,8 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>角色</th>
+                                        <th>角色key</th>
+                                        <th>角色名称</th>
                                         <th>备注</th>
                                         <th>创建时间</th>
                                         <th>更新时间</th>
@@ -60,12 +61,13 @@
 
         <script>
             var datatable_id = 'admin_index';
-            var columnDefsTargets = [5];
+            var columnDefsTargets = [];
             var invisibleColumns = [];
             var order = [0, 'desc'];
             var ajaxUrl = site_url + '/admin/adminrole/lists';
             var columns = [
                 {"data": "id"},
+                {"data": "key"},
                 {"data": "name"},
                 {"data": "comment"},
                 {"data": "created_at"},
@@ -81,6 +83,7 @@
 
             function createAdminRoleModal()
             {
+                $('#create_admin_role_modal_key').val('');
                 $('#create_admin_role_modal_name').val('');
                 $('#create_admin_role_modal_comment').val('');
 
@@ -90,6 +93,7 @@
             function editAdminRoleModal(data)
             {
                 $('#edit_admin_role_modal_id').val(data.id);
+                $('#edit_admin_role_modal_key').val(data.key);
                 $('#edit_admin_role_modal_name').val(data.name);
                 $('#edit_admin_role_modal_comment').val(data.comment);
 
@@ -107,9 +111,19 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-horizontal">
+
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label col-md-3">角色<span class="required">*</span></label>
+                                    <label class="control-label col-md-3">角色key<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="create_admin_role_modal_key">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="control-label col-md-3">角色名称<span class="required">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" id="create_admin_role_modal_name">
                                     </div>
@@ -157,7 +171,16 @@
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label col-md-3">角色<span class="required">*</span></label>
+                                    <label class="control-label col-md-3">角色key<span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="edit_admin_role_modal_key">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="control-label col-md-3">角色名称<span class="required">*</span></label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" id="edit_admin_role_modal_name">
                                     </div>
@@ -194,6 +217,7 @@
         <script>
             function createAdminRole() {
                 var data = {
+                    'key': $('#create_admin_role_modal_key').val(),
                     'name': $('#create_admin_role_modal_name').val(),
                     'comment': $('#create_admin_role_modal_comment').val(),
                 };
@@ -205,6 +229,7 @@
             function editAdminRole() {
                 var data = {
                     'id': $('#edit_admin_role_modal_id').val(),
+                    'key': $('#edit_admin_role_modal_key').val(),
                     'name': $('#edit_admin_role_modal_name').val(),
                     'comment': $('#edit_admin_role_modal_comment').val(),
                 };
