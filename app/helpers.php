@@ -111,3 +111,35 @@ function generateToken()
 {
     return md5(time().rand(1000, 9999));
 }
+
+/**
+ * 获取当前登录管理员角色key
+ *
+ * @return int
+ */
+function getAdminUserRoleKey()
+{
+    $user = auth()->guard('admin')->user();
+    if (isset($user)) {
+        return $user->role_key;
+    }
+
+    return '';
+}
+
+/**
+ * 判断是否为某种角色
+ *
+ * @return int
+ */
+function isRole($roleKey)
+{
+    $user = auth()->guard('admin')->user();
+    if (isset($user)) {
+        if ($user->role_key == $roleKey) {
+            return true;
+        }
+    }
+
+    return false;
+}
