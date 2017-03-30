@@ -88,21 +88,6 @@ function curlPost($url, $data) {
 }
 
 /**
- * 获取当前登录管理员ID
- *
- * @return int
- */
-function getAdminUserId()
-{
-    $user = auth()->guard('admin')->user();
-    if (isset($user)) {
-        return $user->id;
-    }
-
-    return 0;
-}
-
-/**
  * 生成token
  *
  * @return string
@@ -113,14 +98,42 @@ function generateToken()
 }
 
 /**
+ * 获取当前登录管理员
+ *
+ * @return array|false
+ */
+function getAdminUser()
+{
+    $user = auth()->guard('admin')->user();
+    if (isset($user)) {
+        return $user;
+    }
+
+    return false;
+}
+
+/**
+ * 获取当前登录管理员ID
+ *
+ * @return int
+ */
+function getAdminUserId()
+{
+    if ($user = getAdminUser()) {
+        return $user->id;
+    }
+
+    return 0;
+}
+
+/**
  * 获取当前登录管理员角色key
  *
  * @return int
  */
 function getAdminUserRoleKey()
 {
-    $user = auth()->guard('admin')->user();
-    if (isset($user)) {
+    if ($user = getAdminUser()) {
         return $user->role_key;
     }
 
@@ -128,14 +141,13 @@ function getAdminUserRoleKey()
 }
 
 /**
- * 判断是否为某种角色
+ * 判断是否为某种管理员角色
  *
  * @return int
  */
-function isRole($roleKey)
+function isAdminRole($roleKey)
 {
-    $user = auth()->guard('admin')->user();
-    if (isset($user)) {
+    if ($user = getAdminUser()) {
         if ($user->role_key == $roleKey) {
             return true;
         }
