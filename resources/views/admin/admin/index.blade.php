@@ -63,7 +63,7 @@
 
     <script>
         var datatable_id = 'admin_index';
-        var columnDefsTargets = [7];
+        var columnDefsTargets = [];
         var invisibleColumns = [];
         var order = [0, 'desc'];
         var ajaxUrl = site_url + '/admin/admin/lists';
@@ -91,6 +91,7 @@
             $('#create_admin_modal_name').val('');
             $('#create_admin_modal_phone').val('');
             $('#create_admin_modal_email').val('');
+            $('#create_admin_modal_role').val('');
             $('#create_admin_modal_password').val('');
             $('#create_admin_modal_password_confirmation').val('');
 
@@ -104,7 +105,7 @@
             $('#edit_admin_modal_name').val(data.name);
             $('#edit_admin_modal_phone').val(data.phone);
             $('#edit_admin_modal_email').val(data.email);
-            $('#edit_admin_modal_role').val(data.role_id);
+            $('#edit_admin_modal_role').val(data.role_key);
 
             $("#edit_admin_modal").modal('show');
         }
@@ -161,9 +162,9 @@
                                 <label class="control-label col-md-3">角色</label>
                                 <div class="col-md-9">
                                     <select class="form-control" id="create_admin_modal_role">
-                                        <option value=0>--无--</option>
+                                        <option value=''>--无--</option>
                                         @foreach($roles as $v)
-                                            <option value={{ $v->id }}>{{ $v->name }}</option>
+                                            <option value={{ $v->key }}>{{ $v->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -260,9 +261,9 @@
                                 <label class="control-label col-md-3">角色</label>
                                 <div class="col-md-9">
                                     <select class="form-control" id="edit_admin_modal_role">
-                                        <option value=0>--无--</option>
+                                        <option value=''>--无--</option>
                                         @foreach($roles as $v)
-                                            <option value={{ $v->id }}>{{ $v->name }}</option>
+                                            <option value={{ $v->key }}>{{ $v->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -290,10 +291,10 @@
 
     <script>
         function createAdmin() {
-            var role_id = $('#create_admin_modal_role').find("option:selected").val();
-            var role_name = $('#create_admin_modal_role').find("option:selected").text();
-            if (role_id == 0) {
-                role_name = '';
+            var roleKey = $('#create_admin_modal_role').find("option:selected").val();
+            var roleName = $('#create_admin_modal_role').find("option:selected").text();
+            if (roleKey == '') {
+                roleName = '';
             }
 
             var data = {
@@ -301,8 +302,8 @@
                 'name': $('#create_admin_modal_name').val(),
                 'phone': $('#create_admin_modal_phone').val(),
                 'email': $('#create_admin_modal_email').val(),
-                'role_id': role_id,
-                'role_name': role_name,
+                'role_key': roleKey,
+                'role_name': roleName,
                 'password': $('#create_admin_modal_password').val(),
                 'password_confirmation': $('#create_admin_modal_password_confirmation').val()
             };
@@ -312,10 +313,10 @@
         }
 
         function editAdmin() {
-            var role_id = $('#edit_admin_modal_role').find("option:selected").val();
-            var role_name = $('#edit_admin_modal_role').find("option:selected").text();
-            if (role_id == 0) {
-                role_name = '';
+            var roleKey = $('#edit_admin_modal_role').find("option:selected").val();
+            var roleName = $('#edit_admin_modal_role').find("option:selected").text();
+            if (roleKey == 0) {
+                roleName = '';
             }
 
             var data = {
@@ -324,8 +325,8 @@
                 'name': $('#edit_admin_modal_name').val(),
                 'phone': $('#edit_admin_modal_phone').val(),
                 'email': $('#edit_admin_modal_email').val(),
-                'role_id': role_id,
-                'role_name': role_name
+                'role_key': roleKey,
+                'role_name': roleName
             };
             ajax('/admin/admin', 'PUT', data, successCallback = function () {
                 $("#edit_admin_modal").modal('hide');
