@@ -116,7 +116,7 @@ function datatable_base() {
         "<'row'<'pull-left'l><'pull-left'i><'col-sm-7 pull-right'p>>",
         "pagingType": "full_numbers",
         "iDisplayLength": datatable_default_length,
-        "lengthMenu": [[datatable_default_length], [datatable_default_length]],
+        "lengthMenu": [[datatable_default_length, 20, 100], [datatable_default_length, 20, 100]],
         "language": {
             "processing" : "<img src=" + site_url + "/admin-assets/images/loading.gif>",
             "lengthMenu": "每页 _MENU_ 条 ",
