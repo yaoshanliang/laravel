@@ -51,7 +51,7 @@ class AuthController extends Controller
     {
         auth()->guard('admin')->logout();
 
-        return redirect(url('/admin'));
+        return redirect(url('/admin/auth/login'));
     }
 
     // 忘记密码
