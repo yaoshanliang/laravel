@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Admin\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -28,15 +29,18 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
+        $user = User::where('account', $request->account)->first();
 
-        if (auth()->guard('web')->once(['account' => $request->account, 'password' => $request->password, 'status' => 1])) {
-            return back()->withInput()->withErrors('该账号已失效,无法登录');
-        }
-
-        if (auth()->guard('web')->attempt(['account' => $request->account, 'password' => $request->password, 'status' => 0])) {
-            return redirect()->intended(url('/web'));
+        if (empty($user)) {
+            return back()->withInput()->withErrors('该账号不存在');
         } else {
-            return back()->withInput()->withErrors('账号密码不匹配,请重新输入');
+            if (! password_verify($request->password, $user->password)) {
+                return back()->withInput()->withErrors('账号密码不匹配,请重新输入');
+            } else {
+                auth()->guard('web')->loginUsingId($user->id);
+
+                return redirect()->intended(url('/web'));
+            }
         }
     }
 

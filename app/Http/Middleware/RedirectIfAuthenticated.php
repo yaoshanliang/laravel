@@ -12,15 +12,14 @@ class RedirectIfAuthenticated
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string|null  $guard
+     * @param  string  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next, $guard = '')
     {
         if (Auth::guard($guard)->check()) {
+            $url = $guard;
 
-            // 根据不同 guard 跳转到不同的页面
-            $url = $guard ? '/admin' : '/web';
             return redirect(url($url));
         }
 

@@ -31,7 +31,7 @@ Route::group(['prefix' => 'web', 'namespace' => 'Web'], function () {
     });
 
     // 需要登录才能访问的路由
-    Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'auth.web'], function () {
 
         // auth
         Route::group(['prefix' => 'auth'], function () {

@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class AdminAuthMiddleware
+class WebAuthMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,13 +16,13 @@ class AdminAuthMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $guard = 'admin';
+        $guard = 'web';
 
         if (Auth::guard($guard)->guest()) {
             if ($request->ajax() || $request->wantsJson()) {
-                return response('Unauthorized.', 401);
+                // return response(['code' => UNAUTHORIZED, 'message' => '未登录'], 401);
             } else {
-                return redirect()->guest(url('admin/auth/login'));
+                return redirect()->guest(url('/web/auth/login'));
             }
         }
 
