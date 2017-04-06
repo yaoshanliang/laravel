@@ -10,7 +10,7 @@
 
             <div class="menu_section">
                 <ul class="nav side-menu">
-                    <li><a href="{{ url('admin') }}"><i class="fa fa-home"></i>系统首页</a></li>
+                    <li><a href="{{ url('admin/index') }}"><i class="fa fa-home"></i>系统首页</a></li>
                     <li><a href="{{ url('admin/user') }}"><i class="fa fa-user"></i>用户</a></li>
                     <li><a href="{{ url('admin/admin') }}"><i class="fa fa-user-plus"></i>管理员</a></li>
                     <li><a href="{{ url('admin/adminrole') }}"><i class="fa fa-user-plus"></i>管理员角色</a></li>
