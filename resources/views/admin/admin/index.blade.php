@@ -6,7 +6,7 @@
                 <div class="page-title">
                     <div class="title_left">
                         <h3>
-                            管理员设置
+                            管理员
                         </h3>
                     </div>
                 </div>
