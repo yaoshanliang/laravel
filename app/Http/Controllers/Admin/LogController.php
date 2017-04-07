@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Controller;
 use Illuminate\Http\Request;
+use App\Models\Log;
 
 class LogController extends Controller
 {
@@ -14,7 +15,7 @@ class LogController extends Controller
 
     public function getLists(Request $request)
     {
-        $searchFields = array('account', 'name', 'phone', 'email');
+        $searchFields = array('guard', 'user_id', 'request_method', 'request_url', 'user_ip');
         $pre = Log::whereDataTables($request, $searchFields)->orderByDataTables($request);
         $count = $pre->count();
         $data = $pre->skip($request->start)->take($request->length)->get();
