@@ -62,6 +62,8 @@
             <!-- /.col-lg-6 -->
         </div>
 
+        <script src="{{ asset('admin-assets/vendor/jsonview/jsonview.js') }}"></script>
+        <link href="{{ asset('admin-assets/vendor/jsonview/jsonview.css') }}" rel="stylesheet">
         <script>
             var datatable_id = 'admin_index';
             var columnDefsTargets = [];
@@ -74,10 +76,29 @@
                 {"data": "user_id"},
                 {"data": "request_method"},
                 {"data": "request_url"},
-                {"data": "request_params"},
+                {
+                    "data": "request_params",
+                    "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                        // $(nTd).html(sData.replace(/,/g, ', '));
+                        if (((sData != '' ) && (sData.indexOf("\"") != 0))) {
+                            $(nTd).JSONView(sData, { collapsed: true });
+                        }
+                    }
+                },
                 {"data": "response_code"},
                 {"data": "response_message"},
-                {"data": "response_data"},
+                {
+                    "data": "response_data",
+                    "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                        // console.log(sData.indexOf("\""));
+                        if (((sData != '' ) && (sData.indexOf("\"") != 0))) {
+                            $(nTd).JSONView(sData.replace(/#/g, '# '), { collapsed: true });
+                        }
+
+                        // $(nTd).html(sData.replace(/,/g, ', ').replace(/#/g, '# '));
+                        // $(nTd).JSONView(sData.replace(/,/g, ', ').replace(/#/g, '# '));
+                    }
+                },
                 {"data": "user_ip"},
                 {"data": "created_at"},
                 {
@@ -88,5 +109,6 @@
                         $(nTd).html(html);
                     }
                 }];
+    </script>
 
 @endsection

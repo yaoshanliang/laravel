@@ -1,6 +1,8 @@
-A php framework based on laravel.
+## A php framework based on laravel.
 
-### 后台 
+### 功能说明
+
+#### 后台
 
 * 整合[gentelella](https://github.com/puikinsh/gentelella)前端框架
 * 登录、忘记密码、重置密码
@@ -10,12 +12,14 @@ A php framework based on laravel.
 * 日志记录
 * 日志管理
 
-### 前台
+#### 前台
 
 * 登录
 * 日志记录
 
-### api
+#### api
 
 * api封装
 * 日志记录
+
+### 安装说明

@@ -34,7 +34,7 @@ function adminApiReturn($code, $message, $data = [])
 {
     $guard = 'admin';
     if (config('project.system.log')) {
-        dispatch(new App\Jobs\Log(compact('code', 'message', 'data', 'guard')));
+        dispatch(new \App\Jobs\Log(compact('code', 'message', 'data', 'guard')));
     }
 
     return response()->json(apiFormat($code, $message, $data), 200);
