@@ -63,5 +63,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::put('', 'AdminRoleController@put');
             Route::delete('', 'AdminRoleController@delete');
         });
+
+        // log
+        Route::group(['prefix' => 'log'], function () {
+            Route::get('', 'LogController@getIndex');
+            Route::get('lists', 'LogController@getLists');
+        });
     });
 });

@@ -18,6 +18,9 @@
                         <li><a href='{{ url('/admin/auth/logout') }}'><i class="fa fa-sign-out pull-right"></i>退出</a></li>
                     </ul>
                 </li>
+                <li class="">
+                    <a href="javascript:;">{{ auth('admin')->user()->role_name }}</a>
+                </li>
             </ul>
         </nav>
     </div>

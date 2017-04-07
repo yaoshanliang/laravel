@@ -20,8 +20,9 @@ function apiFormat($code, $message, $data = [])
 
     return $res;
 }
+
 /**
- * api统一返回
+ * admin里的api统一返回
  *
  * @param int    $code    返回码
  * @param string $message 返回说明
@@ -29,8 +30,13 @@ function apiFormat($code, $message, $data = [])
  *
  * @return \Illuminate\Http\JsonResponse
  */
-function apiReturn($code, $message, $data = [])
+function adminApiReturn($code, $message, $data = [])
 {
+    $guard = 'admin';
+    if (config('project.system.log')) {
+        dispatch(new App\Jobs\Log(compact('code', 'message', 'data', 'guard')));
+    }
+
     return response()->json(apiFormat($code, $message, $data), 200);
 }
 
@@ -42,6 +48,16 @@ function apiReturn($code, $message, $data = [])
 function getNowTime()
 {
     return date('Y-m-d H:i:s');
+}
+
+/**
+ * 获取毫秒
+ *
+ * @return float
+ */
+function getMillisecond() {
+    list($s1, $s2) = explode(' ', microtime());
+    return (float)sprintf('%f', (floatval($s1) + floatval($s2)));
 }
 
 /**
@@ -154,4 +170,21 @@ function isAdminRole($roleKey)
     }
 
     return false;
+}
+
+/**
+ * 根据guard获取用户id
+ *
+ * @param $guard
+ *
+ * @return int
+ */
+function getUserId($guard)
+{
+    $user = auth()->guard($guard)->user();
+    if (isset($user)) {
+        return $user->id;
+    }
+
+    return 0;
 }

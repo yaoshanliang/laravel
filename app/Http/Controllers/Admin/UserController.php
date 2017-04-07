@@ -46,7 +46,7 @@ class UserController extends Controller
 
         User::create($data);
 
-        return apiReturn(SUCCESS, '创建成功');
+        return adminApiReturn(SUCCESS, '创建成功');
     }
 
     public function put(Request $request)
@@ -66,17 +66,17 @@ class UserController extends Controller
 
         User::where('id', $request->id)->update($data);
 
-        return apiReturn(SUCCESS, '修改成功');
+        return adminApiReturn(SUCCESS, '修改成功');
     }
 
     public function delete(Request $request)
     {
         if ($request->id == getAdminUserId()) {
-            return apiReturn(ERROR, '不允许删除自己');
+            return adminApiReturn(ERROR, '不允许删除自己');
         } else {
             User::where('id', $request->id)->delete();
 
-            return apiReturn(SUCCESS, '删除成功');
+            return adminApiReturn(SUCCESS, '删除成功');
         }
     }
 
