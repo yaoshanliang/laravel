@@ -26,11 +26,6 @@ class AdminController extends Controller
         $recordsTotal = Admin::count();
         $recordsFiltered = min($count, $recordsTotal);
 
-        $code = 0;
-        $message = '';
-        $guard = 'admin';
-        $data = compact('draw', 'recordsFiltered', 'recordsTotal', 'data');
-        dispatch(new \App\Jobs\Log(compact('code', 'message', 'data', 'guard')));
         return response()->json(compact('draw', 'recordsFiltered', 'recordsTotal', 'data'));
     }
 

@@ -22,7 +22,7 @@
                                 <br />
 
                                 <div class="input-group custom-search-form">
-                                    <input type="text" id="search" class="form-control search" placeholder="">
+                                    <input type="text" id="search" class="form-control search" placeholder="来源/用户ID/请求方式/请求地址/请求参数/返回码/返回消息/返回数据/用户IP">
                                     <span class="input-group-btn">
                                             <button class="btn btn-default" type="button">
                                                 <i class="fa fa-search"></i>
@@ -79,7 +79,6 @@
                 {
                     "data": "request_params",
                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                        // $(nTd).html(sData.replace(/,/g, ', '));
                         if (((sData != '' ) && (sData.indexOf("\"") != 0))) {
                             $(nTd).JSONView(sData, { collapsed: true });
                         }
@@ -90,13 +89,9 @@
                 {
                     "data": "response_data",
                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                        // console.log(sData.indexOf("\""));
                         if (((sData != '' ) && (sData.indexOf("\"") != 0))) {
                             $(nTd).JSONView(sData.replace(/#/g, '# '), { collapsed: true });
                         }
-
-                        // $(nTd).html(sData.replace(/,/g, ', ').replace(/#/g, '# '));
-                        // $(nTd).JSONView(sData.replace(/,/g, ', ').replace(/#/g, '# '));
                     }
                 },
                 {"data": "user_ip"},
@@ -104,11 +99,101 @@
                 {
                     "data": "id",
                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                        html = "<a href='javascript:void(0);' onclick='return editUserModal(" + JSON.stringify(oData) + ");'>修改</a> ";
-                        html += "<a href='javascript:void(0);' onclick='return alertModal(deleteUser,{id:" + sData + "});'>删除</a> ";
+                        html = "<a href='javascript:void(0);' onclick='return detailsModal(" + JSON.stringify(oData) + ");'>详细</a> ";
                         $(nTd).html(html);
                     }
                 }];
+
+            function detailsModal(data) {
+                $('#details_modal_user_agent').text(data.user_agent);
+                $('#details_modal_server_ip').text(data.server_ip);
+                $('#details_modal_request_time_float').text(data.request_time_float);
+                $('#details_modal_pushed_time_float').text(data.pushed_time_float);
+                $('#details_modal_poped_time_float').text(data.poped_time_float);
+                $('#details_modal_created_time_float').text(data.created_time_float);
+
+                $("#details_modal").modal('show');
+            }
     </script>
+
+        <!-- Modal -->
+        <div class="modal fade" id="details_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="width:450px; margin-top:40px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h5 class="modal-title" id="modal_title">详细</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="col-md-3"><p>user agent</p></div>
+                                    <div class="col-md-9">
+                                        <p id="details_modal_user_agent"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="col-md-3"><p>服务器IP</p></div>
+                                    <div class="col-md-9">
+                                        <p id="details_modal_server_ip"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="col-md-3"><p>请求时间</p></div>
+                                    <div class="col-md-9">
+                                        <p id="details_modal_request_time_float"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="col-md-3"><p>响应时间</p></div>
+                                    <div class="col-md-9">
+                                        <p id="details_modal_pushed_time_float"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="col-md-3"><p>处理时间</p></div>
+                                    <div class="col-md-9">
+                                        <p id="details_modal_poped_time_float"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="col-md-3"><p>写库时间</p></div>
+                                    <div class="col-md-9">
+                                        <p id="details_modal_created_time_float"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <div class="col-md-5 col-md-offset-3">
+                                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">关闭</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
 
 @endsection
