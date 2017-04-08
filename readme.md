@@ -77,6 +77,7 @@
 
 * 首页 http://laravel.dev
     
-* 后台: http://laravel.dev
- * 账号: admin
- * 密码: admin
+* 后台: http://laravel.dev/admin
+
+  * 账号: admin
+  * 密码: admin
