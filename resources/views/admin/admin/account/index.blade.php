@@ -66,7 +66,7 @@
         var columnDefsTargets = [];
         var invisibleColumns = [];
         var order = [0, 'desc'];
-        var ajaxUrl = site_url + '/admin/admin/lists';
+        var ajaxUrl = "{{ route('getAdminAccountLists') }}";
         var columns = [
             {"data": "id"},
             {"data": "account"},
@@ -307,7 +307,7 @@
                 'password': $('#create_admin_modal_password').val(),
                 'password_confirmation': $('#create_admin_modal_password_confirmation').val()
             };
-            ajax('/admin/admin', 'POST', data, successCallback = function () {
+            ajax("{{ route('createAdminAccount') }}", 'POST', data, successCallback = function () {
                 $("#create_admin_modal").modal('hide');
             });
         }
@@ -328,13 +328,13 @@
                 'role_key': roleKey,
                 'role_name': roleName
             };
-            ajax('/admin/admin', 'PUT', data, successCallback = function () {
+            ajax("{{ route('updateAdminAccount') }}", 'PUT', data, successCallback = function () {
                 $("#edit_admin_modal").modal('hide');
             });
         }
 
         function deleteAdmin(data) {
-            ajax('/admin/admin', 'DELETE', data);
+            ajax("{{ route('deleteAdminAccount') }}", 'DELETE', data);
         }
     </script>
 @endsection

@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Admin;
 
 use App\Http\Controllers\Admin\Controller;
 use App\Models\AdminRole;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 
-class AdminController extends Controller
+class AccountController extends Controller
 {
     public function getIndex(Request $request)
     {
         $roles = AdminRole::all();
 
-        return view('admin.admin.index')->with(compact('roles'));
+        return view('admin.admin.account.index')->with(compact('roles'));
     }
 
     public function getLists(Request $request)

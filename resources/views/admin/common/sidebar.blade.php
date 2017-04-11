@@ -12,9 +12,20 @@
                 <ul class="nav side-menu">
                     <li><a href="{{ url('admin/index') }}"><i class="fa fa-home"></i>系统首页</a></li>
                     <li><a href="{{ url('admin/user') }}"><i class="fa fa-user"></i>用户</a></li>
-                    <li><a href="{{ url('admin/admin') }}"><i class="fa fa-user-plus"></i>管理员</a></li>
-                    <li><a href="{{ url('admin/adminrole') }}"><i class="fa fa-user-plus"></i>管理员角色</a></li>
-                    <li><a href="{{ url('admin/log') }}"><i class="fa fa-file-o"></i>日志</a></li>
+                    <li>
+                        <a><i class="fa fa-user-plus"></i>后台账户管理<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ url('admin/admin/account') }}">账户</a></li>
+                            <li><a href="{{ url('admin/admin/role') }}">角色</a></li>
+                            <li><a href="{{ url('admin/admin/permission') }}">权限</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a><i class="fa fa-gear"></i>系统管理<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ url('admin/log') }}">日志查看</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

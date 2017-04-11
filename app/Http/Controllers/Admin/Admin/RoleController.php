@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Admin;
 
 use App\Http\Controllers\Admin\Controller;
 use Illuminate\Http\Request;
 use App\Models\AdminRole;
 
-class AdminRoleController extends Controller
+class RoleController extends Controller
 {
     public function getIndex(Request $request)
     {
-        return view('admin.adminrole.index');
+        return view('admin.admin.role.index');
     }
 
     public function getLists(Request $request)
