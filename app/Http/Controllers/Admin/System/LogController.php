@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Admin\Controller;
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ class LogController extends Controller
 {
     public function getIndex(Request $request)
     {
-        return view('admin.log.index');
+        return view('admin.system.log.index');
     }
 
     public function getLists(Request $request)

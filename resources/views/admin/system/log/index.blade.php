@@ -6,7 +6,7 @@
             <div class="page-title">
                 <div class="title_left">
                     <h3>
-                        日志
+                        日志查看
                     </h3>
                 </div>
             </div>
@@ -69,7 +69,7 @@
             var columnDefsTargets = [];
             var invisibleColumns = [];
             var order = [0, 'desc'];
-            var ajaxUrl = site_url + '/admin/log/lists';
+            var ajaxUrl = "{{ route('getSystemLogLists') }}";
             var columns = [
                 {"data": "id"},
                 {"data": "guard"},

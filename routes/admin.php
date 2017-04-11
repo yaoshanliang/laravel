@@ -26,6 +26,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('', 'IndexController@getIndex');
         });
 
+        // self
+        Route::group(['prefix' => 'self'], function () {
+            Route::get('info', 'SelfController@getInfo');
+            Route::post('info', 'SelfController@postInfo');
+            Route::get('password', 'SelfController@getPassword');
+            Route::post('password', 'SelfController@postPassword');
+        });
+
+
         // user
         Route::group(['prefix' => 'user'], function () {
             Route::get('', 'UserController@getIndex');
@@ -72,20 +81,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         });
 
-        // self
-        Route::group(['prefix' => 'self'], function () {
-            Route::get('info', 'SelfController@getInfo');
-            Route::post('info', 'SelfController@postInfo');
-            Route::get('password', 'SelfController@getPassword');
-            Route::post('password', 'SelfController@postPassword');
-        });
 
+        // system
+        Route::group(['prefix' => 'system', 'namespace' => 'System'], function () {
 
-
-        // log
-        Route::group(['prefix' => 'log'], function () {
-            Route::get('', 'LogController@getIndex');
-            Route::get('lists', 'LogController@getLists');
+            // log
+            Route::group(['prefix' => 'log'], function () {
+                Route::get('', 'LogController@getIndex');
+                Route::get('lists', 'LogController@getLists')->name('getSystemLogLists');
+            });
         });
     });
 });
