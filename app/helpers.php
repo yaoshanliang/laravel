@@ -188,3 +188,21 @@ function getUserId($guard)
 
     return 0;
 }
+
+/**
+ * 是否具有某种admin权限
+ *
+ * @param $permission
+ *
+ * @return true|false
+ */
+function hasAdminPermission($permission)
+{
+    if (session('is_all_permissions')) {
+        return true;
+    } elseif(is_array(session('permissions')) && in_array($permission, session('permissions'))) {
+        return true;
+    } else {
+        return false;
+    }
+}

@@ -22,7 +22,10 @@
                                 <br />
 
                                 <div class="input-group custom-search-form">
-                                    <a href="javascript:void(0);" class="btn btn-primary" onclick="return createAdminRoleModal();">添加</a>
+
+                                    @if (hasAdminPermission('createAdminRole'))
+                                        <a href="javascript:void(0);" class="btn btn-primary" onclick="return createAdminRoleModal();">添加</a>
+                                    @endif
 
                                     <input type="text" id="search" class="form-control search" placeholder="角色">
                                     <span class="input-group-btn">
@@ -75,9 +78,18 @@
                 {
                     "data": "id",
                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                        html = "<a href='javascript:void(0);' onclick='return updateAdminPermissionModal(" + JSON.stringify(oData) + ");'>权限</a> ";
-                        html += "<a href='javascript:void(0);' onclick='return editAdminRoleModal(" + JSON.stringify(oData) + ");'>修改</a> ";
-                        html += "<a href='javascript:void(0);' onclick='return alertModal(deleteAdminRole,{id:" + sData + "});'>删除</a> ";
+                        var html  = '';
+
+                        @if (config('project.admin.permission_open'))
+                            html += "<a href='javascript:void(0);' onclick='return updateAdminPermissionModal(" + JSON.stringify(oData) + ");'>权限</a> ";
+                        @endif
+                        @if (hasAdminPermission('updateAdminRole'))
+                            html += "<a href='javascript:void(0);' onclick='return editAdminRoleModal(" + JSON.stringify(oData) + ");'>修改</a> ";
+                        @endif
+                        @if (hasAdminPermission('deleteAdminRole'))
+                            html += "<a href='javascript:void(0);' onclick='return alertModal(deleteAdminRole,{id:" + sData + "});'>删除</a> ";
+                        @endif
+
                         $(nTd).html(html);
                     }
                 }];
