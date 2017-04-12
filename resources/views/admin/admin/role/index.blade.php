@@ -255,7 +255,6 @@
                                 </div>
                             @endforeach
 
-
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -263,7 +262,7 @@
                             <div class="col-md-5 col-md-offset-1">
                                 <button type="button" class="btn btn-primary btn-block" onclick="return editAdminRole();">确认</button>
                             </div>
-                            <div class="col-md-5 col-md-offset-">
+                            <div class="col-md-5">
                                 <button type="button" class="btn btn-default btn-block" data-dismiss="modal">取消</button>
                             </div>
                         </div>
