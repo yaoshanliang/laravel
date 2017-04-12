@@ -17,7 +17,6 @@
                         <ul class="nav child_menu">
                             <li><a href="{{ url('admin/admin/account') }}">账户</a></li>
                             <li><a href="{{ url('admin/admin/role') }}">角色</a></li>
-                            <li><a href="{{ url('admin/admin/permission') }}">权限</a></li>
                         </ul>
                     </li>
                     <li>

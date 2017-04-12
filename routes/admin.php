@@ -67,16 +67,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
                 Route::delete('', 'RoleController@delete')->name('deleteAdminRole');
             });
 
-            // permission
-            Route::group(['prefix' => 'permission'], function () {
-                Route::get('', 'PermissionController@getIndex');
-                Route::get('lists', 'PermissionController@getLists')->name('getAdminPermissionLists');
-
-                Route::post('', 'PermissionController@post')->name('createAdminPermission');
-                Route::put('', 'PermissionController@put')->name('updateAdminPermission');
-                Route::delete('', 'PermissionController@delete')->name('createAdminPermission');
-            });
-
 
         });
 

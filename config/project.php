@@ -7,5 +7,16 @@ return [
 
     'system' => [
         'log' => true,
-    ]
+    ],
+
+    'permissions' => [
+        'admin' => [
+            '管理员模块' => [
+                '创建管理员' => 'createAdminAccount',
+                '修改管理员' => 'updateAdminAccount',
+                '删除管理员' => 'deleteAdminAccount',
+
+            ]
+        ]
+    ],
 ];
