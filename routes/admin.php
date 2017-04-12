@@ -4,7 +4,7 @@
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     // auth
-    Route::group(['prefix' => 'auth'], function () {
+    Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
         Route::get('login', 'AuthController@getLogin');
         Route::post('login', 'AuthController@postLogin');
         Route::get('logout', 'AuthController@getLogout');
@@ -27,16 +27,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         });
 
         // self
-        Route::group(['prefix' => 'self'], function () {
+        Route::group(['prefix' => 'self', 'namespace' => 'Self'], function () {
             Route::get('info', 'SelfController@getInfo');
             Route::post('info', 'SelfController@postInfo');
             Route::get('password', 'SelfController@getPassword');
             Route::post('password', 'SelfController@postPassword');
         });
 
-
         // user
-        Route::group(['prefix' => 'user'], function () {
+        Route::group(['prefix' => 'user', 'namespace' => 'User'], function () {
             Route::get('', 'UserController@getIndex');
             Route::get('lists', 'UserController@getLists');
 
