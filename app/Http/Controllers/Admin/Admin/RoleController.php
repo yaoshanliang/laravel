@@ -47,7 +47,7 @@ class RoleController extends Controller
     public function put(Request $request)
     {
         $this->validate($request, [
-            'key' => 'required|alpha_dash|unique:admin_roles,key,'.$request->key,
+            'key' => 'required|alpha_dash|unique:admin_roles,key,'.$request->id,
             'name' => 'required'
         ]);
 

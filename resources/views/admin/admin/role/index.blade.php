@@ -239,22 +239,20 @@
 
                             @foreach(config('project.admin.permissions') as $key => $value)
                                 <div class="form-group">
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 col-md-offset-2">
                                         <input type="checkbox">
                                         {{ $key }}
                                     </div>
-                                </div>
 
-                                @foreach($value as $k => $v)
-                                    <div class="form-group">
-                                        <div class="col-md-1">
+                                    @foreach($value as $k => $v)
+                                        <div class="col-md-12 col-md-offset-2">
+                                            <div class="col-md-11 col-md-offset-1">
+                                                <input type="checkbox">
+                                                {{ $k }}
+                                            </div>
                                         </div>
-                                        <div class="col-md-11">
-                                            <input type="checkbox">
-                                            {{ $k }}
-                                        </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             @endforeach
 
 

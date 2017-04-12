@@ -25,6 +25,11 @@ return [
                 '修改管理员' => 'updateAdminAccount',
                 '删除管理员' => 'deleteAdminAccount',
             ],
+            '角色模块' => [
+                '创建角色' => 'createAdminRole',
+                '修改角色' => 'updateAdminRole',
+                '删除角色' => 'deleteAdminRole',
+            ],
         ],
     ],
 
