@@ -7,6 +7,6 @@ use App\Models\Model;
 class AdminRole extends Model
 {
     protected $fillable = [
-        'key', 'name', 'comment'
+        'key', 'name', 'comment', 'permissions'
     ];
 }

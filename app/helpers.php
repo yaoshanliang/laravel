@@ -33,7 +33,7 @@ function apiFormat($code, $message, $data = [])
 function adminApiReturn($code, $message, $data = [])
 {
     $guard = 'admin';
-    if (config('project.system.log')) {
+    if (config('project.admin.system.log')) {
         dispatch(new \App\Jobs\Log(compact('code', 'message', 'data', 'guard')));
     }
 

@@ -18,6 +18,7 @@ class CreateAdminRolesTable extends Migration
             $table->string('key')->comment('角色key');
             $table->string('name')->comment('角色名称');
             $table->string('comment')->nullable()->comment('备注');
+            $table->text('permissions')->nullable()->comment('权限');
             $table->timestamps();
         });
     }

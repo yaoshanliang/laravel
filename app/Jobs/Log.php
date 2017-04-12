@@ -15,7 +15,7 @@ class Log implements ShouldQueue
 
     private $log;
 
-    private $secretData = ['password'];
+    private $secretData = ['password', 'password_confirmation'];
 
     /**
      * 用户日志队列.

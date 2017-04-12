@@ -75,7 +75,8 @@
                 {
                     "data": "id",
                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                        html = "<a href='javascript:void(0);' onclick='return editAdminRoleModal(" + JSON.stringify(oData) + ");'>修改</a> ";
+                        html = "<a href='javascript:void(0);' onclick='return updateAdminPermissionModal(" + JSON.stringify(oData) + ");'>权限</a> ";
+                        html += "<a href='javascript:void(0);' onclick='return editAdminRoleModal(" + JSON.stringify(oData) + ");'>修改</a> ";
                         html += "<a href='javascript:void(0);' onclick='return alertModal(deleteAdminRole,{id:" + sData + "});'>删除</a> ";
                         $(nTd).html(html);
                     }
@@ -98,6 +99,16 @@
                 $('#edit_admin_role_modal_comment').val(data.comment);
 
                 $("#edit_admin_role_modal").modal('show');
+            }
+
+            function updateAdminPermissionModal(data)
+            {
+                $('#edit_admin_role_modal_id').val(data.id);
+                $('#edit_admin_role_modal_key').val(data.key);
+                $('#edit_admin_role_modal_name').val(data.name);
+                $('#edit_admin_role_modal_comment').val(data.comment);
+
+                $("#update_admin_permission_modal").modal('show');
             }
         </script>
 
@@ -195,6 +206,58 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <div class="col-md-5 col-md-offset-1">
+                                <button type="button" class="btn btn-primary btn-block" onclick="return editAdminRole();">确认</button>
+                            </div>
+                            <div class="col-md-5 col-md-offset-">
+                                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="update_admin_permission_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="width:450px; margin-top:40px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h5 class="modal-title" id="modal_title">权限</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            <input type="hidden" id="update_admin_permission_modal_id">
+
+                            @foreach(config('project.admin.permissions') as $key => $value)
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="checkbox">
+                                        {{ $key }}
+                                    </div>
+                                </div>
+
+                                @foreach($value as $k => $v)
+                                    <div class="form-group">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-11">
+                                            <input type="checkbox">
+                                            {{ $k }}
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endforeach
+
+
                         </div>
                     </div>
                     <div class="modal-footer">
