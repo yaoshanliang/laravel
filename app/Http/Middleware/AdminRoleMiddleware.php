@@ -16,6 +16,12 @@ class AdminRoleMiddleware
      */
     public function handle($request, Closure $next)
     {
+        /*dd(config('project.admin.permissions'));
+        $permissions = config('project.admin.permissions');
+
+        dd(route('createAdminRole'));
+        dd($request->path());*/
+
         $guard = 'admin';
 
         if (Auth::guard($guard)->guest()) {

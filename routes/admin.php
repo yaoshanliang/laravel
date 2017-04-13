@@ -15,7 +15,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     });
 
 
-    Route::group(['middleware' => 'auth.admin'], function () {
+    Route::group(['middleware' => ['auth.admin', 'role.admin']], function () {
 
         Route::get('', function () {
             return redirect(url('/admin/index'));
@@ -70,7 +70,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         });
 
-
+        Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
         // system
         Route::group(['prefix' => 'system', 'namespace' => 'System'], function () {
 
