@@ -14,8 +14,9 @@ class AdminRoleMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $permission)
     {
+        dd($permission);
         /*dd(config('project.admin.permissions'));
         $permissions = config('project.admin.permissions');
 

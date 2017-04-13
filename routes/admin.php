@@ -15,7 +15,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     });
 
 
-    Route::group(['middleware' => ['auth.admin', 'role.admin']], function () {
+    Route::group(['middleware' => 'auth.admin'], function () {
 
         Route::get('', function () {
             return redirect(url('/admin/index'));
@@ -24,6 +24,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         // index
         Route::group(['prefix' => 'index'], function () {
             Route::get('', 'IndexController@getIndex');
+        });
+
+        // error
+        Route::group(['prefix' => 'error', 'namespace' => 'Error'], function () {
+            Route::get('{id}', 'ErrorController@get');
         });
 
         // self
@@ -52,9 +57,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
                 Route::get('', 'AccountController@getIndex');
                 Route::get('lists', 'AccountController@getLists')->name('getAdminAccountLists');
 
-                Route::post('', 'AccountController@post')->name('createAdminAccount');
-                Route::put('', 'AccountController@put')->name('updateAdminAccount');
-                Route::delete('', 'AccountController@delete')->name('deleteAdminAccount');
+                Route::post('', ['uses' => 'AccountController@post', 'middleware' => 'permission.admin:createAdminAccount', 'as' => 'createAdminAccount']);
+                Route::put('', ['uses' => 'AccountController@put', 'middleware' => 'permission.admin:updateAdminAccount', 'as' => 'updateAdminAccount']);
+                Route::delete('', ['uses' => 'AccountController@delete', 'middleware' => 'permission.admin:deleteAdminAccount', 'as' => 'deleteAdminAccount']);
             });
 
             // role
@@ -70,9 +75,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         });
 
-        Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
         // system
         Route::group(['prefix' => 'system', 'namespace' => 'System'], function () {
+
+            Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
             // log
             Route::group(['prefix' => 'log'], function () {
