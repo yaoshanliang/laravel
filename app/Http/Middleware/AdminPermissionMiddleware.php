@@ -16,7 +16,6 @@ class AdminPermissionMiddleware
      */
     public function handle($request, Closure $next, $permission)
     {
-
         if (! hasAdminPermission($permission)) {
             if ($request->ajax() || $request->wantsJson()) {
                 return adminApiReturn(ERROR, 'forbidden', ['permission' => $permission]);

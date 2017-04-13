@@ -15,8 +15,12 @@
                     <li>
                         <a><i class="fa fa-user-plus"></i>后台账户<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{ url('admin/admin/account') }}">账户</a></li>
-                            <li><a href="{{ url('admin/admin/role') }}">角色</a></li>
+                            @if (hasAdminPermission('getAdminAccount'))
+                                <li><a href="{{ url('admin/admin/account') }}">账户</a></li>
+                            @endif
+                            @if (hasAdminPermission('getAdminRole'))
+                                <li><a href="{{ url('admin/admin/role') }}">角色</a></li>
+                            @endif
                         </ul>
                     </li>
                     <li>

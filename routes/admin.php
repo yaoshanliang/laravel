@@ -54,8 +54,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
             // account
             Route::group(['prefix' => 'account'], function () {
-                Route::get('', 'AccountController@getIndex');
-                Route::get('lists', 'AccountController@getLists')->name('getAdminAccountLists');
+                Route::get('', ['uses' => 'AccountController@getIndex', 'middleware' => 'permission.admin:getAdminAccount', 'as' => 'getAdminAccount']);
+                Route::get('lists', ['uses' => 'AccountController@getLists', 'as' => 'getAdminAccountLists']);
 
                 Route::post('', ['uses' => 'AccountController@post', 'middleware' => 'permission.admin:createAdminAccount', 'as' => 'createAdminAccount']);
                 Route::put('', ['uses' => 'AccountController@put', 'middleware' => 'permission.admin:updateAdminAccount', 'as' => 'updateAdminAccount']);
@@ -64,12 +64,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
             // role
             Route::group(['prefix' => 'role'], function () {
-                Route::get('', 'RoleController@getIndex');
-                Route::get('lists', 'RoleController@getLists')->name('getAdminRoleLists');
+                Route::get('', ['uses' => 'RoleController@post', 'middleware' => 'permission.admin:getAdminRole', 'as' => 'getAdminRole']);
+                Route::get('lists', ['uses' => 'RoleController@getLists', 'as' => 'getAdminRoleLists']);
 
-                Route::post('', 'RoleController@post')->name('createAdminRole');
-                Route::put('', 'RoleController@put')->name('updateAdminRole');
-                Route::delete('', 'RoleController@delete')->name('deleteAdminRole');
+                Route::post('', ['uses' => 'RoleController@post', 'middleware' => 'permission.admin:createAdminRole', 'as' => 'createAdminRole']);
+                Route::put('', ['uses' => 'RoleController@put', 'middleware' => 'permission.admin:updateAdminRole', 'as' => 'updateAdminRole']);
+                Route::delete('', ['uses' => 'RoleController@post', 'middleware' => 'permission.admin:deleteAdminRole', 'as' => 'deleteAdminRole']);
             });
 
 

@@ -24,7 +24,7 @@
                                     <div class="input-group custom-search-form">
                                         <a href="javascript:void(0);" class="btn btn-primary" onclick="return createAdminModal();">添加</a>
 
-                                        <input type="text" id="search" class="form-control search" placeholder="账号/姓名/电话/邮箱">
+                                        <input type="text" id="search" class="form-control search" placeholder="账号/姓名/手机/邮箱">
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" type="button">
                                                 <i class="fa fa-search"></i>

@@ -8,6 +8,7 @@ use App\Models\PasswordReset;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Mail;
+use App\Models\AdminRole;
 
 class AuthController extends Controller
 {
@@ -41,8 +42,22 @@ class AuthController extends Controller
             } else {
                 auth()->guard('admin')->loginUsingId($admin->id);
 
+                // 获取权限
+                $this->getPermissions($admin->role_key);
+
                 return redirect()->intended(url('/admin'));
             }
+        }
+    }
+
+    // 获取权限
+    public function getPermissions($roleKey)
+    {
+        $role = AdminRole::where('key', $roleKey)->first();
+
+        if (! empty($role)) {
+            session(['is_all_permissions' => $role->is_all_permissions]);
+            session(['permissions' => $role->permissions]);
         }
     }
 

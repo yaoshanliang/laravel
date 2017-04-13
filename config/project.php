@@ -21,11 +21,13 @@ return [
         // 权限列表
         'permissions' => [
             '管理员模块' => [
+                '管理员列表' => 'getAdminAccount',
                 '创建管理员' => 'createAdminAccount',
                 '修改管理员' => 'updateAdminAccount',
                 '删除管理员' => 'deleteAdminAccount',
             ],
             '角色模块' => [
+                '角色列表' => 'getAdminRole',
                 '创建角色' => 'createAdminRole',
                 '修改角色' => 'updateAdminRole',
                 '删除角色' => 'deleteAdminRole',
