@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Admin;
 
 use App\Http\Controllers\Admin\Controller;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Models\AdminRole;
 
@@ -37,6 +38,7 @@ class RoleController extends Controller
             'key' => $request->key,
             'name' => $request->name,
             'comment' => $request->comment,
+            'permissions' => json_encode([])
         ];
 
         AdminRole::create($data);
@@ -62,15 +64,34 @@ class RoleController extends Controller
         return adminApiReturn(SUCCESS, '修改成功');
     }
 
+    // 删除
     public function delete(Request $request)
     {
-        if ($request->id == getAdminUserId()) {
-            return adminApiReturn(ERROR, '不允许删除自己');
+        $role = AdminRole::where('id', $request->id)->first();
+
+        if (Admin::where('role_key', $role->key)->exists()) {
+
+            return adminApiReturn(ERROR, '该角色存在用户');
         } else {
             AdminRole::where('id', $request->id)->delete();
 
             return adminApiReturn(SUCCESS, '删除成功');
         }
+    }
+
+    // 更新权限
+    public function putPermission(Request $request)
+    {
+        if ($request->is_all_permissions) {
+            $request->permissions = [];
+        }
+
+        AdminRole::where('id', $request->id)->update([
+            'is_all_permissions' => $request->is_all_permissions,
+            'permissions' => json_encode($request->permissions)
+        ]);
+
+        return adminApiReturn(SUCCESS, '更新成功');
     }
 
 }

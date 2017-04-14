@@ -115,10 +115,9 @@
 
             function updateAdminPermissionModal(data)
             {
-                $('#edit_admin_role_modal_id').val(data.id);
-                $('#edit_admin_role_modal_key').val(data.key);
-                $('#edit_admin_role_modal_name').val(data.name);
-                $('#edit_admin_role_modal_comment').val(data.comment);
+                console.log(data);
+                $('#update_admin_permission_modal_id').val(data.id);
+
 
                 $("#update_admin_permission_modal").modal('show');
             }
@@ -249,6 +248,13 @@
                         <div class="form-horizontal">
                             <input type="hidden" id="update_admin_permission_modal_id">
 
+                            <div class="form-group">
+                                <div class="col-md-12 col-md-offset-2">
+                                    <input type="checkbox" id="update_admin_permission_modal_is_all_permissions" value=1>
+                                    全部
+                                </div>
+                            </div>
+
                             @foreach(config('project.admin.permissions') as $key => $value)
                                 <div class="form-group">
                                     <div class="col-md-12 col-md-offset-2">
@@ -272,7 +278,7 @@
                     <div class="modal-footer">
                         <div class="form-group">
                             <div class="col-md-5 col-md-offset-1">
-                                <button type="button" class="btn btn-primary btn-block" onclick="return editAdminRole();">确认</button>
+                                <button type="button" class="btn btn-primary btn-block" onclick="return updateAdminPermission();">确认</button>
                             </div>
                             <div class="col-md-5">
                                 <button type="button" class="btn btn-default btn-block" data-dismiss="modal">取消</button>
@@ -312,6 +318,18 @@
 
             function deleteAdminRole(data) {
                 ajax("{{ route('deleteAdminRole') }}", 'DELETE', data);
+            }
+
+            function updateAdminPermission() {
+                var permissions = [];
+                var data = {
+                    'id': $('#update_admin_permission_modal_id').val(),
+                    'is_all_permissions': $('#update_admin_permission_modal_is_all_permissions').val(),
+                    'permissions': permissions
+                };
+                ajax("{{ route('updateAdminPermission') }}", 'PUT', data, successCallback = function () {
+                    $("#update_admin_permission_modal").modal('hide');
+                });
             }
         </script>
 @endsection

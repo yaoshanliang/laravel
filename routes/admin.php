@@ -70,6 +70,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
                 Route::post('', ['uses' => 'RoleController@post', 'middleware' => 'permission.admin:createAdminRole', 'as' => 'createAdminRole']);
                 Route::put('', ['uses' => 'RoleController@put', 'middleware' => 'permission.admin:updateAdminRole', 'as' => 'updateAdminRole']);
                 Route::delete('', ['uses' => 'RoleController@post', 'middleware' => 'permission.admin:deleteAdminRole', 'as' => 'deleteAdminRole']);
+                Route::put('permission', ['uses' => 'RoleController@putPermission', 'middleware' => 'permission.admin:updateAdminPermission', 'as' => 'updateAdminPermission']);
             });
 
 
