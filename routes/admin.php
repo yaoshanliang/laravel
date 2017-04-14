@@ -64,7 +64,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
             // role
             Route::group(['prefix' => 'role'], function () {
-                Route::get('', ['uses' => 'RoleController@post', 'middleware' => 'permission.admin:getAdminRole', 'as' => 'getAdminRole']);
+                Route::get('', ['uses' => 'RoleController@getIndex', 'middleware' => 'permission.admin:getAdminRole', 'as' => 'getAdminRole']);
                 Route::get('lists', ['uses' => 'RoleController@getLists', 'as' => 'getAdminRoleLists']);
 
                 Route::post('', ['uses' => 'RoleController@post', 'middleware' => 'permission.admin:createAdminRole', 'as' => 'createAdminRole']);
@@ -75,15 +75,22 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         });
 
-        // system
+        // 系统
         Route::group(['prefix' => 'system', 'namespace' => 'System'], function () {
 
-            Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-
-            // log
+            // 日志
             Route::group(['prefix' => 'log'], function () {
-                Route::get('', 'LogController@getIndex');
-                Route::get('lists', 'LogController@getLists')->name('getSystemLogLists');
+
+                // 用户日志
+                Route::group(['prefix' => 'user'], function () {
+                    Route::get('', ['uses' => 'LogController@getUser', 'middleware' => 'permission.admin:getUserLog', 'as' => 'getUserLog']);
+                    Route::get('lists', 'LogController@getLists')->name('getUserLogLists');
+                });
+
+                // 错误日志
+                Route::group(['prefix' => 'error'], function () {
+                    Route::get('', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+                });
             });
         });
     });

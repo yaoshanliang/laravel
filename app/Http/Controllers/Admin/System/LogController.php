@@ -8,9 +8,9 @@ use App\Models\Log;
 
 class LogController extends Controller
 {
-    public function getIndex(Request $request)
+    public function getUser(Request $request)
     {
-        return view('admin.system.log.index');
+        return view('admin.system.log.user');
     }
 
     public function getLists(Request $request)
