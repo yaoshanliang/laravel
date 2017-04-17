@@ -41,6 +41,25 @@ function adminApiReturn($code, $message, $data = [])
 }
 
 /**
+ * api里的api统一返回
+ *
+ * @param int    $code    返回码
+ * @param string $message 返回说明
+ * @param object|array $data    返回数据
+ *
+ * @return \Illuminate\Http\JsonResponse
+ */
+function apiReturn($code, $message, $data = [])
+{
+    $guard = 'api';
+    if (config('project.admin.system.log')) {
+        dispatch(new \App\Jobs\Log(compact('code', 'message', 'data', 'guard')));
+    }
+
+    return response()->json(apiFormat($code, $message, $data), 200);
+}
+
+/**
  * 获取当前时间
  *
  * @return string

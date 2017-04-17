@@ -46,8 +46,13 @@ class Handler extends ExceptionHandler
     {
         // 验证异常
         if ($exception instanceof \Illuminate\Validation\ValidationException) {
-            $response = $exception->getResponse()->getData()->getData();
+            $response = $exception->getResponse()->getData();
             return adminApiReturn($response->code, $response->message);
+        }
+
+        // 验证异常
+        if ($exception instanceof \App\Exceptions\ApiRequestException) {
+            return apiReturn(ERROR, $exception->getMessage());
         }
 
         return parent::render($request, $exception);
