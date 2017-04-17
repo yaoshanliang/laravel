@@ -1,4 +1,4 @@
-@extends('admin.common.common')
+@extends('admin.common.common') 
 
 @section('content')
     <div class="right_col" role="main">
@@ -115,11 +115,51 @@
 
             function updateAdminPermissionModal(data)
             {
-                console.log(data);
+                
                 $('#update_admin_permission_modal_id').val(data.id);
-
-
                 $("#update_admin_permission_modal").modal('show');
+
+                console.log(data);
+                if( data['is_all_permissions'] == 1){
+                    $('#update_admin_permission_modal_is_all_permissions').attr("checked", true);
+                    $('.selectTitle').find('input').attr("checked", true);
+                }else{
+                    var newData = data['permissions'].split(",");
+                    console.log(<?php echo json_encode(config('project.admin.permissions')); ?>);
+
+                    @foreach(config('project.admin.permissions') as $key => $value)
+                        @foreach($value as $k => $v)
+                            var value = '{{$v}}';
+                            $.each(newData, function($ke, $va){
+                                var newD = $va.replace(/(\[)|(\])|(\")/g,"");
+                                if(newD == value){
+                                    $('.' + value + '').attr('checked', true);
+                                // var length = $('.selectTitle').children('div').length;
+                                // console.log(length);
+                                }
+                            })
+                        @endforeach
+                    @endforeach
+
+                }
+
+            }
+
+
+            function allchk(data){ 
+                console.log(data);
+                // var chknum = $("#list :checkbox").size();//选项总个数 
+                // var chk = 0; 
+                // $("#list :checkbox").each(function () {   
+                //     if($(this).attr("checked")==true){ 
+                //         chk++; 
+                //     } 
+                // }); 
+                // if(chknum==chk){//全选 
+                //     $("#all").attr("checked",true); 
+                // }else{//不全选 
+                //     $("#all").attr("checked",false); 
+                // } 
             }
         </script>
 
@@ -250,26 +290,25 @@
 
                             <div class="form-group">
                                 <div class="col-md-12 col-md-offset-2">
-                                    <input type="checkbox" id="update_admin_permission_modal_is_all_permissions" value=1>
+                                    <input type="checkbox" id="update_admin_permission_modal_is_all_permissions" value="1" onclick="return allchk();">
                                     全部
                                 </div>
                             </div>
 
                             @foreach(config('project.admin.permissions') as $key => $value)
                                 <div class="form-group">
-                                    <div class="col-md-12 col-md-offset-2">
+                                    <div class="col-md-12 col-md-offset-2 selectTitle">
                                         <input type="checkbox">
                                         {{ $key }}
-                                    </div>
-
-                                    @foreach($value as $k => $v)
-                                        <div class="col-md-12 col-md-offset-2">
-                                            <div class="col-md-11 col-md-offset-1">
-                                                <input type="checkbox">
+                                        @foreach($value as $k => $v)
+                                            <div class="col-md-11 col-md-offset-1 selectList">
+                                                <input type="checkbox" value="{{ $v }}" onclick="return allchk();" class="{{ $v }}">
                                                 {{ $k }}
                                             </div>
-                                        </div>
                                     @endforeach
+                                    </div>
+
+                                    
                                 </div>
                             @endforeach
 
