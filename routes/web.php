@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('index.index');
 });
 
 Route::group(['prefix' => 'web', 'namespace' => 'Web'], function () {
