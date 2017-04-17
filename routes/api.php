@@ -13,6 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+Route::group(['namespace' => 'Api\V1'], function() {
+
+    // auth
+    Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
+
+        // 不需要验证token的api
+        Route::group([], function () {
+            Route::post('login', 'AuthController@postLogin');
+        });
+
+        // 需要验证token的api
+        Route::group(['middleware' => 'auth.api'], function () {
+            Route::post('logout', 'AuthController@postLogout');
+        });
+    });
+});
