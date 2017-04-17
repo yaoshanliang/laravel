@@ -29,7 +29,7 @@
 
     git clone https://github.com/yaoshanliang/laravel.git
 
-    # git clone https://git.coding.net/iat/community.git
+    # git clone https://git.coding.net/iat/laravel.git
      
 2、修改权限
 
