@@ -20,8 +20,9 @@
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
                                 <br />
-
                                 <div class="input-group custom-search-form">
+                                    <a id="refresh" href='javascript:void(0);' class="btn btn-outline btn-default" onclick='return refresh();'>刷新</a>
+
                                     <input type="text" id="search" class="form-control search" placeholder="来源/用户ID/请求方式/请求地址/请求参数/返回码/返回消息/返回数据/用户IP">
                                     <span class="input-group-btn">
                                             <button class="btn btn-default" type="button">
@@ -195,5 +196,13 @@
             <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+
+        <script>
+            function refresh() {
+                table.draw();
+            }
+            $('.btn-outline').mouseleave(function(){$('.btn-outline').css({'background-color': 'transparent'});})
+            $('.btn-outline').mouseenter(function(){$('.btn-outline').css({'background-color': '#e6e6e6'});})
+        </script>
 
 @endsection

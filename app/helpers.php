@@ -70,6 +70,28 @@ function getNowTime()
 }
 
 /**
+ * 获取当前时间戳
+ *
+ * @return string
+ */
+function getNowTimestamp()
+{
+    return time();
+}
+
+/**
+ * 时间戳转换为时间
+ *
+ * @param string    $timestamp    时间戳
+ *
+ * @return string
+ */
+function getTimeByTimestamp($timestamp)
+{
+    return date('Y-m-d H:i:s', $timestamp);
+}
+
+/**
  * 获取毫秒
  *
  * @return float
@@ -189,6 +211,54 @@ function isAdminRole($roleKey)
     }
 
     return false;
+}
+
+/**
+ * 获取当前登录用户
+ *
+ * @return array|false
+ */
+function getWebUser()
+{
+    $user = auth()->guard('web')->user();
+    if (isset($user)) {
+        return $user;
+    }
+
+    return false;
+}
+
+/**
+ * 获取当前web user id
+ *
+ * @return int
+ */
+function getWebUserId()
+{
+    if ($user = getWebUser()) {
+        return $user->id;
+    }
+
+    return 0;
+}
+
+/**
+ * 获取api user
+ *
+ * @param string $token token
+ *
+ * @return int
+ */
+function getApiUserId($token = '')
+{
+    if ($token) {
+        $user = App\Models\Token::where('token', $token)->first();
+        if (! empty($user)) {
+            return $user->user_id;
+        }
+    }
+
+    return 0;
 }
 
 /**

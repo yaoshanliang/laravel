@@ -38,6 +38,8 @@ return [
     // api相关
     'api' => [
 
+        // token有效时长
+        'token_expires_in' => 60 * 60 * 24 * 10,
     ],
 
 ];

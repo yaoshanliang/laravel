@@ -16,8 +16,9 @@ class CreateTokensTable extends Migration
         Schema::create('tokens', function (Blueprint $table) {
             $table->string('token')->primary()->comment('令牌');
             $table->integer('user_id')->comment('用户ID');
-            $table->string('client')->comment('来源');
-            $table->timestamp('created_at')->comment('创建时间');
+            $table->string('client')->nullable()->comment('来源');
+            $table->timestamp('created_at')->nullable()->comment('创建时间');
+            $table->timestamp('updated_at')->nullable()->comment('更新时间');
             $table->timestamp('expired_at')->nullable()->comment('失效时间');
         });
     }
