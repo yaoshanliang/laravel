@@ -28,4 +28,13 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api\V1'], function() {
             Route::post('logout', 'AuthController@postLogout');
         });
     });
+
+    // 用户
+    Route::group(['prefix' => 'user', 'namespace' => 'User'], function () {
+
+        // 需要验证token的api
+        Route::group(['middleware' => 'auth.api'], function () {
+            Route::get('info', 'UserController@getInfo');
+        });
+    });
 });

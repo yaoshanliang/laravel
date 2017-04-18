@@ -262,21 +262,22 @@ function getApiUserId($token = '')
 }
 
 /**
- * 根据guard获取用户id
+ * 获取当前api用户
  *
- * @param $guard
+ * @param string $token token
  *
- * @return int
+ * @return string
  */
-function getUserId($guard)
+function getApiUser($token)
 {
-    $user = auth()->guard($guard)->user();
-    if (isset($user)) {
-        return $user->id;
+    if ($userId = getApiUserId($token)) {
+        $user = App\Models\User::where('id', $userId)->first();
+        return $user;
     }
 
-    return 0;
+    return [];
 }
+
 
 /**
  * 是否具有某种admin权限
