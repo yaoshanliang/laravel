@@ -20,7 +20,7 @@ class ApiAuthMiddleware
             return apiReturn(ERROR, '缺少token');
         }
         if (! getApiUserId($request->token)) {
-            return apiReturn(ERROR, 'token无效');
+            return apiReturn(UNAUTHORIZED, 'token无效');
         }
 
         return $next($request);
