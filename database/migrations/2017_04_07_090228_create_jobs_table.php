@@ -14,13 +14,13 @@ class CreateJobsTable extends Migration
     public function up()
     {
         Schema::create('jobs', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('queue');
-            $table->longText('payload');
-            $table->tinyInteger('attempts')->unsigned();
-            $table->unsignedInteger('reserved_at')->nullable();
-            $table->unsignedInteger('available_at');
-            $table->unsignedInteger('created_at');
+            $table->bigIncrements('id')->comment('自增ID');
+            $table->string('queue')->comment('队列名');
+            $table->longText('payload')->comment('数据');
+            $table->tinyInteger('attempts')->unsigned()->comment('尝试次数');
+            $table->unsignedInteger('reserved_at')->nullable()->comment('保留时间');
+            $table->unsignedInteger('available_at')->comment('可用时间');
+            $table->unsignedInteger('created_at')->comment('创建时间');
             $table->index(['queue', 'reserved_at']);
         });
     }
