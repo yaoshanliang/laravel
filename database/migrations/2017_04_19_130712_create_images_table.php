@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFilesTable extends Migration
+class CreateImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->increments('id')->comment('自增ID');
             $table->integer('user_id')->nullable()->comment('用户ID');
             $table->string('file_name')->comment('文件名');
@@ -22,6 +22,7 @@ class CreateFilesTable extends Migration
             $table->string('mime_type')->comment('minetype');
             $table->integer('size')->comment('文件大小');
             $table->timestamp('created_at')->nullable()->comment('创建时间');
+            $table->timestamp('updated_at')->nullable()->comment('更新时间');
         });
     }
 
@@ -32,6 +33,6 @@ class CreateFilesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('images');
     }
 }

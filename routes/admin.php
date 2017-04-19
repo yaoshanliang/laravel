@@ -76,6 +76,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         });
 
+        // 文件
+        Route::group(['prefix' => 'file', 'namespace' => 'File'], function () {
+
+            // 图片
+            Route::group(['prefix' => 'image'], function () {
+                Route::get('', ['uses' => 'ImageController@getIndex', 'middleware' => 'permission.admin:getImage', 'as' => 'getImage']);
+                Route::get('lists', 'ImageController@getLists')->name('getImageLists');
+                Route::post('', ['uses' => 'ImageController@uploadImage', 'middleware' => 'permission.admin:uploadImage', 'as' => 'uploadImage']);
+            });
+        });
+
         // 系统
         Route::group(['prefix' => 'system', 'namespace' => 'System'], function () {
 

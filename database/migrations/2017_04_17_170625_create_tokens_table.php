@@ -30,6 +30,6 @@ class CreateTokensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cache');
+        Schema::dropIfExists('tokens');
     }
 }

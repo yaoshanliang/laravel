@@ -179,6 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Recca0120\LaravelTracy\LaravelTracyServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -227,6 +228,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'ImageProcessor' => Intervention\Image\Facades\Image::class,
 
     ],
 
