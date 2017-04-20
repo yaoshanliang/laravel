@@ -15,7 +15,6 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->increments('id')->comment('自增ID');
-            $table->integer('user_id')->nullable()->comment('用户ID');
             $table->string('file_name')->comment('文件名');
             $table->string('file_path')->comment('文件路径');
             $table->string('extension')->comment('文件扩展名');

@@ -9,4 +9,9 @@ class Image extends Model
     protected $fillable = [
         'user_id', 'file_name', 'file_path', 'extension', 'mime_type', 'size',
     ];
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
 }

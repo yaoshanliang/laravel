@@ -16,7 +16,7 @@ class ImageController extends Controller
 
     public function getLists(Request $request)
     {
-        $searchFields = array('account', 'name', 'phone', 'email');
+        $searchFields = array('file_name');
         $pre = Image::whereDataTables($request, $searchFields)->orderByDataTables($request);
         $count = $pre->count();
         $data = $pre->skip($request->start)->take($request->length)->get();
