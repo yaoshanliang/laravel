@@ -22,7 +22,8 @@ function showProcessingTip(tip, time){
     $('div.tipsClass').css({
         'z-index': 9999,
         'top': height + 'px',
-        'width': width + 'px',
+        'min-width': width + 'px',
+        'max-width': '900px',
         'height': '30px',
         'left': (windowWidth / 2) - (width / 2) + 'px',
         'position': 'fixed',
@@ -86,7 +87,8 @@ function showTip(tip, time, background, bordercolor) {
     $('div.tipsClass').css({
         'z-index': 9999,
         'top': height + 'px',
-        'width': width + 'px',
+        'min-width': width + 'px',
+        'max-width': '900px',
         'height': '30px',
         'left': (windowWidth / 2) - (width / 2) + 'px',
         'position': 'fixed',
