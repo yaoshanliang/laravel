@@ -123,44 +123,168 @@
                 if( data['is_all_permissions'] == 1){
                     $('#update_admin_permission_modal_is_all_permissions').attr("checked", true);
                     $('.selectTitle').find('input').attr("checked", true);
-                }else{
+
+
+                }
                     var newData = data['permissions'].split(",");
                     console.log(<?php echo json_encode(config('project.admin.permissions')); ?>);
 
                     @foreach(config('project.admin.permissions') as $key => $value)
+
+                        name = '{{$key}}';
                         @foreach($value as $k => $v)
-                            var value = '{{$v}}';
+                            value = '{{$v}}';
                             $.each(newData, function($ke, $va){
                                 var newD = $va.replace(/(\[)|(\])|(\")/g,"");
                                 if(newD == value){
-                                    $('.' + value + '').attr('checked', true);
-                                // var length = $('.selectTitle').children('div').length;
-                                // console.log(length);
+                                    $('.' + value + '').prop('checked', true);
                                 }
+                                administrators = document.getElementsByName('管理员模块'); 
+                                allCount = administrators.length; 
+                                checkedCount = $("input[name=管理员模块]:checkbox:checked").length;
+                                if(allCount == checkedCount){
+                                    $('.管理员模块').prop('checked', true);
+                                }
+
+                                roleModule = document.getElementsByName('角色模块'); 
+                                allCountRole = roleModule.length; 
+                                checkedCountRole = $("input[name=角色模块]:checkbox:checked").length;
+                                if(allCountRole == checkedCountRole){
+                                    $('.角色模块').prop('checked', true);
+                                } 
+
+                               
                             })
                         @endforeach
                     @endforeach
+                }
 
+            function checkAll(){
+                if ( $('#update_admin_permission_modal_is_all_permissions').prop("checked")) {  
+                    $(".form-group").find('input').each(function() {  
+                        $(this).prop("checked", true);  
+                    })
+                } else {  
+                    $(".form-group").find('input').each(function() {  
+                        $(this).prop("checked", false);  
+                    });  
+                }  
+            }
+            
+            // function checkTitle(){
+
+                // console.log($(this).attr('type'));
+                // $('.管理员模块').click(function(){
+            
+                // if ( $('.管理员模块').prop("checked")) {  
+                //     $("input[name=管理员模块]").each(function() {  
+                //         $(this).prop("checked", true);  
+                //     })
+                // } else {  
+                //     $("input[name=管理员模块]").each(function() {  
+                //         $(this).prop("checked", false);  
+                //     });  
+                // } 
+                // })
+
+                // $('.角色模块').click(function(){
+                // if ( $('.角色模块').prop("checked")) {  
+                //     $("input[name=角色模块]").each(function() {  
+                //         $(this).prop("checked", true);  
+                //     })
+                // } else {  
+                //     $("input[name=角色模块]").each(function() {  
+                //         $(this).prop("checked", false);  
+                //     });  
+                // }
+                // })
+                
+                // if($(".管理员模块").prop("checked") && $(".角色模块").prop("checked")){
+                //     $('#update_admin_permission_modal_is_all_permissions').prop("checked",true);
+                // } else {
+                //     $('#update_admin_permission_modal_is_all_permissions').prop("checked",false);
+                // } 
+            // }
+
+            function checkList(){ 
+                var ll =  0; 
+                for(var i = 0; i < allCount; i++){ 
+                    if(administrators[i].checked == true){ 
+                        ll++  
+                    } 
+                } 
+                $(".管理员模块").prop("checked", ll == allCount ? true :false);
+
+                var ls =  0; 
+                for(var j = 0; j < allCountRole; j++){ 
+                    if(roleModule[j].checked == true){ 
+                        ls++ 
+                    } 
+                } 
+                $(".角色模块").prop("checked", ls == allCountRole ? true :false);
+
+                if($(".管理员模块").prop("checked") && $(".角色模块").prop("checked")){
+                    $('#update_admin_permission_modal_is_all_permissions').prop("checked",true);
+                }else{
+                    $('#update_admin_permission_modal_is_all_permissions').prop("checked",false);
                 }
 
             }
+        </script>
 
+        <script type="text/javascript">
+            $(function(){
+                $('.管理员模块').click(function(){
+                if ( $('.管理员模块').prop("checked")) {  
+                    $("input[name=管理员模块]").each(function() {  
+                        $(this).prop("checked", true);  
+                    })
+                } else {  
+                    $("input[name=管理员模块]").each(function() {  
+                        $(this).prop("checked", false);  
+                    });  
+                } 
+                checkTitle()
+                })
 
-            function allchk(data){ 
-                console.log(data);
-                // var chknum = $("#list :checkbox").size();//选项总个数 
-                // var chk = 0; 
-                // $("#list :checkbox").each(function () {   
-                //     if($(this).attr("checked")==true){ 
-                //         chk++; 
-                //     } 
-                // }); 
-                // if(chknum==chk){//全选 
-                //     $("#all").attr("checked",true); 
-                // }else{//不全选 
-                //     $("#all").attr("checked",false); 
-                // } 
-            }
+                $('.角色模块').click(function(){
+                if ( $('.角色模块').prop("checked")) {  
+                    $("input[name=角色模块]").each(function() {  
+                        $(this).prop("checked", true);  
+                    })
+                } else {  
+                    $("input[name=角色模块]").each(function() {  
+                        $(this).prop("checked", false);  
+                    });  
+                }
+                checkTitle()
+                })
+                
+
+                function checkTitle(){
+                if($(".管理员模块").prop("checked") && $(".角色模块").prop("checked")){
+                    $('#update_admin_permission_modal_is_all_permissions').prop("checked",true);
+                } else {
+                    $('#update_admin_permission_modal_is_all_permissions').prop("checked",false);
+                }
+                } 
+               
+            })
+        </script>
+
+        <script>
+            $(function () { $('#update_admin_permission_modal').modal('hide')});
+
+        </script>
+
+        <script>
+
+            $(function () { $('#update_admin_permission_modal').on('hide.bs.modal', function () {
+                    window.location.reload();
+            })
+
+        });
+
         </script>
 
         <!-- Modal -->
@@ -290,7 +414,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-12 col-md-offset-2">
-                                    <input type="checkbox" id="update_admin_permission_modal_is_all_permissions" value="1" onclick="return allchk();">
+                                    <input type="checkbox" id="update_admin_permission_modal_is_all_permissions" value="1" onclick="checkAll()">
                                     全部
                                 </div>
                             </div>
@@ -298,14 +422,16 @@
                             @foreach(config('project.admin.permissions') as $key => $value)
                                 <div class="form-group">
                                     <div class="col-md-12 col-md-offset-2 selectTitle">
-                                        <input type="checkbox">
+                                        <input type="checkbox" class="{{$key}}" >
                                         {{ $key }}
+                                          <div class="col-md-11 col-md-offset-1">
                                         @foreach($value as $k => $v)
-                                            <div class="col-md-11 col-md-offset-1 selectList">
-                                                <input type="checkbox" value="{{ $v }}" onclick="return allchk();" class="{{ $v }}">
-                                                {{ $k }}
-                                            </div>
+                                          
+                                                <input type="checkbox" value="{{ $v }}" name="{{$key}}" onclick="checkList()" class="{{ $v }}">
+                                                {{ $k }}<br>
+                                          
                                     @endforeach
+                                      </div>
                                     </div>
 
                                     
