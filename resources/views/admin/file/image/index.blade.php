@@ -24,7 +24,7 @@
                                 <div class="input-group custom-search-form">
                                     <a href="javascript:void(0);" class="btn btn-primary" onclick="return uploadModal();">上传</a>
 
-                                    <input type="text" id="search" class="form-control search" placeholder="账号/姓名/手机/邮箱">
+                                    <input type="text" id="search" class="form-control search" placeholder="名称">
                                     <span class="input-group-btn">
                                             <button class="btn btn-default" type="button">
                                                 <i class="fa fa-search"></i>
@@ -37,6 +37,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>图片</th>
+                                        <th>名称</th>
                                         <th>大小</th>
                                         <th>上传者</th>
                                         <th>创建时间</th>
@@ -66,6 +67,13 @@
             var ajaxUrl = "{{ route('getImageLists') }}";
             var columns = [
                 {"data": "id"},
+                {
+                    "data": "id",
+                    "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                        html = "<a target='_blank' href=" + site_url + '/' + oData.file_path + "><img style='width:100px; height:100px' src='" + site_url + '/' + oData.file_path + "'/></a>";
+                        $(nTd).html(html);
+                    }
+                },
                 {"data": "file_name"},
                 {"data": "size"},
                 {"data": "user_id"},
@@ -73,16 +81,14 @@
                 {
                     "data": "id",
                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                        html = "<a href='javascript:void(0);' onclick='return editAdminModal(" + JSON.stringify(oData) + ");'>修改</a> ";
-                        html += "<a href='javascript:void(0);' onclick='return alertModal(deleteAdmin,{id:" + sData + "});'>删除</a> ";
+                        html = "<a href='javascript:void(0);' onclick='return alertModal(deleteAdmin,{id:" + sData + "});'>删除</a> ";
                         $(nTd).html(html);
                     }
                 }];
 
             function uploadModal()
             {
-
-
+                $("#image_preview").attr('src', '');
                 $("#upload_modal").modal('show');
             }
         </script>
@@ -98,15 +104,16 @@
                     <div class="modal-body">
                         <div class="form-horizontal">
                             <form id="form-for-upload"  class="form-horizontal form-label-left" enctype="multipart/form-data">
-                                <input class="" type="file" name="image" onchange="return upload();">
+
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <label class="control-label col-md-3">账号<span class="required">*</span></label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" id="create_admin_modal_account">
+                                        <div class="col-md-9 col-md-offset-3">
+                                            <input class="upload-img-hidden" type="file" name="image" onchange="return upload();">
+                                            <img id="image_preview" class="upload-img">
                                         </div>
                                     </div>
                                 </div>
+
                             </form>
                         </div>
                     </div>
@@ -127,13 +134,10 @@
         </div>
         <!-- /.modal -->
 
-
-
         <script>
             // 上传图片
             function upload() {
                 data = new FormData($("#form-for-upload")[0]);
-                console.log(data);
                 $.ajax({
                     url: "{{ route('uploadImage') }}",
                     type: 'POST',
@@ -150,16 +154,16 @@
                     cache: false,
                     contentType: false,
                     processData: false,
-                    async: false,
+                    async: true,
                     beforeSend: function (data) {
                         showProcessingTip();
                     },
                     success: function(data) {
                         console.log(data);
-                        $("#course_image").attr('src', site_url + '/' + data['data']['src']);
-                        $("input[name=picture]").val(data['data']['src']);
+                        $("#image_preview").attr('src', site_url + '/' + data['data']['file_path']);
                         showSuccessTip(data['message']);
-                        console.log(data);
+                        $("#upload_modal").modal('hide');
+                        table.draw();
                     },
                     error: function(data) {
                         console.log(data);

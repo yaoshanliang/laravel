@@ -83,7 +83,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::group(['prefix' => 'image'], function () {
                 Route::get('', ['uses' => 'ImageController@getIndex', 'middleware' => 'permission.admin:getImage', 'as' => 'getImage']);
                 Route::get('lists', 'ImageController@getLists')->name('getImageLists');
-                Route::post('', ['uses' => 'ImageController@uploadImage', 'middleware' => 'permission.admin:uploadImage', 'as' => 'uploadImage']);
+                Route::post('upload', ['uses' => 'ImageController@uploadImage', 'middleware' => 'permission.admin:uploadImage', 'as' => 'uploadImage']);
             });
         });
 

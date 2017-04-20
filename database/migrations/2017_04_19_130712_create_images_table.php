@@ -20,7 +20,7 @@ class CreateImagesTable extends Migration
             $table->string('file_path')->comment('文件路径');
             $table->string('extension')->comment('文件扩展名');
             $table->string('mime_type')->comment('minetype');
-            $table->integer('size')->comment('文件大小');
+            $table->string('size')->comment('文件大小');
             $table->timestamp('created_at')->nullable()->comment('创建时间');
             $table->timestamp('updated_at')->nullable()->comment('更新时间');
         });

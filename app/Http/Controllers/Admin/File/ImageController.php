@@ -27,27 +27,39 @@ class ImageController extends Controller
         return response()->json(compact('draw', 'recordsFiltered', 'recordsTotal', 'data'));
     }
 
+    // 上传图片
     public function uploadImage(Request $request)
     {
         $this->validate($request, [
-            'image' => 'required'
+            'image' => 'required|image'
 
         ]);
 
-        $img = ImageProcessor::make($_FILES['image']['tmp_name']);
+        $file = $request->file('image');
+        $directory = 'storage/images/';
+        $extension = $file->getClientOriginalExtension();
+        $fileOriginalName = $file->getClientOriginalName();
+        $fileName = md5($fileOriginalName.time()).'.'.$extension;
+        $mimeType = $file->getMimeType();
+        $size = round(($file->getClientSize() / 1024), 2).'k';
+        $upload = $file->move($directory, $fileName);
+        $filePath = $directory.$fileName;
 
-        $img->save('foo/bar.jpg');
-
-        /*$data = [
-
+        $data = [
+            'user_id' => getAdminUserId(),
+            'file_name' => $fileOriginalName,
+            'file_path' => $filePath,
+            'extension' => $extension,
+            'mime_type' => $mimeType,
+            'size' => $size
         ];
 
-        Image::create($data);*/
+        Image::create($data);
 
-        return adminApiReturn(SUCCESS, '上传成功', $img);
+        return adminApiReturn(SUCCESS, '上传成功', $data);
     }
 
-
+    // 删除
     public function delete(Request $request)
     {
         Image::where('id', $request->id)->delete();

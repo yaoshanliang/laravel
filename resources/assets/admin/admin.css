@@ -156,3 +156,6 @@ div.dataTables_processing {
     top: 60px !important;
     margin-top: 0 !important;
 }
+.padding {
+    padding-top: 8px;
+}
