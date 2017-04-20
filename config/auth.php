@@ -46,7 +46,7 @@ return [
         ],
         'api' => [
             'driver' => 'token',
-            'provider' => 'users',
+            'provider' => 'api',
         ],
     ],
 
@@ -77,10 +77,12 @@ return [
             'model' => App\Models\AdminAuth::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'api' => [
+            // 'driver' => 'database',
+            // 'table' => 'users',
+            'driver' => 'eloquent',
+            'model' => App\Models\Token::class,
+        ],
     ],
 
     /*

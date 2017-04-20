@@ -70,6 +70,28 @@ function getNowTime()
 }
 
 /**
+ * 获取当前时间戳
+ *
+ * @return string
+ */
+function getNowTimestamp()
+{
+    return time();
+}
+
+/**
+ * 时间戳转换为时间
+ *
+ * @param string    $timestamp    时间戳
+ *
+ * @return string
+ */
+function getTimeByTimestamp($timestamp)
+{
+    return date('Y-m-d H:i:s', $timestamp);
+}
+
+/**
  * 获取毫秒
  *
  * @return float
@@ -192,21 +214,70 @@ function isAdminRole($roleKey)
 }
 
 /**
- * 根据guard获取用户id
+ * 获取当前登录用户
  *
- * @param $guard
+ * @return array|false
+ */
+function getWebUser()
+{
+    $user = auth()->guard('web')->user();
+    if (isset($user)) {
+        return $user;
+    }
+
+    return false;
+}
+
+/**
+ * 获取当前web user id
  *
  * @return int
  */
-function getUserId($guard)
+function getWebUserId()
 {
-    $user = auth()->guard($guard)->user();
-    if (isset($user)) {
+    if ($user = getWebUser()) {
         return $user->id;
     }
 
     return 0;
 }
+
+/**
+ * 获取api user
+ *
+ * @param string $token token
+ *
+ * @return int
+ */
+function getApiUserId($token = '')
+{
+    if ($token) {
+        $user = App\Models\Token::where('token', $token)->first();
+        if (! empty($user)) {
+            return $user->user_id;
+        }
+    }
+
+    return 0;
+}
+
+/**
+ * 获取当前api用户
+ *
+ * @param string $token token
+ *
+ * @return string
+ */
+function getApiUser($token)
+{
+    if ($userId = getApiUserId($token)) {
+        $user = App\Models\User::where('id', $userId)->first();
+        return $user;
+    }
+
+    return [];
+}
+
 
 /**
  * 是否具有某种admin权限

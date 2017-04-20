@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['namespace' => 'Api\V1'], function() {
+Route::group(['prefix' => 'api', 'namespace' => 'Api\V1'], function() {
 
     // auth
     Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
@@ -26,6 +26,15 @@ Route::group(['namespace' => 'Api\V1'], function() {
         // 需要验证token的api
         Route::group(['middleware' => 'auth.api'], function () {
             Route::post('logout', 'AuthController@postLogout');
+        });
+    });
+
+    // 用户
+    Route::group(['prefix' => 'user', 'namespace' => 'User'], function () {
+
+        // 需要验证token的api
+        Route::group(['middleware' => 'auth.api'], function () {
+            Route::get('info', 'UserController@getInfo');
         });
     });
 });
