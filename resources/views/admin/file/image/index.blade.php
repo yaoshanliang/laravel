@@ -39,6 +39,8 @@
                                         <th>图片</th>
                                         <th>名称</th>
                                         <th>大小</th>
+                                        <th>宽</th>
+                                        <th>高</th>
                                         <th>创建时间</th>
                                         <th>操作</th>
                                     </tr>
@@ -75,6 +77,8 @@
                 },
                 {"data": "file_name"},
                 {"data": "size"},
+                {"data": "width"},
+                {"data": "height"},
                 {"data": "created_at"},
                 {
                     "data": "id",
