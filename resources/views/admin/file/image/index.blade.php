@@ -106,27 +106,14 @@
                     <div class="modal-body">
                         <div class="form-horizontal">
                             <form id="form-for-upload"  class="form-horizontal form-label-left" enctype="multipart/form-data">
-
-                                <div class="form-group">
                                     <div class="col-md-12">
-                                        <div class="col-md-9 col-md-offset-3">
+                                        <div class="col-md-9 col-md-offset-1">
                                             <input class="upload-img-hidden" type="file" name="image" onchange="return upload();">
                                             <img id="image_preview" class="upload-img">
                                         </div>
                                     </div>
-                                </div>
 
                             </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="form-group">
-                            <div class="col-md-5 col-md-offset-1">
-                                <button type="button" class="btn btn-primary btn-block" onclick="return createImage();">确认</button>
-                            </div>
-                            <div class="col-md-5 col-md-offset-">
-                                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">取消</button>
-                            </div>
                         </div>
                     </div>
                 </div>

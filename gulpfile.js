@@ -63,8 +63,8 @@ mix.copy('./resources/assets/admin/images/', 'public/admin-assets/images');
 // jsonview
 mix.copy('./resources/assets/vendor/jsonview/', 'public/admin-assets/vendor/jsonview/');
 
-// simditor
-// mix.copy('./resources/assets/vendor/simditor', 'public/admin-assets/vendor/simditor');
+// ueditor
+mix.copy('./resources/assets/vendor/ueditor/', 'public/admin-assets/vendor/ueditor/');
 
 mix.scripts([
     './resources/assets/vendor/gentelella/custom.min.js',

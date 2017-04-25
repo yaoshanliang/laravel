@@ -105,5 +105,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
                 });
             });
         });
+
+        // 组件示例(供参考,可删除)
+        Route::group(['prefix' => 'example', 'namespace' => 'Example'], function () {
+            Route::get('', 'ExampleController@getIndex');
+        });
     });
 });

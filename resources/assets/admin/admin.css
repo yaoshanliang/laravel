@@ -137,8 +137,8 @@ a {
 {
     opacity:0;
     filter:alpha(opacity=0);
-    height: 84px;
-    width: 191px;
+    height: 200px;
+    width: 300px;
     position: absolute;
     top: 0;
     left: 0;
@@ -146,8 +146,8 @@ a {
 }
 .upload-img
 {
-    height: 84px;
-    width: 191px;
+    height: 200px;
+    width: 300px;
 }
 .login_content {
     text-shadow: 0 0 0 #fff !important;
