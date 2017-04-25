@@ -16,7 +16,7 @@ class ImageController extends Controller
 
     public function getLists(Request $request)
     {
-        $searchFields = array('account', 'name', 'phone', 'email');
+        $searchFields = array('file_name');
         $pre = Image::whereDataTables($request, $searchFields)->orderByDataTables($request);
         $count = $pre->count();
         $data = $pre->skip($request->start)->take($request->length)->get();
@@ -45,13 +45,19 @@ class ImageController extends Controller
         $upload = $file->move($directory, $fileName);
         $filePath = $directory.$fileName;
 
+        $imageProcessor = ImageProcessor::make(public_path($filePath));
+        $height = $imageProcessor->height();
+        $width = $imageProcessor->width();
+
         $data = [
             'user_id' => getAdminUserId(),
             'file_name' => $fileOriginalName,
             'file_path' => $filePath,
             'extension' => $extension,
             'mime_type' => $mimeType,
-            'size' => $size
+            'size' => $size,
+            'height' => $height,
+            'width' => $width
         ];
 
         Image::create($data);
