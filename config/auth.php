@@ -43,6 +43,7 @@ return [
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
+            'life_time' => 60 * 60 * 2
         ],
         'api' => [
             'driver' => 'token',
