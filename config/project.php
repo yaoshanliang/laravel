@@ -16,7 +16,7 @@ return [
         ],
 
         // 是否开启权限(true: 开启; false: 不开启,拥有全部权限)
-        'permission_open' => 'true',
+        'permission_open' => 'false',
 
         // 权限列表
         'permissions' => [

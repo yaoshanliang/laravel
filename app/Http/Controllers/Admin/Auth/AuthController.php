@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Mail;
 use App\Models\AdminRole;
+use Gregwar\Captcha\CaptchaBuilder;
 
 class AuthController extends Controller
 {
@@ -16,13 +17,27 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest:admin', ['only' => 'getLogin']);
+        $this->middleware('guest:admin', ['except' => 'getLogout']);
     }
 
     // 登录
     public function getLogin()
     {
-        return view('admin.auth.login');
+        $builder = new CaptchaBuilder;
+        $builder->build();
+        session(['captcha' => $builder->getPhrase()]);
+
+        return view('admin.auth.login')->with(['builder' => $builder]);
+    }
+
+    // 验证码
+    public function getCaptcha()
+    {
+        $builder = new CaptchaBuilder;
+        $builder->build();
+        session(['captcha' => $builder->getPhrase()]);
+
+        return response()->json($builder->inline());
     }
 
     public function postLogin(Request $request)
@@ -30,7 +45,12 @@ class AuthController extends Controller
         $this->validate($request, [
             'account' => 'required',
             'password' => 'required',
+            'captcha' => 'required'
         ]);
+
+        if (session('captcha') != $request->captcha) {
+            return back()->withInput()->withErrors('验证码错误,请重新输入');
+        }
 
         $admin = Admin::where('account', $request->account)->first();
 

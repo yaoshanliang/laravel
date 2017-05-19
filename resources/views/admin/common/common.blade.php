@@ -24,8 +24,8 @@
 
     <!-- Scripts -->
     <script>
-        site_url = '<?php echo url(''); ?>';
-        site_name = '{{ config('project.name') }}';
+        siteUrl = '<?php echo url(''); ?>';
+        siteName = '{{ config('project.name') }}';
     </script>
 </head>
 

@@ -9,12 +9,12 @@
  *
  * @return array
  */
-function apiFormat($code, $message, $data = [])
+function apiFormat($code, $message, $data)
 {
     $res['code'] = $code;
     $res['message'] = $message;
-    if (empty($data) && is_array($data)) {
-        $data = (object)$data;
+    if ($data == '') {
+        $data = (object)[];
     }
     $res['data'] = $data;
 
@@ -26,11 +26,11 @@ function apiFormat($code, $message, $data = [])
  *
  * @param int    $code    返回码
  * @param string $message 返回说明
- * @param object|array $data    返回数据
+ * @param string $data    返回数据
  *
  * @return \Illuminate\Http\JsonResponse
  */
-function adminApiReturn($code, $message, $data = [])
+function adminApiReturn($code, $message, $data = '')
 {
     $guard = 'admin';
     if (config('project.admin.system.log')) {

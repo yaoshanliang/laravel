@@ -1,7 +1,10 @@
-
+.login_wrapper {
+    max-width: 650px;
+}
 .captcha {
-    width: 133.5px;
+    width: 124px;
     height: 34px;
+    border-radius: 4px
 }
 .alert-danger, .alert-error {
     color: #a94442;

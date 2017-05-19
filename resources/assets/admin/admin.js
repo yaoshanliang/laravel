@@ -120,7 +120,7 @@ function datatable_base() {
         "iDisplayLength": datatable_default_length,
         "lengthMenu": [[datatable_default_length, 20, 100], [datatable_default_length, 20, 100]],
         "language": {
-            "processing" : "<img src=" + site_url + "/admin-assets/images/loading.gif>",
+            "processing" : "<img src=" + siteUrl + "/admin-assets/images/loading.gif>",
             "lengthMenu": "每页 _MENU_ 条 ",
             "zeroRecords": "没有找到记录",
             "info": "，共 _PAGES_ 页，共 _TOTAL_ 条",

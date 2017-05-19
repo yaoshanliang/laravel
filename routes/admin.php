@@ -8,6 +8,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('login', 'AuthController@getLogin');
         Route::post('login', 'AuthController@postLogin');
         Route::get('logout', 'AuthController@getLogout');
+        Route::get('captcha', 'AuthController@getCaptcha');
         Route::get('password/email', 'AuthController@getPasswordEmail');
         Route::post('password/email', 'AuthController@postPasswordEmail');
         Route::get('password/reset', 'AuthController@getPasswordReset');
