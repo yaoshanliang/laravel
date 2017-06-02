@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset(elixir('admin-assets/css/admin.css')) }}">
 
     <script>
-        site_url = '<?php echo url(''); ?>';
+        siteUrl = '<?php echo url(''); ?>';
     </script>
 </head>
 

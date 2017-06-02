@@ -24,7 +24,7 @@
 
     <!-- Scripts -->
     <script>
-        site_url = '<?php echo url(''); ?>';
+        siteUrl = '<?php echo url(''); ?>';
     </script>
 </head>
 

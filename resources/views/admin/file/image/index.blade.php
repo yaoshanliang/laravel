@@ -71,7 +71,7 @@
                 {
                     "data": "id",
                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                        html = "<a target='_blank' href=" + site_url + '/' + oData.file_path + "><img style='width:100px; height:100px' src='" + site_url + '/' + oData.file_path + "'/></a>";
+                        html = "<a target='_blank' href=" + siteUrl + '/' + oData.file_path + "><img style='width:100px; height:100px' src='" + siteUrl + '/' + oData.file_path + "'/></a>";
                         $(nTd).html(html);
                     }
                 },
@@ -149,7 +149,7 @@
                     },
                     success: function(data) {
                         console.log(data);
-                        $("#image_preview").attr('src', site_url + '/' + data['data']['file_path']);
+                        $("#image_preview").attr('src', siteUrl + '/' + data['data']['file_path']);
                         showSuccessTip(data['message']);
                         $("#upload_modal").modal('hide');
                         table.draw();

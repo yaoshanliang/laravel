@@ -65,7 +65,7 @@
             var columnDefsTargets = [];
             var invisibleColumns = [];
             var order = [0, 'desc'];
-            var ajaxUrl = site_url + '/admin/user/lists';
+            var ajaxUrl = siteUrl + '/admin/user/lists';
             var columns = [
                 {"data": "id"},
                 {"data": "account"},
