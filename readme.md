@@ -39,20 +39,15 @@
 3、安装依赖
 
     composer install
-    npm install
     
-4、构建js
-
-    gulp
-    
-5、数据迁移
+4、数据迁移
     
     cp .env.example .env
     php artisan key:generate
     php artisan migrate
     php artisan db:seed
    
-6、nginx配置
+5、nginx配置
     
     server {
         listen 80;
@@ -74,7 +69,7 @@
         }
     }
     
-7、访问
+6、访问
 
 * 首页 http://laravel.dev
     
