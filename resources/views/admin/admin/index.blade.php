@@ -66,7 +66,7 @@
         var columnDefsTargets = [];
         var invisibleColumns = [];
         var order = [0, 'desc'];
-        var ajaxUrl = "{{ route('getAdminAccountLists') }}";
+        var ajaxUrl = siteUrl + '/admin/admin/lists';
         var columns = [
             {"data": "id"},
             {"data": "account"},
@@ -105,7 +105,7 @@
             $('#edit_admin_modal_name').val(data.name);
             $('#edit_admin_modal_phone').val(data.phone);
             $('#edit_admin_modal_email').val(data.email);
-            $('#edit_admin_modal_role').val(data.role_key);
+            $('#edit_admin_modal_role').val(data.role_id);
 
             $("#edit_admin_modal").modal('show');
         }
@@ -162,9 +162,8 @@
                                 <label class="control-label col-md-3">角色</label>
                                 <div class="col-md-9">
                                     <select class="form-control" id="create_admin_modal_role">
-                                        <option value=''>--无--</option>
-                                        @foreach($roles as $v)
-                                            <option value={{ $v->key }}>{{ $v->name }}</option>
+                                        @foreach($roles as $k => $v)
+                                            <option value={{ $k }}>{{ $v }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -261,9 +260,8 @@
                                 <label class="control-label col-md-3">角色</label>
                                 <div class="col-md-9">
                                     <select class="form-control" id="edit_admin_modal_role">
-                                        <option value=''>--无--</option>
-                                        @foreach($roles as $v)
-                                            <option value={{ $v->key }}>{{ $v->name }}</option>
+                                        @foreach($roles as $k => $v)
+                                            <option value={{ $k }}>{{ $v }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -291,33 +289,27 @@
 
     <script>
         function createAdmin() {
-            var roleKey = $('#create_admin_modal_role').find("option:selected").val();
+            var roleId = $('#create_admin_modal_role').find("option:selected").val();
             var roleName = $('#create_admin_modal_role').find("option:selected").text();
-            if (roleKey == '') {
-                roleName = '';
-            }
 
             var data = {
                 'account': $('#create_admin_modal_account').val(),
                 'name': $('#create_admin_modal_name').val(),
                 'phone': $('#create_admin_modal_phone').val(),
                 'email': $('#create_admin_modal_email').val(),
-                'role_key': roleKey,
+                'role_key': roleId,
                 'role_name': roleName,
                 'password': $('#create_admin_modal_password').val(),
                 'password_confirmation': $('#create_admin_modal_password_confirmation').val()
             };
-            ajax("{{ route('createAdminAccount') }}", 'POST', data, successCallback = function () {
+            ajax(siteUrl + '/admin/admin', 'POST', data, successCallback = function () {
                 $("#create_admin_modal").modal('hide');
             });
         }
 
         function editAdmin() {
-            var roleKey = $('#edit_admin_modal_role').find("option:selected").val();
+            var roleId = $('#edit_admin_modal_role').find("option:selected").val();
             var roleName = $('#edit_admin_modal_role').find("option:selected").text();
-            if (roleKey == 0) {
-                roleName = '';
-            }
 
             var data = {
                 'id': $('#edit_admin_modal_id').val(),
@@ -325,16 +317,16 @@
                 'name': $('#edit_admin_modal_name').val(),
                 'phone': $('#edit_admin_modal_phone').val(),
                 'email': $('#edit_admin_modal_email').val(),
-                'role_key': roleKey,
+                'role_id': roleId,
                 'role_name': roleName
             };
-            ajax("{{ route('updateAdminAccount') }}", 'PUT', data, successCallback = function () {
+            ajax(siteUrl + '/admin/admin', 'PUT', data, successCallback = function () {
                 $("#edit_admin_modal").modal('hide');
             });
         }
 
         function deleteAdmin(data) {
-            ajax("{{ route('deleteAdminAccount') }}", 'DELETE', data);
+            ajax(siteUrl + '/admin/admin', 'DELETE', data);
         }
     </script>
 @endsection

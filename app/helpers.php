@@ -27,13 +27,34 @@ function apiFormat($code, $message, $data)
  * @param int    $code    返回码
  * @param string $message 返回说明
  * @param string $data    返回数据
+ * @param boolean $log    是否记录日志
  *
  * @return \Illuminate\Http\JsonResponse
  */
-function adminApiReturn($code, $message, $data = '')
+function adminApiReturn($code, $message, $data = '', $log = true)
 {
     $guard = 'admin';
-    if (config('project.admin.system.log')) {
+    if (config('project.admin.log') && $log) {
+        dispatch(new \App\Jobs\Log(compact('code', 'message', 'data', 'guard')));
+    }
+
+    return response()->json(apiFormat($code, $message, $data), 200);
+}
+
+/**
+ * web里的api统一返回
+ *
+ * @param int    $code    返回码
+ * @param string $message 返回说明
+ * @param string $data    返回数据
+ * @param boolean $log    是否记录日志
+ *
+ * @return \Illuminate\Http\JsonResponse
+ */
+function webApiReturn($code, $message, $data = '', $log = true)
+{
+    $guard = 'web';
+    if (config('project.web.log') && $log) {
         dispatch(new \App\Jobs\Log(compact('code', 'message', 'data', 'guard')));
     }
 
@@ -45,14 +66,15 @@ function adminApiReturn($code, $message, $data = '')
  *
  * @param int    $code    返回码
  * @param string $message 返回说明
- * @param object|array $data    返回数据
+ * @param string $data    返回数据
+ * @param boolean $log    是否记录日志
  *
  * @return \Illuminate\Http\JsonResponse
  */
-function apiReturn($code, $message, $data = [])
+function apiReturn($code, $message, $data = '', $log = true)
 {
     $guard = 'api';
-    if (config('project.admin.system.log')) {
+    if (config('project.api.log') && $log) {
         dispatch(new \App\Jobs\Log(compact('code', 'message', 'data', 'guard')));
     }
 
@@ -155,18 +177,19 @@ function generateToken()
 }
 
 /**
- * 获取当前登录管理员
+ * 获取当前登录管理员信息
+ * @param string $info 信息
  *
- * @return array|false
+ * @return string
  */
-function getAdminUser()
+function getAdminUserInfo($info)
 {
     $user = auth()->guard('admin')->user();
     if (isset($user)) {
-        return $user;
+        return $user->$info;
     }
 
-    return false;
+    return '';
 }
 
 /**
@@ -176,56 +199,12 @@ function getAdminUser()
  */
 function getAdminUserId()
 {
-    if ($user = getAdminUser()) {
+    $user = auth()->guard('admin')->user();
+    if (isset($user)) {
         return $user->id;
     }
 
     return 0;
-}
-
-/**
- * 获取当前登录管理员角色key
- *
- * @return int
- */
-function getAdminUserRoleKey()
-{
-    if ($user = getAdminUser()) {
-        return $user->role_key;
-    }
-
-    return '';
-}
-
-/**
- * 判断是否为某种管理员角色
- *
- * @return int
- */
-function isAdminRole($roleKey)
-{
-    if ($user = getAdminUser()) {
-        if ($user->role_key == $roleKey) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-/**
- * 获取当前登录用户
- *
- * @return array|false
- */
-function getWebUser()
-{
-    $user = auth()->guard('web')->user();
-    if (isset($user)) {
-        return $user;
-    }
-
-    return false;
 }
 
 /**
@@ -235,7 +214,8 @@ function getWebUser()
  */
 function getWebUserId()
 {
-    if ($user = getWebUser()) {
+    $user = auth()->guard('web')->user();
+    if (isset($user)) {
         return $user->id;
     }
 
@@ -243,7 +223,23 @@ function getWebUserId()
 }
 
 /**
- * 获取api user
+ * 获取当前登录用户信息
+ * @param string $info 信息
+ *
+ * @return string
+ */
+function getWebUserInfo($info)
+{
+    $user = auth()->guard('web')->user();
+    if (isset($user)) {
+        return $user->$info;
+    }
+
+    return '';
+}
+
+/**
+ * 获取api user ID
  *
  * @param string $token token
  *
@@ -278,21 +274,8 @@ function getApiUser($token)
     return [];
 }
 
-
-/**
- * 是否具有某种admin权限
- *
- * @param $permission
- *
- * @return true|false
- */
-function hasAdminPermission($permission)
+// 保留小数
+function decimalFormat($number, $length = 1)
 {
-    if (session('is_all_permissions')) {
-        return true;
-    } elseif(is_array(session('permissions')) && in_array($permission, session('permissions'))) {
-        return true;
-    } else {
-        return false;
-    }
+    return sprintf("%." . $length . "f", $number);
 }

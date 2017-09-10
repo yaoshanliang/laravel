@@ -70,7 +70,7 @@
             var columnDefsTargets = [];
             var invisibleColumns = [];
             var order = [0, 'desc'];
-            var ajaxUrl = "{{ route('getUserLogLists') }}";
+            var ajaxUrl = siteUrl + '/admin/system/log/user/lists';
             var columns = [
                 {"data": "id"},
                 {"data": "guard"},

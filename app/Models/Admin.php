@@ -7,7 +7,7 @@ use App\Models\Model;
 class Admin extends Model
 {
     protected $fillable = [
-        'account', 'name', 'email', 'phone', 'role_key', 'role_name', 'password', 'status'
+        'account', 'name', 'email', 'phone', 'role_id', 'role_name', 'password', 'status'
     ];
 
     protected $hidden = [

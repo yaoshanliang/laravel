@@ -12,7 +12,7 @@
 
 
     <link rel="stylesheet" href="{{ asset('admin-assets/css/lib.css') }}">
-    <link rel="stylesheet" href="{{ asset(elixir('admin-assets/css/admin.css')) }}">
+    <link rel="stylesheet" href="{{ asset('admin-assets/css/admin.css') }}">
 
     <script src="{{ asset('admin-assets/js/lib.js') }}"></script>
 

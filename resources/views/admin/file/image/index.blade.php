@@ -65,7 +65,7 @@
             var columnDefsTargets = [];
             var invisibleColumns = [];
             var order = [0, 'desc'];
-            var ajaxUrl = "{{ route('getImageLists') }}";
+            var ajaxUrl = siteUrl + '/admin/file/image/lists';
             var columns = [
                 {"data": "id"},
                 {
@@ -83,7 +83,7 @@
                 {
                     "data": "id",
                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                        html = "<a href='javascript:void(0);' onclick='return alertModal(deleteAdmin,{id:" + sData + "});'>删除</a> ";
+                        html = "<a href='javascript:void(0);' onclick='return alertModal(deleteImage,{id:" + sData + "});'>删除</a> ";
                         $(nTd).html(html);
                     }
                 }];
@@ -105,15 +105,11 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-horizontal">
-                            <form id="form-for-upload"  class="form-horizontal form-label-left" enctype="multipart/form-data">
-                                    <div class="col-md-12">
-                                        <div class="col-md-9 col-md-offset-1">
-                                            <input class="upload-img-hidden" type="file" name="image" onchange="return upload();">
-                                            <img id="image_preview" class="upload-img">
-                                        </div>
-                                    </div>
-
-                            </form>
+                                <form id="form-for-upload"  class="form-horizontal form-label-left" enctype="multipart/form-data">
+                                    <input class="upload-img-hidden" type="file" name="image" onchange="return upload();">
+                                    <div class="upload-img">点击上传</div>
+                                    {{--<img id="image_preview" class="upload-img">--}}
+                                </form>
                         </div>
                     </div>
                 </div>
@@ -128,7 +124,7 @@
             function upload() {
                 data = new FormData($("#form-for-upload")[0]);
                 $.ajax({
-                    url: "{{ route('uploadImage') }}",
+                    url: siteUrl + '/admin/file/image/upload',
                     type: 'POST',
                     xhr: function() {
                         myXhr = $.ajaxSettings.xhr();
@@ -158,6 +154,10 @@
                         console.log(data);
                     }
                 });
+            }
+
+            function deleteImage(data) {
+                ajax('/admin/file/image', 'DELETE', data);
             }
         </script>
 @endsection

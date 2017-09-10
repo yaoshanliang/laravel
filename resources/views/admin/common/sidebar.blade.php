@@ -12,17 +12,7 @@
                 <ul class="nav side-menu">
                     <li><a href="{{ url('admin/index') }}"><i class="fa fa-home"></i>系统首页</a></li>
                     <li><a href="{{ url('admin/user') }}"><i class="fa fa-user"></i>前台用户</a></li>
-                    <li>
-                        <a><i class="fa fa-user-plus"></i>后台账户<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            @if (hasAdminPermission('getAdminAccount'))
-                                <li><a href="{{ url('admin/admin/account') }}">账户</a></li>
-                            @endif
-                            @if (hasAdminPermission('getAdminRole'))
-                                <li><a href="{{ url('admin/admin/role') }}">角色</a></li>
-                            @endif
-                        </ul>
-                    </li>
+                    <li><a href="{{ url('admin/admin') }}"><i class="fa fa-user-plus"></i>后台账户</a></li>
 
                     <li>
                         <a><i class="fa fa-file"></i>文件管理<span class="fa fa-chevron-down"></span></a>

@@ -4,21 +4,21 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class AdminPermissionMiddleware
+class AdminRoleMiddleware
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string  $permission
+     * @param  string  $roleId
      * @return mixed
      */
-    public function handle($request, Closure $next, $permission)
+    public function handle($request, Closure $next, $roleId)
     {
-        if (! hasAdminPermission($permission)) {
+        if ($roleId != getAdminUserInfo('role_id')) {
             if ($request->ajax() || $request->wantsJson()) {
-                return adminApiReturn(ERROR, 'forbidden', ['permission' => $permission]);
+                return adminApiReturn(ERROR, 'forbidden');
             } else {
                 return redirect(url('admin/error/403'));
             }

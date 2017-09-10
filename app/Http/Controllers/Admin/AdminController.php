@@ -1,26 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Admin\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Controller;
+use App\Models\AdminRole;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Admin;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
     public function getIndex(Request $request)
     {
-        return view('admin.user.index');
+        $roles = config('project.admin.roles');
+
+        return view('admin.admin.index')->with(compact('roles'));
     }
 
     public function getLists(Request $request)
     {
         $searchFields = array('account', 'name', 'phone', 'email');
-        $pre = User::whereDataTables($request, $searchFields)->orderByDataTables($request);
+        $pre = Admin::whereDataTables($request, $searchFields)->orderByDataTables($request);
         $count = $pre->count();
         $data = $pre->skip($request->start)->take($request->length)->get();
         $draw = (int)$request->draw;
-        $recordsTotal = User::count();
+        $recordsTotal = Admin::count();
         $recordsFiltered = min($count, $recordsTotal);
 
         return response()->json(compact('draw', 'recordsFiltered', 'recordsTotal', 'data'));
@@ -29,10 +32,11 @@ class UserController extends Controller
     public function post(Request $request)
     {
         $this->validate($request, [
-            'account' => 'required|unique:users',
-            'phone' => 'nullable|size:11|unique:users',
-            'email' => 'nullable|email|unique:users',
+            'account' => 'required|unique:admins',
+            'phone' => 'nullable|size:11|unique:admins',
+            'email' => 'nullable|email|unique:admins',
             'password' => 'required|confirmed|min:6',
+
         ]);
 
         $data = [
@@ -40,11 +44,13 @@ class UserController extends Controller
             'name' => $request->name,
             'phone' => $request->phone,
             'email' => $request->email,
+            'role_id' => $request->role_id,
+            'role_name' => $request->role_name,
             'password' => bcrypt($request->password),
             'status' => 0
         ];
 
-        User::create($data);
+        Admin::create($data);
 
         return adminApiReturn(SUCCESS, '创建成功');
     }
@@ -52,19 +58,21 @@ class UserController extends Controller
     public function put(Request $request)
     {
         $this->validate($request, [
-            'account' => 'required|unique:users,account,'.$request->id,
-            'phone' => 'nullable|size:11|unique:users,account,'.$request->id,
-            'email' => 'nullable|email|unique:users,account,'.$request->id,
+            'account' => 'required|unique:admins,account,'.$request->id,
+            'phone' => 'nullable|size:11|unique:admins,account,'.$request->id,
+            'email' => 'nullable|email|unique:admins,account,'.$request->id,
         ]);
 
         $data = [
             'account' => $request->account,
             'name' => $request->name,
             'phone' => $request->phone,
-            'email' => $request->email
+            'email' => $request->email,
+            'role_id' => $request->role_id,
+            'role_name' => $request->role_name
         ];
 
-        User::where('id', $request->id)->update($data);
+        Admin::where('id', $request->id)->update($data);
 
         return adminApiReturn(SUCCESS, '修改成功');
     }
@@ -74,7 +82,7 @@ class UserController extends Controller
         if ($request->id == getAdminUserId()) {
             return adminApiReturn(ERROR, '不允许删除自己');
         } else {
-            User::where('id', $request->id)->delete();
+            Admin::where('id', $request->id)->delete();
 
             return adminApiReturn(SUCCESS, '删除成功');
         }

@@ -19,6 +19,8 @@ class CreateAdminsTable extends Migration
             $table->string('name')->nullable()->comment('真实姓名');
             $table->string('email')->nullable()->index()->comment('邮箱');
             $table->string('phone')->nullable()->index()->comment('手机号');
+            $table->integer('role_id')->nullable()->comment('角色ID');
+            $table->string('role_name')->nullable()->comment('角色');
             $table->string('password')->comment('密码');
             $table->rememberToken()->comment('记住密码');
             $table->integer('status')->default(0)->comment('管理员状态(0:正常,1:不可登录)');

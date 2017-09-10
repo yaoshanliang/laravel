@@ -140,17 +140,21 @@ a {
 {
     opacity:0;
     filter:alpha(opacity=0);
-    height: 200px;
-    width: 300px;
+    height: 300px;
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 9;
+    cursor: pointer;
 }
 .upload-img
 {
-    height: 200px;
-    width: 300px;
+    border: 1px solid #ccc;
+    text-align: center;
+    padding-top: 120px;
+    height: 300px;
+    width: 100%;
 }
 .login_content {
     text-shadow: 0 0 0 #fff !important;
