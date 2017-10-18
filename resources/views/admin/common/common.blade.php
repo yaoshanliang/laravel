@@ -40,5 +40,5 @@
         </div>
     </div>
 </body>
-<script src="{{ asset(elixir('admin-assets/js/admin.js')) }}"></script>
+<script src="{{ asset('admin-assets/js/admin.js') }}"></script>
 </html>

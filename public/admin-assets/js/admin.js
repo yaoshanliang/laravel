@@ -21,9 +21,9 @@ ERROR = 1;
  */
 function showProcessingTip(tip, time){
     var tip = arguments[0] || '请求中...';
-     var time = arguments[1] || 3;
-     var background = '#337ab7';
-     var bordercolor = '#2e6da4';
+    var time = arguments[1] || 30;
+    var background = '#337ab7';
+    var bordercolor = '#2e6da4';
 
     var windowWidth = document.documentElement.clientWidth;
     var height = 10;
@@ -60,7 +60,7 @@ function showProcessingTip(tip, time){
  */
 function showSuccessTip(tip, time){
     var tip = arguments[0] || '操作成功';
-    var time = arguments[1] || 3;
+    var time = arguments[1] || 30;
     var background = '#5cb85c';
     var bordercolor = '#4cae4c';
 
@@ -284,7 +284,4 @@ function ajax(url, method, data, successCallback) {
             showFailTip(data.responseJSON.message);
         }
     });
-
 }
-
-//# sourceMappingURL=admin.js.map

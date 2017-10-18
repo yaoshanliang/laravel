@@ -12,7 +12,7 @@
 
 
     <link rel="stylesheet" href="{{ asset('web-assets/css/lib.css') }}">
-    <link rel="stylesheet" href="{{ asset(elixir('web-assets/css/web.css')) }}">
+    <link rel="stylesheet" href="{{ asset('web-assets/css/web.css') }}">
 
     <script src="{{ asset('web-assets/js/lib.js') }}"></script>
 
@@ -37,5 +37,5 @@
         </div>
     </div>
 </body>
-<script src="{{ asset(elixir('web-assets/js/web.js')) }}"></script>
+<script src="{{ asset('web-assets/js/web.js') }}"></script>
 </html>
