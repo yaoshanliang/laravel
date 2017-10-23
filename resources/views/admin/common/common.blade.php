@@ -10,7 +10,6 @@
 
     <title>{{ config('project.name') }}{{ config('project.admin_name') }}</title>
 
-
     <link rel="stylesheet" href="{{ asset('admin-assets/css/lib.css') }}">
     <link rel="stylesheet" href="{{ asset('admin-assets/css/admin.css') }}">
 

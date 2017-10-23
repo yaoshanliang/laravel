@@ -44,7 +44,7 @@
                         <div class="x_content">
                             <br>
                             <!-- 加载编辑器的容器 -->
-                            <script id="container" name="content" type="text/plain" style="width:1024px;height:300px;">这里写你的初始化内容</script>
+                            <script id="container" name="content" type="text/plain" style="height:300px;">这里写你的初始化内容</script>
                         </div>
                     </div>
                 </div>
