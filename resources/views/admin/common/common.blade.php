@@ -30,14 +30,13 @@
     <div class="layui-layout layui-layout-admin">
         @include('admin.common.navbar')
         @include('admin.common.sidebar')
-
-        <div class="layui-body">
+        <script src="{{ asset('admin-assets/vendor/layui/layui.all.js') }}"></script>
+        <div class="layui-body" style="margin: 20px;">
             @yield('content')
         </div>
 
         @include('admin.common.footer')
     </div>
+{{--<script src="{{ asset('admin-assets/js/admin.js') }}"></script>--}}
 </body>
-<script src="{{ asset('admin-assets/vendor/layui/layui.all.js') }}"></script>
-<script src="{{ asset('admin-assets/js/admin.js') }}"></script>
 </html>

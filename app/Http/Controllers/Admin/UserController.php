@@ -15,15 +15,13 @@ class UserController extends Controller
 
     public function getLists(Request $request)
     {
-        $searchFields = array('account', 'name', 'phone', 'email');
-        $pre = User::whereDataTables($request, $searchFields)->orderByDataTables($request);
-        $count = $pre->count();
-        $data = $pre->skip($request->start)->take($request->length)->get();
-        $draw = (int)$request->draw;
-        $recordsTotal = User::count();
-        $recordsFiltered = min($count, $recordsTotal);
+        $code = 0;
+        $msg = '成功';
+        $count = User::where('id', $request->search)->count();
+        $data = User::skip(($request->page - 1) * $request->limit)->take($request->limit)->get();
 
-        return response()->json(compact('draw', 'recordsFiltered', 'recordsTotal', 'data'));
+
+        return response()->json(compact('code', 'msg', 'count', 'data'));
     }
 
     public function post(Request $request)

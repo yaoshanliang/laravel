@@ -5,7 +5,7 @@
             <li class="layui-nav-item"><a href="{{ url('admin/index') }}">系统首页</a></li>
             <li class="layui-nav-item"><a href="{{ url('admin/user') }}">前台用户</a></li>
             <li class="layui-nav-item"><a href="{{ url('admin/admin') }}">后台账户</a></li>
-            <li class="layui-nav-item layui-nav-itemed">
+            <li class="layui-nav-item">
                 <a class="" href="javascript:;">文件管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="{{ url('admin/file/image') }}">图片</a></dd>

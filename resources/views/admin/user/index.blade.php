@@ -1,87 +1,82 @@
 @extends('admin.common.common')
 
 @section('content')
-    <div class="right_col" role="main">
-        <div class="">
-            <div class="page-title">
-                <div class="title_left">
-                    <h3>
-                        用户管理
-                    </h3>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="dataTable_wrapper">
-                                <br />
-
-                                <div class="input-group custom-search-form">
-                                    <a href="javascript:void(0);" class="btn btn-primary" onclick="return createUserModal();">添加</a>
-
-                                    <input type="text" id="search" class="form-control search" placeholder="账号/姓名/电话/邮箱">
-                                    <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </span>
-                                </div>
-
-                                <table id="admin_index" class="table table-striped table-bordered table-hover datatable-example" style="width:100%;" border="0px">
-                                    <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>账号</th>
-                                        <th>姓名</th>
-                                        <th>手机</th>
-                                        <th>邮箱</th>
-                                        <th>创建时间</th>
-                                        <th>更新时间</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.panel -->
-            </div>
-            <!-- /.col-lg-6 -->
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>前台用户</legend>
+    </fieldset>
+    <div class="demoTable">
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="demoReload" autocomplete="off">
         </div>
+        <button class="layui-btn" data-type="reload">搜索</button>
+    </div>
+    <table id="demo"></table>
+
+    <script>
+        layui.use('table', function(){
+            var table = layui.table.render({ //其它参数在此省略
+                elem: '#demo' //指定原始表格元素选择器（推荐id选择器）
+                //,height: 315 //容器高度
+                ,url: siteUrl + '/admin/user/lists'
+                ,page: true
+                ,limits: [5, 10, 50, 100]
+                ,limit: 10 //默认采用60
+                ,even: true //开启隔行背景
+                ,cols:  [[ //标题栏
+                    {checkbox: true}
+                    ,{field: 'id', title: 'ID', width: 100, sort: true}
+                    ,{field: 'account', title: '账户', width: 100}
+                    ,{field: 'name', title: '姓名', width: 100}
+                    ,{field: 'phone', title: '手机', width: 100}
+                    ,{field: 'email', title: '邮箱', width: 100}
+                    ,{title: '操作', width: 300, toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+                ]]
+                ,done: function(res, curr, count){
+                    //如果是异步请求数据方式，res即为你接口返回的信息。
+                    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                    console.log(res);
+
+                    //得到当前页码
+                    console.log(curr);
+
+                    //得到数据总量
+                    console.log(count);
+                }
+                ,initSort: {
+                    field: 'id' //排序字段，对应 cols 设定的各字段名
+                    ,type: 'desc' //排序方式  asc: 升序、desc: 降序、null: 默认排序
+                }
+            });
+
+            var $ = layui.$, active = {
+                reload: function(){
+                    var demoReload = $('#demoReload');
+
+                    table.reload({
+                        where: {
+                            search: demoReload.val()
+                        }
+                    });
+                }
+            };
+
+            $('.demoTable .layui-btn').on('click', function(){
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+        });
+    </script>
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-mini" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+
+    </script>
+@endsection
 
         <script>
-            var datatable_id = 'admin_index';
-            var columnDefsTargets = [];
-            var invisibleColumns = [];
-            var order = [0, 'desc'];
-            var ajaxUrl = siteUrl + '/admin/user/lists';
-            var columns = [
-                {"data": "id"},
-                {"data": "account"},
-                {"data": "name"},
-                {"data": "phone"},
-                {"data": "email"},
-                {"data": "created_at"},
-                {"data": "updated_at"},
-                {
-                    "data": "id",
-                    "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                        html = "<a href='javascript:void(0);' onclick='return editUserModal(" + JSON.stringify(oData) + ");'>修改</a> ";
-                        html += "<a href='javascript:void(0);' onclick='return alertModal(deleteUser,{id:" + sData + "});'>删除</a> ";
-                        $(nTd).html(html);
-                    }
-                }];
+
 
             function createUserModal()
             {
@@ -107,6 +102,7 @@
             }
         </script>
 
+{{--
         <!-- Modal -->
         <div class="modal fade" id="create_user_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" style="width:450px; margin-top:40px;">
@@ -256,6 +252,7 @@
             <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+--}}
 
         <script>
             function createUser() {
@@ -289,4 +286,3 @@
                 ajax('/admin/user', 'DELETE', data);
             }
         </script>
-@endsection
