@@ -1,42 +1,29 @@
-<div class="col-md-3 left_col menu_fixed">
-    <div class="left_col scroll-view">
-
-        <div class="navbar nav_title">
-            <a href="{{ url('') }}" class="site_title">{{ config('project.admin_name') }}</a>
-        </div>
-
-        <div class="clearfix"></div>
-        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-
-            <div class="menu_section">
-                <ul class="nav side-menu">
-                    <li><a href="{{ url('admin/index') }}"><i class="fa fa-home"></i>系统首页</a></li>
-                    <li><a href="{{ url('admin/user') }}"><i class="fa fa-user"></i>前台用户</a></li>
-                    <li><a href="{{ url('admin/admin') }}"><i class="fa fa-user-plus"></i>后台账户</a></li>
-
-                    <li>
-                        <a><i class="fa fa-file"></i>文件管理<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{ url('admin/file/image') }}">图片</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a><i class="fa fa-gear"></i>系统管理<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{ url('admin/system/log/user') }}">用户日志</a></li>
-                            <li><a href="{{ url('admin/system/log/error') }}">系统日志</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a><i class="fa fa-gear"></i>组件示例<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{ url('admin/example') }}">组件示例</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
+<div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+            <li class="layui-nav-item"><a href="{{ url('admin/index') }}">系统首页</a></li>
+            <li class="layui-nav-item"><a href="{{ url('admin/user') }}">前台用户</a></li>
+            <li class="layui-nav-item"><a href="{{ url('admin/admin') }}">后台账户</a></li>
+            <li class="layui-nav-item layui-nav-itemed">
+                <a class="" href="javascript:;">文件管理</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="{{ url('admin/file/image') }}">图片</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">系统管理</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="{{ url('admin/system/log/user') }}">用户日志</a></dd>
+                    <dd><a href="{{ url('admin/system/log/error') }}">系统日志</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">组件管理</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="{{ url('admin/example') }}">组件示例</a></dd>
+                </dl>
+            </li>
+        </ul>
     </div>
 </div>
