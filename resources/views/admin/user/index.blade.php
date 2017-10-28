@@ -4,19 +4,21 @@
     <fieldset class="layui-elem-field layui-field-title">
         <legend>前台用户</legend>
     </fieldset>
-    <div class="demoTable">
-        <div class="layui-inline">
-            <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+    <div class="layui-row">
+        <div class="layui-col-md4 layui-col-md-offset8">
+            <div class="layui-inline">
+                <input class="layui-input" id="searchInput" autocomplete="off">
+            </div>
+            <button class="layui-btn" id="searchBtn" data-type="reload">搜索</button>
         </div>
-        <button class="layui-btn" data-type="reload">搜索</button>
     </div>
+
     <table id="demo"></table>
 
     <script>
         layui.use('table', function(){
             var table = layui.table.render({ //其它参数在此省略
                 elem: '#demo' //指定原始表格元素选择器（推荐id选择器）
-                //,height: 315 //容器高度
                 ,url: siteUrl + '/admin/user/lists'
                 ,page: true
                 ,limits: [5, 10, 50, 100]
@@ -25,22 +27,15 @@
                 ,cols:  [[ //标题栏
                     {checkbox: true}
                     ,{field: 'id', title: 'ID', width: 100, sort: true}
-                    ,{field: 'account', title: '账户', width: 100}
-                    ,{field: 'name', title: '姓名', width: 100}
-                    ,{field: 'phone', title: '手机', width: 100}
-                    ,{field: 'email', title: '邮箱', width: 100}
+                    ,{field: 'account', title: '账户', width: 100, sort: true}
+                    ,{field: 'name', title: '姓名', width: 100, sort: true}
+                    ,{field: 'phone', title: '手机', width: 100, sort: true}
+                    ,{field: 'email', title: '邮箱', width: 100, sort: true}
+                    ,{field: 'created_at', title: '创建时间', width: 100, sort: true}
+                    ,{field: 'updated_at', title: '更新时间', width: 100, sort: true}
                     ,{title: '操作', width: 300, toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
                 ]]
                 ,done: function(res, curr, count){
-                    //如果是异步请求数据方式，res即为你接口返回的信息。
-                    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-                    console.log(res);
-
-                    //得到当前页码
-                    console.log(curr);
-
-                    //得到数据总量
-                    console.log(count);
                 }
                 ,initSort: {
                     field: 'id' //排序字段，对应 cols 设定的各字段名
@@ -50,19 +45,29 @@
 
             var $ = layui.$, active = {
                 reload: function(){
-                    var demoReload = $('#demoReload');
-
                     table.reload({
                         where: {
-                            search: demoReload.val()
+                            search: $('#searchInput').val()
                         }
                     });
                 }
             };
 
-            $('.demoTable .layui-btn').on('click', function(){
+
+            $('#searchBtn').on('click', function(){
                 var type = $(this).data('type');
                 active[type] ? active[type].call(this) : '';
+            });
+
+            layui.table.on('sort', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                table.reload({
+                    initSort: obj //记录初始排序，如果不设的话，将无法标记表头的排序状态。 layui 2.1.1 新增参数
+                    ,where: { //请求参数
+                        search: $('#searchInput').val()
+                        ,field: obj.field //排序字段
+                        ,order: obj.type //排序方式
+                    }
+                });
             });
         });
     </script>

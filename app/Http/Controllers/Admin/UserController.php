@@ -15,13 +15,12 @@ class UserController extends Controller
 
     public function getLists(Request $request)
     {
-        $code = 0;
-        $msg = '成功';
-        $count = User::where('id', $request->search)->count();
-        $data = User::skip(($request->page - 1) * $request->limit)->take($request->limit)->get();
+        $pre = User::whereLayui($request, ['id', 'account', 'name', 'phone', 'email']);
+        $count = $pre->count();
+        $data = $pre->skip(($request->page - 1) * $request->limit)->take($request->limit)->get();
 
 
-        return response()->json(compact('code', 'msg', 'count', 'data'));
+        return response()->json(['code' => 0, 'msg' => '获取成功', 'count' => $count, 'data' => $data]);
     }
 
     public function post(Request $request)

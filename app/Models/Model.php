@@ -6,27 +6,29 @@ use Illuminate\Database\Eloquent\Model as BaseModel;
 
 class Model extends BaseModel
 {
-    public function scopeWhereDataTables($query, $post, $fields = array())
+    public function scopeWhereLayui($query, $request, $fields = array())
     {
-        if (strlen($post['search']['value'])) {
-            $query->where(function ($query) use ($post, $fields) {
+        if (isset($request->search)) {
+            $query->where(function ($query) use ($request, $fields) {
                 foreach ($fields as $k => $v) {
                     if ($k == 0) {
-                        $query->where($v, 'LIKE',  '%' . $post['search']['value'] . '%');
+                        $query->where($v, 'LIKE',  '%' . $request->search . '%');
                     } else {
-                        $query->orWhere($v, 'LIKE',  '%' . $post['search']['value'] . '%');
+                        $query->orWhere($v, 'LIKE',  '%' . $request->search . '%');
                     }
                 }
             });
         }
+
         return $query;
     }
 
-    public function scopeOrderByDataTables($query, $post)
+    public function scopeOrderByLayui($query, $request)
     {
-        foreach ($post['order'] as $k => $v) {
-            $query->orderBy($post['columns'][$v['column']]['data'], $v['dir']);
+        if (isset($request->order)) {
+            $query->orderBy($request->field, $request->order);
         }
+
         return $query;
     }
 }
