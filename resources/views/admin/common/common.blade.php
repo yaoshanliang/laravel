@@ -37,6 +37,6 @@
 
         @include('admin.common.footer')
     </div>
-{{--<script src="{{ asset('admin-assets/js/admin.js') }}"></script>--}}
+<script src="{{ asset('admin-assets/js/admin.js') }}"></script>
 </body>
 </html>

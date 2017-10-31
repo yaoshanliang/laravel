@@ -16,6 +16,7 @@
     <table id="demo"></table>
 
     <script>
+        var $ = layui.$;
         layui.use('table', function(){
             var table = layui.table.render({ //其它参数在此省略
                 elem: '#demo' //指定原始表格元素选择器（推荐id选择器）
@@ -26,7 +27,7 @@
                 ,even: true //开启隔行背景
                 ,cols:  [[ //标题栏
                     {checkbox: true}
-                    ,{field: 'id', title: 'ID', width: 100, sort: true}
+                    ,{field: 'id', title: 'ID', width: 10, sort: true}
                     ,{field: 'account', title: '账户', width: 100, sort: true}
                     ,{field: 'name', title: '姓名', width: 100, sort: true}
                     ,{field: 'phone', title: '手机', width: 100, sort: true}
@@ -43,7 +44,7 @@
                 }
             });
 
-            var $ = layui.$, active = {
+            var active = {
                 reload: function(){
                     table.reload({
                         where: {
@@ -69,6 +70,31 @@
                     }
                 });
             });
+
+            layui.table.on('tool', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值
+                var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                if(layEvent === 'detail'){ //查看
+                    //do somehing
+                } else if(layEvent === 'del'){ //删除
+                    layer.confirm('真的删除行么', function(index){
+                        deleteAction(obj);
+
+                        layer.close(index);
+                        //向服务端发送删除指令
+                    });
+                } else if(layEvent === 'edit'){ //编辑
+                    //do something
+
+                    //同步更新缓存对应的值
+                    obj.update({
+                        username: '123'
+                        ,title: 'xxx'
+                    });
+                }
+            });
         });
     </script>
 
@@ -79,33 +105,6 @@
 
     </script>
 @endsection
-
-        <script>
-
-
-            function createUserModal()
-            {
-                $('#create_user_modal_account').val('');
-                $('#create_user_modal_name').val('');
-                $('#create_user_modal_phone').val('');
-                $('#create_user_modal_email').val('');
-                $('#create_user_modal_password').val('');
-                $('#create_user_modal_password_confirmation').val('');
-
-                $("#create_user_modal").modal('show');
-            }
-
-            function editUserModal(data)
-            {
-                $('#edit_user_modal_id').val(data.id);
-                $('#edit_user_modal_account').val(data.account);
-                $('#edit_user_modal_name').val(data.name);
-                $('#edit_user_modal_phone').val(data.phone);
-                $('#edit_user_modal_email').val(data.email);
-
-                $("#edit_user_modal").modal('show');
-            }
-        </script>
 
 {{--
         <!-- Modal -->
@@ -287,7 +286,13 @@
                 });
             }
 
-            function deleteUser(data) {
-                ajax('/admin/user', 'DELETE', data);
+            function deleteAction(obj) {
+                ajax('/admin/user', 'DELETE', obj.data, {
+                    'success': function (successData) {
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    }
+                });
             }
+            
+
         </script>
