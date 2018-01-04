@@ -33,7 +33,7 @@
                         <a><i class="fa fa-globe"></i>组件示例<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{ url('admin/example') }}">组件示例</a></li>
-                            <li><a href="{{ url('vendor/gentelella/production/index.html') }}">gentelella</a></li>
+                            <li><a target="_blank" href="{{ url('vendor/gentelella/production/index.html') }}">gentelella</a></li>
                         </ul>
                     </li>
                 </ul>
