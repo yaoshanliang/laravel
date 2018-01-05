@@ -106,7 +106,9 @@
                     <div class="modal-body">
                         <div class="form-horizontal">
                                 <form id="form-for-upload"  class="form-horizontal form-label-left" enctype="multipart/form-data">
-                                    <input class="upload-img-hidden" type="file" name="image" onchange="return upload();">
+                                    <div id="upload-area">
+                                        <input class="upload-img-hidden" type="file" name="image" onchange="return upload();">
+                                    </div>
                                     <div class="upload-img">点击上传</div>
                                     {{--<img id="image_preview" class="upload-img">--}}
                                 </form>
@@ -123,6 +125,7 @@
             // 上传图片
             function upload() {
                 data = new FormData($("#form-for-upload")[0]);
+                $('#upload-area').html('<input class="upload-img-hidden" type="file" name="image" onchange="return upload();">');
                 $.ajax({
                     url: siteUrl + '/admin/file/image/upload',
                     type: 'POST',

@@ -39,7 +39,7 @@
 
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <label class="control-label col-md-1">确认密码</label>
+                                        <label class="control-label col-md-1">确认密码<span class="required">*</span></label>
                                         <div class="col-md-3">
                                             <input type="password" class="form-control" name="password_confirmation">
                                         </div>
