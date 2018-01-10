@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function getLists(Request $request)
     {
-        $searchFields = array('account', 'name', 'phone', 'email');
+        $searchFields = array('account', 'realname', 'phone', 'email');
         $pre = User::whereDataTables($request, $searchFields)->orderByDataTables($request);
         $count = $pre->count();
         $data = $pre->skip($request->start)->take($request->length)->get();
@@ -37,7 +37,7 @@ class UserController extends Controller
 
         $data = [
             'account' => $request->account,
-            'name' => $request->name,
+            'realname' => $request->realname,
             'phone' => $request->phone,
             'email' => $request->email,
             'password' => bcrypt($request->password),
@@ -59,7 +59,7 @@ class UserController extends Controller
 
         $data = [
             'account' => $request->account,
-            'name' => $request->name,
+            'realname' => $request->realname,
             'phone' => $request->phone,
             'email' => $request->email
         ];

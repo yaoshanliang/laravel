@@ -69,7 +69,7 @@
             var columns = [
                 {"data": "id"},
                 {"data": "account"},
-                {"data": "name"},
+                {"data": "realname"},
                 {"data": "phone"},
                 {"data": "email"},
                 {"data": "created_at"},
@@ -86,7 +86,7 @@
             function createUserModal()
             {
                 $('#create_user_modal_account').val('');
-                $('#create_user_modal_name').val('');
+                $('#create_user_modal_realname').val('');
                 $('#create_user_modal_phone').val('');
                 $('#create_user_modal_email').val('');
                 $('#create_user_modal_password').val('');
@@ -99,7 +99,7 @@
             {
                 $('#edit_user_modal_id').val(data.id);
                 $('#edit_user_modal_account').val(data.account);
-                $('#edit_user_modal_name').val(data.name);
+                $('#edit_user_modal_realname').val(data.realname);
                 $('#edit_user_modal_phone').val(data.phone);
                 $('#edit_user_modal_email').val(data.email);
 
@@ -130,7 +130,7 @@
                                 <div class="col-md-12">
                                     <label class="control-label col-md-3">姓名</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" id="create_user_modal_name">
+                                        <input type="text" class="form-control" id="create_user_modal_realname">
                                     </div>
                                 </div>
                             </div>
@@ -215,7 +215,7 @@
                                 <div class="col-md-12">
                                     <label class="control-label col-md-3">姓名</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" id="edit_user_modal_name">
+                                        <input type="text" class="form-control" id="edit_user_modal_realname">
                                     </div>
                                 </div>
                             </div>
@@ -261,7 +261,7 @@
             function createUser() {
                 var data = {
                     'account': $('#create_user_modal_account').val(),
-                    'name': $('#create_user_modal_name').val(),
+                    'realname': $('#create_user_modal_realname').val(),
                     'phone': $('#create_user_modal_phone').val(),
                     'email': $('#create_user_modal_email').val(),
                     'password': $('#create_user_modal_password').val(),
@@ -276,7 +276,7 @@
                 var data = {
                     'id': $('#edit_user_modal_id').val(),
                     'account': $('#edit_user_modal_account').val(),
-                    'name': $('#edit_user_modal_name').val(),
+                    'realname': $('#edit_user_modal_realname').val(),
                     'phone': $('#edit_user_modal_phone').val(),
                     'email': $('#edit_user_modal_email').val()
                 };

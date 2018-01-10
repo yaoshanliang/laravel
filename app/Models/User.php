@@ -7,7 +7,8 @@ use App\Models\Model;
 class User extends Model
 {
     protected $fillable = [
-        'account', 'name', 'email', 'phone', 'password', 'status'
+        'account', 'realname', 'email', 'phone', 'password', 'status',
+        'openid', 'nickname', 'headimgurl'
     ];
 
     protected $hidden = [
