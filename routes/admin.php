@@ -22,17 +22,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             return redirect(url('/admin/index'));
         });
 
-        // index
+        // 首页
         Route::group(['prefix' => 'index'], function () {
             Route::get('', 'IndexController@getIndex');
         });
 
-        // error
+        // 错误页
         Route::group(['prefix' => 'error'], function () {
             Route::get('{id}', 'ErrorController@get');
         });
 
-        // self
+        // 个人中心
         Route::group(['prefix' => 'self'], function () {
             Route::get('info', 'SelfController@getInfo');
             Route::post('info', 'SelfController@postInfo');
@@ -40,7 +40,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::post('password', 'SelfController@postPassword');
         });
 
-        // user
+        // 前台用户
         Route::group(['prefix' => 'user'], function () {
             Route::get('', 'UserController@getIndex');
             Route::get('lists', 'UserController@getLists');
@@ -50,7 +50,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::delete('', 'UserController@delete');
         });
 
-        // admin
+        // 后台账户
         Route::group(['prefix' => 'admin'], function () {
             Route::get('', 'AdminController@getIndex');
             Route::get('lists', 'AdminController@getLists');
@@ -70,6 +70,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
                 Route::post('upload', 'ImageController@uploadImage');
                 Route::delete('', 'ImageController@delete');
             });
+        });
+
+        // 短信
+        Route::group(['prefix' => 'sms'], function () {
+            Route::get('send', 'SmsController@send');
         });
 
         // 系统

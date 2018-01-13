@@ -19,9 +19,9 @@ return [
             'file' => storage_path('logs/sms.log'),
         ],
         'aliyun' => [
-            'access_key_id' => '',
-            'access_key_secret' => '',
-            'sign_name' => '',
+            'access_key_id' => env('ALIYUN_ACCESS_KEY_ID'),
+            'access_key_secret' => env('ALIYUN_ACCESS_KEY_SECRET'),
+            'sign_name' => env('ALIYUN_SIGN_NAME'),
         ],
         'yunpian' => [
             'api_key' => '824f0ff2f71cab52936axxxxxxxxxx',
