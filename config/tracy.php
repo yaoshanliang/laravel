@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'enabled' => env('APP_DEBUG') === true,
+    'enabled' => false,
     'showBar' => env('APP_ENV') !== 'production',
     'accepts' => [
         'text/html',
