@@ -96,6 +96,24 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             });
         });
 
+        //微信配置
+        Route::group(['prefix' => 'wechat'], function () {
+            Route::group(['prefix' => 'menu'], function () {
+                Route::get('', 'WeChatMenuController@getIndex');
+                Route::get('lists', 'WeChatMenuController@getLists');
+                Route::post('', 'WeChatMenuController@post');
+                Route::put('', 'WeChatMenuController@put');
+                Route::delete('', 'WeChatMenuController@delete');
+
+                Route::get('sub/{pid}', ['uses' => 'WeChatMenuController@getSubIndex']);
+                Route::get('sublists/{pid}', ['uses' => 'WeChatMenuController@getSubLists']);
+                Route::post('sub', ['uses' => 'WeChatMenuController@subAdd']);
+                Route::put('sub', ['uses' => 'WeChatMenuController@subEdit']);
+                Route::delete('sub', ['uses' => 'WeChatMenuController@subDelete']);
+            });
+
+        });
+
         // 组件示例(供参考,可删除)
         Route::group(['prefix' => 'example'], function () {
             Route::get('', 'ExampleController@getIndex');
