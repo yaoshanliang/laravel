@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Controller;
 use Illuminate\Http\Request;
-use App\Models\WechatMenu as Menu;
+use App\Models\WeChatMenu as Menu;
 
 class WeChatMenuController extends Controller
 {
