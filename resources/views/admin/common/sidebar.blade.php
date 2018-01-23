@@ -25,7 +25,7 @@
                         <a><i class="fa fa-wechat"></i>微信配置<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{ url('admin/wechat/menu') }}">自定义菜单</a></li>
-                            <li><a href="{{ url('') }}">自动回复</a></li>
+                            <li><a href="{{ url('admin/wechat/reply/0') }}">自动回复</a></li>
                         </ul>
                     </li>
 

@@ -112,6 +112,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
                 Route::delete('sub', ['uses' => 'WeChatMenuController@subDelete']);
             });
 
+            Route::group(['prefix' => 'reply'], function () {
+                Route::get('{type}', 'WeChatReplyController@getIndex');
+                Route::get('lists/{type}', 'WeChatReplyController@getLists');
+                Route::post('text', 'WeChatReplyController@textAdd');
+                Route::put('text', 'WeChatReplyController@textEdit');
+                Route::post('news', 'WeChatReplyController@post');
+                Route::put('news', 'WeChatReplyController@put');
+                Route::delete('', 'WeChatReplyController@delete');
+                Route::post('uploadImage', ['uses' => 'WeChatReplyController@uploadImage']);
+            });
+
         });
 
         // 组件示例(供参考,可删除)
