@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\WeChat;
 
 use App\Http\Controllers\WeChat\Controller;
 use Illuminate\Http\Request;
