@@ -4,6 +4,7 @@ namespace App\Http\Controllers\WeChat;
 use App\Http\Controllers\WeChat\Controller;
 use Illuminate\Http\Request;
 use App\Models\WeChatMenu as Menu;
+use Mockery\Exception;
 
 class MenuController extends Controller
 {
@@ -34,10 +35,17 @@ class MenuController extends Controller
                 $buttons[$k]['url'] = $v->url;
             }
         }
-        if ($this->menu->create($buttons)) {
-            echo 'success';
-        } else {
-            echo 'fail';
+
+        try{
+            $res = $this->menu->create($buttons);
+            if($res['errcode'] === 0 ) {
+                return webApiReturn(SUCCESS, '设置成功');
+            } else {
+                return webApiReturn(SUCCESS, '设置失败');
+            }
+        }catch (Exception $e) {
+            return webApiReturn(ERROR, '设置失败');
         }
+
     }
 }
