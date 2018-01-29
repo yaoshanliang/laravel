@@ -25,7 +25,7 @@
 
 
                                     <a href="javascript:void(0);" class="btn btn-primary" onclick="return createMenuModal();">添加</a>
-                                    {{--<a href="{{$url}}" class="btn btn-primary" style="margin-left: 50px;">刷新公众号菜单</a>--}}
+                                    <a href="javascript:void(0);" class="btn btn-primary" onclick="return setMenu();" style="margin-left: 50px;">刷新公众号菜单</a>
                                     <span style="color: red;">
                                         (添加或修改后请点击此按钮)
                                     </span>
@@ -316,6 +316,10 @@
 
             function deleteMenu(data) {
                 ajax('/admin/wechat/menu', 'DELETE', data);
+            }
+
+            function setMenu() {
+                ajax('/wechat/menu', 'GET');
             }
         </script>
 @endsection

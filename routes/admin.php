@@ -104,6 +104,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
                 Route::post('', 'WeChatMenuController@post');
                 Route::put('', 'WeChatMenuController@put');
                 Route::delete('', 'WeChatMenuController@delete');
+                Route::put('', 'WeChatMenuController@put');
 
                 Route::get('sub/{pid}', ['uses' => 'WeChatMenuController@getSubIndex']);
                 Route::get('sublists/{pid}', ['uses' => 'WeChatMenuController@getSubLists']);
