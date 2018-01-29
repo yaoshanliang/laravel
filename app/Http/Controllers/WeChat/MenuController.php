@@ -38,11 +38,10 @@ class MenuController extends Controller
 
         try{
             $res = $this->menu->create($buttons);
-            var_dump($res);
-            if($res) {
+            if($res['errcode'] === 0 ) {
                 return webApiReturn(SUCCESS, '设置成功');
             } else {
-                return webApiReturn(SUCCESS, '设置成功');
+                return webApiReturn(SUCCESS, '设置失败');
             }
         }catch (Exception $e) {
             return webApiReturn(ERROR, '设置失败');
