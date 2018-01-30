@@ -32,6 +32,7 @@
                     <li>
                         <a><i class="fa fa-gear"></i>系统管理<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
+                            <li><a href="{{ url('admin/system/config') }}">系统配置</a></li>
                             <li><a href="{{ url('admin/system/log/user') }}">用户日志</a></li>
                             <li><a href="{{ url('admin/system/log/error') }}">系统日志</a></li>
                         </ul>
