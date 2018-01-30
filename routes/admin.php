@@ -79,6 +79,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         // 系统
         Route::group(['prefix' => 'system'], function () {
+            Route::group(['prefix' => 'config'], function(){
+                Route::get('','SystemConfigController@getIndex');
+                Route::get('lists', 'SystemConfigController@getLists');
+                Route::post('', 'SystemConfigController@post');
+                Route::put('', 'SystemConfigController@put');
+                Route::delete('', 'SystemConfigController@delete');
+            });
 
             // 日志
             Route::group(['prefix' => 'log'], function () {
