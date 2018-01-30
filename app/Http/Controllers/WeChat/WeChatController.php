@@ -31,9 +31,9 @@ class WeChatController extends Controller
                 case 'voice':
                     return '收到语音消息';
                     break;
-                case 'video':
-                    return '收到视频消息';
-                    break;
+//                case 'video':
+//                    return '收到视频消息';
+//                    break;
                 case 'location':
                     return '收到坐标消息';
                     break;
