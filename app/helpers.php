@@ -279,3 +279,15 @@ function decimalFormat($number, $length = 1)
 {
     return sprintf("%." . $length . "f", $number);
 }
+
+// 获取系统配置
+function getSystemConfig($key)
+{
+    $config = App\Models\SystemConfig::where('key', $key)->first();
+
+    if (! empty($config)) {
+        return $config->value;
+    } else {
+        return '';
+    }
+}
