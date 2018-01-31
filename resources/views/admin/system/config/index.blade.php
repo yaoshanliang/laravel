@@ -37,9 +37,9 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>键名</th>
-                                        <th>键值</th>
-                                        <th>描述</th>
+                                        <th>key</th>
+                                        <th>value</th>
+                                        <th>文本框</th>
                                         <th>创建时间</th>
                                         <th>操作<th>
                                     </tr>
@@ -83,6 +83,8 @@
             function createConfigModal()
             {
                 $('#create_config_modal_keyword').val('');
+                $('#create_config_modal_value').val('');
+                $('#create_config_modal_description').val('');
 
                 $("#create_config_modal").modal('show');
             }
@@ -110,7 +112,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label col-md-3">键名</label>
+                                    <label class="control-label col-md-3">key</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" id="create_config_modal_keyword">
                                     </div>
@@ -119,7 +121,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label col-md-3">键值</label>
+                                    <label class="control-label col-md-3">value</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" id="create_config_modal_value">
                                     </div>
@@ -128,7 +130,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label col-md-3">描述</label>
+                                    <label class="control-label col-md-3">文本框</label>
                                     <div class="col-md-9">
                                         <!--<input type="text" class="form-control" id="create_config_modal_name">-->
                                         <textarea id="create_config_modal_description" style="width: 260px;height: 200px;resize: none;overflow-y:hidden;overflow-x:hidden"></textarea>
@@ -168,15 +170,15 @@
                             <input type="hidden" id="edit_config_modal_id">
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label col-md-3">健名</label>
+                                    <label class="control-label col-md-3">key</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" id="edit_config_modal_keyword" readonly>
+                                        <input type="text" class="form-control" id="edit_config_modal_keyword">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label col-md-3">健值</label>
+                                    <label class="control-label col-md-3">value</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" id="edit_config_modal_value">
                                     </div>
@@ -184,7 +186,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label col-md-3">描述</label>
+                                    <label class="control-label col-md-3">文本框</label>
                                     <div class="col-md-9">
                                         <!--<input type="text" class="form-control" id="edit_config_modal_content">-->
                                         <textarea id="edit_config_modal_description" style="width: 260px;height: 200px;resize: none;overflow-y:hidden;overflow-x:hidden"></textarea>
