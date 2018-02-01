@@ -39,9 +39,9 @@
                                         <th>ID</th>
                                         <th>key</th>
                                         <th>value</th>
-                                        <th>文本框</th>
+                                        <th>描述</th>
                                         <th>创建时间</th>
-                                        <th>操作<th>
+                                        <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -130,10 +130,10 @@
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label col-md-3">文本框</label>
+                                    <label class="control-label col-md-3">描述</label>
                                     <div class="col-md-9">
-                                        <!--<input type="text" class="form-control" id="create_config_modal_name">-->
-                                        <textarea id="create_config_modal_description" style="width: 260px;height: 200px;resize: none;overflow-y:hidden;overflow-x:hidden"></textarea>
+                                        <input type="text" class="form-control" id="create_config_modal_description">
+                                        {{--<textarea id="create_config_modal_description" style="width: 260px;height: 200px;resize: none;overflow-y:hidden;overflow-x:hidden"></textarea>--}}
                                     </div>
                                 </div>
                             </div>
@@ -186,10 +186,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label class="control-label col-md-3">文本框</label>
+                                    <label class="control-label col-md-3">描述</label>
                                     <div class="col-md-9">
-                                        <!--<input type="text" class="form-control" id="edit_config_modal_content">-->
-                                        <textarea id="edit_config_modal_description" style="width: 260px;height: 200px;resize: none;overflow-y:hidden;overflow-x:hidden"></textarea>
+                                        <input type="text" class="form-control" id="edit_config_modal_description">
+                                        {{--<textarea id="edit_config_modal_description" style="width: 260px;height: 200px;resize: none;overflow-y:hidden;overflow-x:hidden"></textarea>--}}
                                     </div>
                                 </div>
                             </div>
