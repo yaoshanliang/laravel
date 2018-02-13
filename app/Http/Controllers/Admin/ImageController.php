@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Controller;
 use Illuminate\Http\Request;
 use App\Models\Image;
 use ImageProcessor;
+use Storage;
 
 class ImageController extends Controller
 {
@@ -57,8 +58,14 @@ class ImageController extends Controller
             'mime_type' => $mimeType,
             'size' => $size,
             'height' => $height,
-            'width' => $width
+            'width' => $width,
         ];
+
+        // 上传至七牛
+        if (env('QINIU_ACCESS_KEY')) {
+            $disk = Storage::disk('qiniu')->put($fileName, file_get_contents($filePath));
+            $data['qiniu_url'] = env('QINIU_DOMAIN') . '/' . $fileName;
+        }
 
         Image::create($data);
 
