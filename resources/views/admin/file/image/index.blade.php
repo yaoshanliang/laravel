@@ -71,7 +71,7 @@
                 {
                     "data": "id",
                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                        html = "<a target='_blank' href=" + siteUrl + '/' + oData.file_path + "><img style='width:100px; height:100px' src='" + siteUrl + '/' + oData.file_path + "'/></a>";
+                        html = "<a target='_blank' href=" + oData.qiniu_url + "><img style='width:100px; height:100px' src='" + oData.qiniu_url + "'/></a>";
                         $(nTd).html(html);
                     }
                 },
@@ -148,7 +148,7 @@
                     },
                     success: function(data) {
                         console.log(data);
-                        $("#image_preview").attr('src', siteUrl + '/' + data['data']['file_path']);
+                        $("#image_preview").attr('src', data['data']['qiniu_url']);
                         showSuccessTip(data['message']);
                         $("#upload_modal").modal('hide');
                         table.draw();
