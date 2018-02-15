@@ -1,8 +1,8 @@
-## A php framework based on laravel.
+# A php framework based on laravel.
 **演示地址:[http://laravel.sshmt.com](http://laravel.sshmt.com)**
-### 功能说明
+## 功能说明
 
-#### 后台
+### 后台
 
 * 整合[gentelella](https://github.com/puikinsh/gentelella)前端框架
 * 登录、忘记密码、重置密码
@@ -12,18 +12,25 @@
 * 日志记录
 * 日志管理
 * 错误页面
+* 微信公众号配置
 
-#### 前台
+### 前台
 
 * 登录
 * 日志记录
 
-#### api
+### api
 
 * api封装
 * 日志记录
 
-### 安装说明
+### 微信公众号
+
+* 授权登录
+* 菜单
+* 自定义回复
+
+## 安装说明
 
 1、clone代码
 
@@ -77,3 +84,13 @@
 
   * 账号: admin
   * 密码: admin
+  
+## TODO
+
+1、数据改动日志记录插件
+
+2、微信小程序基础功能接入
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
