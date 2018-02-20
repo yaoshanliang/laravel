@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Controller;
 use App\Models\AdminRole;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use Spatie\Activitylog\Models\Activity;
 
 class AdminController extends Controller
 {
@@ -72,7 +73,7 @@ class AdminController extends Controller
             'role_name' => $request->role_name
         ];
 
-        Admin::where('id', $request->id)->update($data);
+        Admin::where('id', $request->id)->firstOrFail()->update($data);
 
         return adminApiReturn(SUCCESS, '修改成功');
     }
@@ -82,8 +83,7 @@ class AdminController extends Controller
         if ($request->id == getAdminUserId()) {
             return adminApiReturn(ERROR, '不允许删除自己');
         } else {
-            Admin::where('id', $request->id)->delete();
-
+            Admin::where('id', $request->id)->firstOrFail()->delete();
             return adminApiReturn(SUCCESS, '删除成功');
         }
     }
