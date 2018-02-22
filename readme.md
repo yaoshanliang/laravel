@@ -1,5 +1,7 @@
 # A php framework based on laravel.
+
 **演示地址:[http://laravel.sshmt.com](http://laravel.sshmt.com)**
+
 ## 功能说明
 
 ### 后台
@@ -12,6 +14,7 @@
 * 日志记录
 * 日志管理
 * 错误页面
+* 图片上传、管理
 * 微信公众号配置
 
 ### 前台
@@ -90,6 +93,8 @@
 1、数据改动日志记录插件
 
 2、微信小程序基础功能接入
+
+3、项目功能宣传页
 
 ## License
 
