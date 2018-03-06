@@ -96,6 +96,10 @@
 
 3、项目功能宣传页
 
+4、微信用户同步公众平台
+
+5、优化微信菜单配置（一个页面展示）、增加点击触发消息
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
