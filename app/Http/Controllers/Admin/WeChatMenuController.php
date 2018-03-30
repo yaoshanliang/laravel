@@ -10,18 +10,26 @@ class WeChatMenuController extends Controller
 {
     public function getIndex(Request $request)
     {
-        return view('admin.wechat.menu.index');
+        $level1 = Menu::where('pid', 0)->orderby('sort', 'asc')->get();
+
+        return view('admin.wechat.menu.index')->with(compact('level1'));
     }
 
     public function getLists(Request $request)
     {
-        $searchFields = array('title');
-        $pre = Menu::where("pid",0)->whereDataTables($request, $searchFields)->orderByDataTables($request);
-        $count = $pre->count();
-        $data = $pre->skip($request->start)->take($request->length)->get();
+        $count = Menu::count();
+        $level1 = Menu::where('pid', 0)->orderby('sort', 'asc')->get()->toArray();
         $draw = (int)$request->draw;
-        $recordsTotal = Menu::count();
-        $recordsFiltered = min($count, $recordsTotal);
+        $recordsTotal = $count;
+        $recordsFiltered = $count;
+        $data = [];
+        foreach ($level1 as $v) {
+            $level2 = Menu::where(['pid' => $v['id']])->orderBy('sort')->get()->toArray();
+            $data[] = $v;
+            foreach ($level2 as $value) {
+                $data[] = $value;
+            }
+        }
 
         return response()->json(compact('draw', 'recordsFiltered', 'recordsTotal', 'data'));
     }
@@ -39,13 +47,14 @@ class WeChatMenuController extends Controller
         }
 
         $this->validate($request, [
-            'title' => 'required',
-        ],[],['title'=>"菜单名"]);
+            'name' => 'required',
+        ],[],['name'=>"菜单名"]);
 
         $data = [
-            'title' => $request->title,
+            'name' => $request->name,
+            'type' => $request->menu_type,
             'has_sub' => $request->has_sub,
-            'url' => $request->url,
+            'value' => $request->value,
             'sort' => $request->sort,
         ];
         Menu::create($data);
@@ -62,18 +71,28 @@ class WeChatMenuController extends Controller
         }
 
         $this->validate($request, [
-            'title' => 'required',
-        ],[],['title'=>"菜单名"]);
-
+            'name' => 'required',
+        ],[],['name'=>"菜单名"]);
+//        var_dump($request->input());
         $data = [
-            'title' => $request->title,
+            'name' => $request->name,
             'sort' => $request->sort,
+            'type' => $request->menu_type,
             'has_sub' => $request->has_sub,
-            'url' => isset($request->url) ? $request->url : '',
+            'value' => isset($request->value) ? $request->value : '',
         ];
+
         if ($data['has_sub'] == 1) {
-            $data['url'] = '';
+            $data['value'] = '';
+            $data['type'] = 0;
+        } else {
+            if ($data['type'] == 1 || $data['type'] == 0) {
+                if($data['value'] == '') {
+                    return adminApiReturn(ERROR, '修改失败-请输入地址或值');
+                }
+            }
         }
+
         $res = Menu::where('id', $request->id)->update($data);
         if ($res) {
             $menu = Menu::find($request->id);
@@ -91,30 +110,12 @@ class WeChatMenuController extends Controller
         return adminApiReturn(SUCCESS, '删除成功');
     }
 
-    public function getSubIndex(Request $request)
-    {
-        $pid = $request->pid;
-
-        return view('admin.wechat.menu.subIndex', compact('pid'));
-    }
-
-    public function getSubLists(Request $request)
-    {
-        $pid = $request->pid;
-        $searchFields = array('title');
-        $pre = Menu::where("pid",$pid)->whereDataTables($request, $searchFields)->orderByDataTables($request);
-        $count = $pre->count();
-        $data = $pre->skip($request->start)->take($request->length)->get();
-        $draw = (int)$request->draw;
-        $recordsTotal = Menu::count();
-        $recordsFiltered = min($count, $recordsTotal);
-
-        return response()->json(compact('draw', 'recordsFiltered', 'recordsTotal', 'data'));
-    }
-
     public function subAdd(Request $request)
     {
         $pid = $request->pid;
+        if (! $pid) {
+            return adminApiReturn(ERROR, '一级菜单不存在');
+        }
 
         $res = Menu::where(['pid' => $pid, 'sort' => $request->sort])->first();
         if ($res) {
@@ -126,13 +127,14 @@ class WeChatMenuController extends Controller
             return adminApiReturn(ERROR, '二级菜单最多有5个');
         }
         $this->validate($request, [
-            'title' => 'required',
-        ],[],['title'=>"菜单名"]);
+            'name' => 'required',
+        ],[],['name'=>"菜单名"]);
 
         $data = [
-            'title' => $request->title,
+            'name' => $request->name,
             'sort' => $request->sort,
-            'url' => $request->url,
+            'value' => $request->value,
+            'type' => $request->menu_type,
             'pid' => $pid
         ];
 
@@ -141,21 +143,22 @@ class WeChatMenuController extends Controller
         return adminApiReturn(SUCCESS, '创建成功');
     }
 
-    public function subEdit(Request $request)
+    public function subPut(Request $request)
     {
-        $result = Menu::find($request->id);
-        $res = Menu::where(['pid' => $result->pid, 'sort' => $request->sort])->where('id', '<>', $request->id)->first();
+        $res = Menu::where(['pid' => $request->pid, 'sort' => $request->sort])->where('id', '<>', $request->id)->first();
         if ($res) {
             return adminApiReturn(ERROR, '顺序重复');
         }
         $this->validate($request, [
-            'title' => 'required',
-        ],[],['title'=>"菜单名"]);
+            'name' => 'required',
+        ],[],['name'=>"菜单名"]);
 
         $data = [
-            'title' => $request->title,
+            'pid' => $request->pid,
+            'name' => $request->name,
             'sort' => $request->sort,
-            'url' => isset($request->url) ? $request->url : '',
+            'type' => $request->menu_type,
+            'value' => isset($request->value) ? $request->value : '',
         ];
 
         Menu::where('id', $request->id)->update($data);

@@ -111,13 +111,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
                 Route::post('', 'WeChatMenuController@post');
                 Route::put('', 'WeChatMenuController@put');
                 Route::delete('', 'WeChatMenuController@delete');
-                Route::put('', 'WeChatMenuController@put');
 
-                Route::get('sub/{pid}', ['uses' => 'WeChatMenuController@getSubIndex']);
-                Route::get('sublists/{pid}', ['uses' => 'WeChatMenuController@getSubLists']);
-                Route::post('sub', ['uses' => 'WeChatMenuController@subAdd']);
-                Route::put('sub', ['uses' => 'WeChatMenuController@subEdit']);
-                Route::delete('sub', ['uses' => 'WeChatMenuController@subDelete']);
+                Route::post('sub', 'WeChatMenuController@subAdd');
+                Route::put('sub', 'WeChatMenuController@subPut');
+                Route::delete('sub', 'WeChatMenuController@subDelete');
             });
 
             Route::group(['prefix' => 'reply'], function () {

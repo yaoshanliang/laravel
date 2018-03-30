@@ -8,6 +8,6 @@ class WeChatMenu extends Model
 {
     protected $table = 'wechat_menus';
     protected $fillable = [
-        'pid', 'type', 'title', 'url', 'key', 'has_sub'
+        'type', 'name', 'has_sub', 'value', 'sort', 'pid'
     ];
 }
