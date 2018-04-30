@@ -28,6 +28,11 @@ Route::group(['prefix' => 'web', 'namespace' => 'Web'], function () {
             Route::get('login', 'AuthController@getLogin');
             Route::post('login', 'AuthController@postLogin');
         });
+
+        // 短信
+        Route::group(['prefix' => 'sms'], function () {
+            Route::get('send', 'SmsController@send');
+        });
     });
 
     // 需要登录才能访问的路由
