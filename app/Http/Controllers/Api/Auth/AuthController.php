@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Auth;
+namespace App\Http\Controllers\Api\Auth;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Api\V1\Controller;
+use App\Http\Controllers\Api\Controller;
 use App\Models\User;
 use App\Models\Token;
 
