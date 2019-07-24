@@ -1,6 +1,6 @@
 # A php framework based on laravel.
 
-**演示地址:[http://laravel.sshmt.com](http://laravel.sshmt.com)**
+**演示地址:[http://laravel.iat.net.cn](http://laravel.iat.net.cn)**
 
 ## 功能说明
 
