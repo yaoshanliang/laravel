@@ -42,6 +42,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapAdminRoutes();
 
         $this->mapWeChatRoutes();
+
+        $this->mapWeAppRoutes();
     }
 
     /**
@@ -108,6 +110,15 @@ class RouteServiceProvider extends ServiceProvider
             'namespace' => $this->namespace,
         ], function ($router) {
             require base_path('routes/wechat.php');
+        });
+    }
+
+    protected function mapWeAppRoutes()
+    {
+        Route::group([
+            'namespace' => $this->namespace,
+        ], function ($router) {
+            require base_path('routes/weapp.php');
         });
     }
 

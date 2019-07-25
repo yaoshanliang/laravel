@@ -8,7 +8,7 @@ class User extends Model
 {
     protected $fillable = [
         'account', 'realname', 'email', 'phone', 'password', 'status',
-        'openid', 'nickname', 'headimgurl'
+        'openid', 'nickname', 'headimgurl', 'weapp_openid', 'weapp_nickname', 'weapp_avatar'
     ];
 
     protected $hidden = [
