@@ -141,6 +141,7 @@ function datatable_base() {
         "language": {
             "processing" : "<img src=" + siteUrl + "/admin-assets/images/loading.gif>",
             "lengthMenu": "每页 _MENU_ 条 ",
+            "sEmptyTable": "没有找到记录",
             "zeroRecords": "没有找到记录",
             "info": "，共 _PAGES_ 页，共 _TOTAL_ 条",
             "infoEmpty": "无记录",
