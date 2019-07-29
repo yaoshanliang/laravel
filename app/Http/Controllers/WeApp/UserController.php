@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\WeApp;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Log;
 
-class WeAppController extends Controller
+class UserController extends Controller
 {
 
     public function login(Request $request)
