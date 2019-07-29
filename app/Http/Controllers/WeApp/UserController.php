@@ -19,6 +19,6 @@ class UserController extends Controller
 
         $token = 1;
 
-        return apiReturn(SUCCESS, '登录成功', ['id' => $user->id, 'open_id' => $user->weapp_openid, 'nickname' => $user->weapp_nickname, 'avatar' => $user->weapp_avatar, 'token' => $token]);
+        return apiReturn(SUCCESS, '登录成功', ['id' => $user->id, 'openid' => $user->weapp_openid, 'nickname' => $user->weapp_nickname, 'avatar' => $user->weapp_avatar, 'token' => $token]);
     }
 }
