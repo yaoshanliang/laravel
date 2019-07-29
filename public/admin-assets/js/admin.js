@@ -67,7 +67,7 @@ function showProcessingTip(tip, time){
  */
 function showSuccessTip(tip, time){
     var tip = arguments[0] || '操作成功';
-    var time = arguments[1] || 30;
+    var time = arguments[1] || 3;
     var background = '#5cb85c';
     var bordercolor = '#4cae4c';
 
