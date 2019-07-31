@@ -1,8 +1,15 @@
-/public/storage
+/public/storage/ueditor/php/upload/file/
+/public/storage/files/
+/public/storage/images/
 /vendor
 /.idea
 Homestead.json
 Homestead.yaml
 .env
-storage
+storage/framework/cache/
+storage/framework/sessions/
+storage/framework/views/
+storage/logs/
+storage/app/
+storage/debugbar/
 
