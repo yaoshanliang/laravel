@@ -33,6 +33,11 @@
 * 菜单
 * 自定义回复
 
+### 微信小程序
+
+* 授权登录
+* 开箱即用框架[weapp](https://github.com/yaoshanliang/weapp)
+
 ## 安装说明
 
 1、clone代码

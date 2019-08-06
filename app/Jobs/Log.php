@@ -51,6 +51,14 @@ class Log implements ShouldQueue
                     $userId = 0;
                 }
                 break;
+                
+            case 'weapp' :
+                if (isset($requestAll['token'])) {
+                    $userId = getApiUserId($requestAll['token']);
+                } else {
+                    $userId = 0;
+                }
+                break;
 
             default :
                 $userId = 0;
