@@ -82,6 +82,26 @@ function apiReturn($code, $message, $data = '', $log = true)
 }
 
 /**
+ * 小程序统一返回
+ *
+ * @param int    $code    返回码
+ * @param string $message 返回说明
+ * @param string $data    返回数据
+ * @param boolean $log    是否记录日志
+ *
+ * @return \Illuminate\Http\JsonResponse
+ */
+function weappReturn($code, $message, $data = '', $log = true)
+{
+    $guard = 'weapp';
+    if (config('project.web.log') && $log) {
+        dispatch(new \App\Jobs\Log(compact('code', 'message', 'data', 'guard')));
+    }
+
+    return response()->json(apiFormat($code, $message, $data), 200);
+}
+
+/**
  * 获取当前时间
  *
  * @return string
@@ -272,6 +292,20 @@ function getApiUser($token)
     }
 
     return [];
+}
+
+function getWeappUserId()
+{
+    $token = Request::header('token');
+    if ($token) {
+        $user = App\Models\User::where('weapp_openid', $token)->first();
+
+        if (! empty($user)) {
+            return $user->id;
+        }
+    }
+
+    return 0;
 }
 
 // 保留小数

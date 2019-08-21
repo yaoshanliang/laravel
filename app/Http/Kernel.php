@@ -45,6 +45,11 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
         ],
+
+        'weapp' => [
+            'throttle:60,1',
+            'bindings',
+        ],
     ];
 
     /**
@@ -64,6 +69,7 @@ class Kernel extends HttpKernel
         'auth.web' => \App\Http\Middleware\WebAuthMiddleware::class,
         'auth.admin' => \App\Http\Middleware\AdminAuthMiddleware::class,
         'auth.api' => \App\Http\Middleware\ApiAuthMiddleware::class,
+        'auth.weapp' => \App\Http\Middleware\WeappAuthMiddleware::class,
         'role.admin' => \App\Http\Middleware\AdminRoleMiddleware::class,
         'wechat.oauth' => \Overtrue\LaravelWeChat\Middleware\OAuthAuthenticate::class,
     ];

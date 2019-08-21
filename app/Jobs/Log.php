@@ -53,8 +53,9 @@ class Log implements ShouldQueue
                 break;
                 
             case 'weapp' :
-                if (isset($requestAll['token'])) {
-                    $userId = getApiUserId($requestAll['token']);
+                $token = Request::header('token');
+                if ($token) {
+                    $userId = getWeappUserId($token);
                 } else {
                     $userId = 0;
                 }

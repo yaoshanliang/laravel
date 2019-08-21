@@ -49,6 +49,10 @@ return [
             'driver' => 'token',
             'provider' => 'api',
         ],
+        'weapp' => [
+            'driver' => 'token',
+            'provider' => 'api',
+        ],
     ],
 
     /*
@@ -83,6 +87,13 @@ return [
             // 'table' => 'users',
             'driver' => 'eloquent',
             'model' => App\Models\Token::class,
+        ],
+
+        'weapp' => [
+            // 'driver' => 'database',
+            // 'table' => 'users',
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
         ],
     ],
 
