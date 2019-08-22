@@ -26,4 +26,15 @@ class UserController extends Controller
 
         return weappReturn(SUCCESS, '获取成功', ['id' => $user->id, 'openid' => $user->weapp_openid, 'nickname' => $user->weapp_nickname, 'avatar' => $user->weapp_avatar, 'created_at' => $user['created_at']]);
     }
+
+    public function updateUserInfo(Request $request)
+    {
+        if (! $request->nickname) {
+            return weappReturn(ERROR, '昵称必填');
+        }
+
+        $user = User::where('id', getWeappUserId())->update(['weapp_nickname' => $request->nickname]);
+
+        return weappReturn(SUCCESS, '保存成功');
+    }
 }
