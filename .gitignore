@@ -6,10 +6,5 @@
 Homestead.json
 Homestead.yaml
 .env
-storage/framework/cache/
-storage/framework/sessions/
-storage/framework/views/
-storage/logs/
-storage/app/
-storage/debugbar/
+/storage
 
