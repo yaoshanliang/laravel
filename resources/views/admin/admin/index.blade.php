@@ -297,7 +297,7 @@
                 'name': $('#create_admin_modal_name').val(),
                 'phone': $('#create_admin_modal_phone').val(),
                 'email': $('#create_admin_modal_email').val(),
-                'role_key': roleId,
+                'role_id': roleId,
                 'role_name': roleName,
                 'password': $('#create_admin_modal_password').val(),
                 'password_confirmation': $('#create_admin_modal_password_confirmation').val()
