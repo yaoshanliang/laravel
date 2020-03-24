@@ -1,6 +1,5 @@
 @if ((count($errors) > 0) && ($validateErrors = $errors->toArray()))
     <div class="alert alert-danger danger-warning">
-        <strong>Whoops!</strong> There were some problems with your input.
         <ul>
             @if (isset($validateErrors['message']))
                 @foreach ($validateErrors['message'] as $error)
