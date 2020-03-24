@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('index.index');
+    // return view('index.index');
+    return redirect(url('/admin/index'));
 });
 
 Route::group(['prefix' => 'web', 'namespace' => 'Web'], function () {
