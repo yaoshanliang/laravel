@@ -45,6 +45,7 @@ class ImageController extends Controller
         $size = round(($file->getClientSize() / 1024), 2).'k';
         $upload = $file->move($directory, $fileName);
         $filePath = $directory.$fileName;
+        $publicPath = url($filePath);
 
         $imageProcessor = ImageProcessor::make(public_path($filePath));
         $height = $imageProcessor->height();
@@ -54,6 +55,7 @@ class ImageController extends Controller
             'user_id' => getAdminUserId(),
             'file_name' => $fileOriginalName,
             'file_path' => $filePath,
+            'public_path' => $publicPath,
             'extension' => $extension,
             'mime_type' => $mimeType,
             'size' => $size,

@@ -261,7 +261,7 @@ function warningModal(function_name, function_params, warning_title, warning_mes
 }
 
 // ajax
-function ajax(url, method, data, successCallback) {
+function ajax(url, method, data, successCallback, beforeSend = true) {
     $.ajax({
         url:  url,
         type: method,
@@ -271,17 +271,21 @@ function ajax(url, method, data, successCallback) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         beforeSend: function (data) {
-            showProcessingTip();
+            if (beforeSend == true) {
+                showProcessingTip();
+            }
         },
         success: function(data) {
             if(data['code'] === SUCCESS) {
-                showSuccessTip(data['message']);
+                if (data['message']) {
+                    showSuccessTip(data['message']);
+                }
                 if ("undefined" != typeof(datatable_id)) {
                     $('#' + datatable_id).DataTable().draw(false);
                 }
 
                 if ("function" == typeof(successCallback)) {
-                    successCallback();
+                    successCallback(data['data']);
                 }
             } else {
                 showFailTip(data['message']);

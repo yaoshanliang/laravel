@@ -71,7 +71,7 @@
                 {
                     "data": "id",
                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                        html = "<a target='_blank' href=" + oData.qiniu_url + "><img style='width:100px; height:100px' src='" + oData.qiniu_url + "'/></a>";
+                        html = "<a target='_blank' href=" + oData.public_path + "><img style='width:100px; height:100px' src='" + oData.public_path + "'/></a>";
                         $(nTd).html(html);
                     }
                 },
