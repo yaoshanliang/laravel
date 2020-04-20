@@ -261,7 +261,12 @@ function warningModal(function_name, function_params, warning_title, warning_mes
 }
 
 // ajax
-function ajax(url, method, data, successCallback, beforeSend = true) {
+function ajax(url, method, data, successCallback, beforeSend) {
+    var beforeSend = beforeSend;
+    if (beforeSend == undefined) {
+        beforeSend = true;
+    }
+
     $.ajax({
         url:  url,
         type: method,
